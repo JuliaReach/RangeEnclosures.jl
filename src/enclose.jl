@@ -23,16 +23,35 @@ its domain `dom`.
 
 ### Examples
 
-```jldoctest enclose
+```jldoctest enclose_examples
+julia> using RangeEnclosures
 
+julia> enclose(x -> 1 - x^4 + x^5, 0..1) # use default solver
+[0, 2]
+
+julia> enclose(x -> 1 - x^4 + x^5, 0..1, :IntervalArithmetic)
+[0, 2]
+
+julia> enclose(x -> 1 - x^4 + x^5, 0..1, :TaylorModels, order=4)
+[0.78125, 1.125]
+
+julia> enclose(x -> 1 - x^4 + x^5, 0..1, :TaylorModels, order=10)
+[0.8125, 1.09375]
+
+julia> enclose(x -> 1 - x^4 + x^5, 0..1, :IntervalOptimisation)
+[0.916034, 1.00213]
 ```
+You can also try other solvers such as `SumOfSquares` and `AffineArithmetic`.
 
-You can also pass a vector of solvers in the `solver` options to `enclose`.
-In this case, the result is obtained by intersecting the range enclosure of
-each solver. In the previous example,
+A vector of solvers can be passed in the `solver` options. Then, the result is
+obtained by intersecting the range enclosure of each solver.
+In the previous example,
 
-```jldoctest enclose
+```jldoctest enclose_examples
+julia> using RangeEnclosures
 
+julia> enclose(x -> 1 - x^4 + x^5, 0..1, [:TaylorModels, :IntervalArithmetic])
+[0.8125, 1.09375]
 ```
 """
 function enclose(f::Function, dom::Interval_or_IntervalBox,
