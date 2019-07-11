@@ -6,8 +6,8 @@
 [![Code coverage](http://codecov.io/github/JuliaReach/RangeEnclosures.jl/coverage.svg?branch=master)](https://codecov.io/github/JuliaReach/RangeEnclosures.jl?branch=master)
 [![Join the chat at https://gitter.im/JuliaReach/Lobby](https://badges.gitter.im/JuliaReach/Lobby.svg)](https://gitter.im/JuliaReach/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-`RangeEnclosures` is a [Julia](http://julialang.org) package to compute range
-enclosures of real-valued functions.
+A [Julia](http://julialang.org) package to compute range enclosures of
+real-valued functions.
 
 ## Resources
 
