@@ -10,9 +10,9 @@ Available methods
 const available_solvers = [:IntervalArithmetic,
                            :IntervalOptimisation,
                            :TaylorModels,
-                           :SumOfSquares,
-                           :AffineArithmetic # optional
-                           ]
+                           :SumOfSquares]
+
+const optional_solvers = [:AffineArithmetic]
 
 include("intervals.jl")
 include("taylormodels.jl")
