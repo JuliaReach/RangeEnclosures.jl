@@ -2,8 +2,8 @@ using Documenter, RangeEnclosures
 
 makedocs(
     modules = [RangeEnclosures],
-    format = Documenter.HTML(prettyurls = get(ENV, "CI", nothing) == "true"),
-    assets = ["assets/juliareach.css"],
+    format = Documenter.HTML(prettyurls = get(ENV, "CI", nothing) == "true",
+                             assets = ["assets/juliareach.css"]),
     sitename = "RangeEnclosures.jl",
     pages = [
         "Home" => "index.md",
