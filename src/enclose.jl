@@ -3,7 +3,7 @@
             solver::Symbol=:IntervalArithmetic; [kwargs]...)::Interval
 
 Return a range enclosure of a univariate or multivariate function on the given
-domain. 
+domain.
 
 ### Input
 
@@ -63,6 +63,12 @@ function enclose(f::Function, dom::Interval_or_IntervalBox,
     if solver == :IntervalArithmetic
         # solver
         R = enclose_IntervalArithmetic(f, dom)
+
+    elseif solver == :BranchandBound
+        tol =  :tol ∈ keys(𝑂) ? 𝑂[:tol] : 0.6
+        order = :order ∈ keys(𝑂) ? 𝑂[:order] : 10
+        #solver
+        R = enclose_BranchandBound(f, dom, order=order, tol=tol)
 
     elseif solver == :IntervalOptimisation
         # unpack options or set defaults
@@ -128,7 +134,7 @@ given a reference interval.
 
 - `x`    -- test interval
 - `xref` -- reference interval
- 
+
 ### Output
 
 An interval containing the left (resp. right) percentages that describe the

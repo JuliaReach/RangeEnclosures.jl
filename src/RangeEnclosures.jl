@@ -17,6 +17,7 @@ const optional_solvers = [:AffineArithmetic]
 include("intervals.jl")
 include("taylormodels.jl")
 include("sdp.jl")
+include("branchandbound.jl")
 
 #================
 Optional methods
