@@ -72,7 +72,7 @@ julia> dom = -4.5 .. -0.3
 [-4.5, -0.299999]
 
 julia> enclose(f, dom, :TaylorModels, order=4)
-[-5.28751, 15.1876]
+[0.00449999, 15.1875]
 ```
 
 The same computation can be done using interval arithmetic substitution,
@@ -83,8 +83,8 @@ julia> enclose(f, dom, :IntervalArithmetic)
 julia> enclose(f, dom) # use default solver
 [0.00449999, 15.1875]
 ```
-This result is actually tight; it can be confirmed using interval (global)
-optimization:
+Both methods give tight results for this example. We can also confirm by using
+interval (global) optimization:
 
 ```julia
 julia> enclose(f, dom, :IntervalOptimisation)
