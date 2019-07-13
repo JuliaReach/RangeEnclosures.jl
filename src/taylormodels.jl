@@ -49,7 +49,7 @@ end
 function _enclose_TaylorModels(f::Function, dom::Interval, order::Int)
     x0 = Interval(mid(dom))
     x = TaylorModel1(order, x0, dom)
-    return evaluate(f(x), dom - x0)
+    return evaluate(f(x-x0), dom)
 end
 
 # normalized univariate
