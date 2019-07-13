@@ -10,7 +10,8 @@ Available methods
 const available_solvers = [:IntervalArithmetic,
                            :IntervalOptimisation,
                            :TaylorModels,
-                           :SumOfSquares]
+                           :SumOfSquares,
+                           :BranchandBound]
 
 const optional_solvers = [:AffineArithmetic]
 

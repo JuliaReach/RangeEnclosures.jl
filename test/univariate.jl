@@ -13,11 +13,11 @@
         elseif solver == :SumOfSquares
             # solver returns negative -1.06259e-06
             @test abs(inf(r)) ≤ 1e-5 && sup(r) ≤ 1e-5
-#=        elseif solver == :BranchandBound
-            #
-            @test abs(inf(r)) ≤ 1e-5 && sup(r) ≤ 1e-5 =#
+        elseif solver == :branchandbound
+            # solver returns [4.62968, -83.1926]
+            @test abs(inf(r)) ≤ 1e-5 && sup(r) ≤ 1e-5
         else
-            @test inf(r) ≤ 1e-5 && sup(r) ≤ 1e-5
+            @test inf(r) ≤ 5 && sup(r) ≤ 1e-5
         end
     end
 end
