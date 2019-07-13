@@ -4,7 +4,7 @@ function enclose_BranchandBound(f::Function, dom::Interval{T}; order::Int = 10,
                                 tol::Number = 0.6) where{T}
     x0 = Interval(mid(dom))
     x = TaylorModel1(order, x0, dom)
-    return branchandbound(f(x-x0).pol, dom - x0, tol)
+    return branchandbound(f(x-x0).pol, dom, tol)
 end
 # multivariate
 function enclose_BranchandBound(f::Function, dom::IntervalBox{T,N}; order::Int = 10,
@@ -31,12 +31,10 @@ function _branchandbound(p::Union{TaylorN{T},Taylor1{T}},
     D1, D2 = bisect(dom)
     D = [D1, D2]
     R = [evaluate(p, D[i]) for i = 1:length(D)]
-    Rnext = Interval(minimum(R[i].lo for i = 1:length(R)),
-                     maximum(R[i].hi for i = 1:length(R)))
+    Rnext = _Rnext(R)
     while  (Rperv.hi - Rnext.hi) <= ϵ*(Rnext.hi - Rnext.lo) &&
            (Rperv.lo - Rnext.lo) <= ϵ*(Rnext.hi - Rnext.lo) && (K <= 1000)
-        Rperv = Interval(minimum(R[i].lo for i = 1:length(R)),
-                         maximum(R[i].hi for i = 1:length(R)))
+        Rperv = _Rnext(R)
         R_x = [R[i].hi for i = 1:length(R)]
         R_n = [R[i].lo for i = 1:length(R)]
         max_range = maximum(R[i].hi for i = 1:length(R))
@@ -46,24 +44,21 @@ function _branchandbound(p::Union{TaylorN{T},Taylor1{T}},
         l_D = length(D[1])
         K = K + 1
         if min_index == max_index
-            D, R = devide_dom!(p, D, R, max_index)
-            Rnext = Interval(minimum(R[i].lo for i=1:length(R)),
-                             maximum(R[i].hi for i=1:length(R)))
+            D, R = divide_dom!(p, D, R, max_index)
+            Rnext = _Rnext(R)
         else
-            D, R = devide_dom!(p, D, R, max_index)
+            D, R = divide_dom!(p, D, R, max_index)
             if max_index < min_index
                 min_index = min_index + 1
             end
-            D, R = devide_dom!(p, D, R, min_index)
-            Rnext = Interval(minimum(R[i].lo for i=1:length(R)),
-                             maximum(R[i].hi for i=1:length(R)))
+            D, R = divide_dom!(p, D, R, min_index)
+            Rnext = _Rnext(R)
         end
     end
-    return Interval(minimum(R[i].lo for i=1:length(R)),
-                    maximum(R[i].hi for i=1:length(R)))
+    return  _Rnext(R)
 end
 
-function devide_dom!(p::Union{TaylorN{T},Taylor1{T}},
+function divide_dom!(p::Union{TaylorN{T},Taylor1{T}},
                      D::Union{Array{IntervalBox{N,W},M},Array{Interval{W},M}},
                      R::Array{Interval{W},M}, index::Number) where {N,T,M,W}
     BA = [ ((D[index][i]).hi - (D[index][i]).lo) for i = 1:length(D[1])]
@@ -77,4 +72,10 @@ function devide_dom!(p::Union{TaylorN{T},Taylor1{T}},
     RR = append!(R[1:index], evaluate(p,D[index+1]))
     R = append!(RR, R[(index+1):length(R)])
     return D, R
+end
+
+function _Rnext(R::Array{Interval{T}}) where{T}
+    I =  Interval(minimum(R[i].lo for i=1:length(R)),
+                  maximum(R[i].hi for i=1:length(R)))
+   return I
 end
