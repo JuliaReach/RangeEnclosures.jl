@@ -60,10 +60,9 @@ It is guaranteed that the global minimum (resp. global maximum) of `f(x) = -x^3/
 
 `RangeEnclosures` exports the function `enclose` accepting a real-valued function `f`, either univariate or multivariate, over a hyperrectangular (i.e. box-shaped) domain. Without extra arguments, `enclose` uses the default solver (`IntervalArithmetic`) as in the above computation, although other solvers are available through extra arguments to `enclose`. The available solvers are: `:IntervalArithmetic`, `:IntervalOptimisation`, `:TaylorModels`, `:AffineArithmetic` (optional) and `:SumOfSquares` (only for polynomials).
 
-This is a "meta" package in the sense it defines a unique `enclose` function that
-calls one of the available solvers to do the optimization;
+This is a "meta" package in the sense that `enclose` calls one of the available solvers to do the optimization;
 see the [documentation](http://juliareach.github.io/RangeEnclosures.jl/latest/)
-or the examples below as an illustration of the available solvers. The inputs to `enclose` are standard Julia functions and the domains are intervals
+or the examples below for the available options. The inputs to `enclose` are standard Julia functions and the domains are intervals
 (resp. products of intervals): these are given as `Interval` (resp. `IntervalBox`)
 types, both defined in `IntervalArithmetic`.
 
@@ -84,14 +83,14 @@ We can get tight bounds using interval (global) optimization,
 julia> enclose(f, dom, :IntervalOptimisation)
 [4.83299, 10.5448]
 ```
-or polynomial optimization (semidefinite programming), by changing the `solver`:
+or polynomial optimization ([semidefinite programming](https://en.wikipedia.org/wiki/Semidefinite_programming)), by changing the solver:
 ```julia
 julia> enclose(f, dom, :SumOfSquares)
 [4.83333, 10.541]
 ```
 In the last calculation, the default semidefinite programming (SDP) solver `SDPA` is used,
 but you can pass in any other SDP solver accepted by `JuMP`. For instance, if you
-have `MosekTools` (and a Mosek license) installed, and want to use the maximum
+have `MosekTools` (and a Mosek license) installed, and want the maximum
 degree of the relaxation to be `4`, do:
 
 ```julia
@@ -116,7 +115,7 @@ julia> enclose(g, dom, :IntervalArithmetic)
 julia> enclose(g, dom, :SumOfSquares, order=5, backend=MosekTools.Mosek.Optimizer, QUIET=true)
 [9.30098e-07, 2594]
 ```
-The result returned by interval arithmetic substitution in this second example is actually tight.
+The result returned by interval arithmetic substitution in this example is actually tight.
 
 ## Acknowledgements
 
