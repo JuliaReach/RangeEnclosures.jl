@@ -32,8 +32,8 @@ function _branchandbound(p::Union{TaylorN{T},Taylor1{T}},
     D = [D1, D2]
     R = [evaluate(p, D[i]) for i = 1:length(D)]
     Rnext = _Rnext(R)
-    while  (Rperv.hi - Rnext.hi) <= ϵ*(Rnext.hi - Rnext.lo) &&
-           (Rperv.lo - Rnext.lo) <= ϵ*(Rnext.hi - Rnext.lo) && (K <= 1000)
+    while  (Rperv.hi - Rnext.hi) <= ϵ*diam(Rnext) &&
+           (Rperv.lo - Rnext.lo) <= ϵ*diam(Rnext) && (K <= 1000)
         Rperv = _Rnext(R)
         R_x = [R[i].hi for i = 1:length(R)]
         R_n = [R[i].lo for i = 1:length(R)]
