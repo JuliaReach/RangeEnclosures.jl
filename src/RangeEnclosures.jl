@@ -10,13 +10,15 @@ Available methods
 const available_solvers = [:IntervalArithmetic,
                            :IntervalOptimisation,
                            :TaylorModels,
-                           :SumOfSquares]
+                           :SumOfSquares,
+                           :BranchandBound]
 
 const optional_solvers = [:AffineArithmetic]
 
 include("intervals.jl")
 include("taylormodels.jl")
 include("sdp.jl")
+include("branchandbound.jl")
 
 #================
 Optional methods
