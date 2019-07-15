@@ -1,8 +1,6 @@
-using TaylorModels
-# univariate
 @inline _Rnext(R::Array{Interval{T}, 1}) where{T} = Interval(minimum(inf.(R)),
                                                              maximum(sup.(R)))
-
+# univariate
 function enclose_BranchandBound(f::Function, dom::Interval{T}; order::Int = 10,
                                                      tol::Number = 0.6) where{T}
     x0 = Interval(mid(dom))
