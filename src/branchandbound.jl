@@ -14,7 +14,7 @@ function enclose_BranchandBound(f::Function, dom::IntervalBox{D};
     return branchandbound(f(x...).pol, dom - x0, tol)
 end
 
-@inline _Rnext(R::Vector{Interval}) = Interval(minimum(inf.(R)), maximum(sup.(R)))
+@inline _Rnext(R::Vector{<:Interval}) = Interval(minimum(inf.(R)), maximum(sup.(R)))
 
 const Kmax = 1000
 
