@@ -46,66 +46,58 @@ pkg> dev RangeEnclosures
 
 ## Quickstart
 
-`RangeEnclosures` can be used to find bounds on the global minimum and maximum of a
-real-valued function `f`, either univariate or multivariate, over a hyperrectangular
-(i.e. box-shaped) domain.
-
-This is a "meta" package in the sense it defines a unique `enclose` function that
-calls one of the available solvers to do the optimization;
-see the [documentation](http://juliareach.github.io/RangeEnclosures.jl/latest/)
-or the examples below as an illustration of the available solvers.
-
-The inputs to `enclose` are standard Julia functions and the domains are intervals
-(resp. products of intervals): these are given as `Interval` (resp. `IntervalBox`)
-types, both defined in `IntervalArithmetic`.
-
-For instance, let `f(x) = -x^3/6` over the interval `[-4.5, -0.3]` whose the exact
-lower and upper bounds are `[0.0045, 15.1875]`. We compute a range enclosure using
-Taylor models substitution of order 4 like so:
+An *enclosure* of the [range](https://en.wikipedia.org/wiki/Range_(mathematics)) of a function `f : dom ⊂ R^n -> R` is an interval
+that contains the global minimum and maximum of `f` over its domain `dom`. `RangeEnclosures` can be used to find such bounds
+using different methods, as in:
 
 ```julia
 julia> using RangeEnclosures
 
-julia> f = x -> -x^3/6;
+julia> enclose(x -> -x^3/6 + 5x, 1 .. 4)  # using the default solver
+[-5.66667, 19.8334]
+```
+It is guaranteed that the global minimum (resp. global maximum) of `f(x) = -x^3/6 + 5x` on the interval `[1, 4]` is bigger or equal to `-5.66667` (resp. smaller or equal to `19.8334`). Although interval arithmetic is very fast, the bounds obtained are not necessarily tight. Hence, it is often desired to employ different numerical approaches, available through different *solvers*.
 
-julia> dom = -4.5 .. -0.3
-[-4.5, -0.299999]
+`RangeEnclosures` exports the function `enclose` accepting a real-valued function `f`, either univariate or multivariate, over a hyperrectangular (i.e. box-shaped) domain. Without extra arguments, `enclose` uses the default solver (`IntervalArithmetic`) as in the above computation, although other solvers are available through extra arguments to `enclose`. The available solvers are: `:IntervalArithmetic`, `:IntervalOptimisation`, `:TaylorModels`, `:AffineArithmetic` (optional) and `:SumOfSquares` (only for polynomials).
+
+This is a "meta" package in the sense that `enclose` calls one of the available solvers to do the optimization;
+see the [documentation](http://juliareach.github.io/RangeEnclosures.jl/latest/)
+or the examples below for the available options. The inputs to `enclose` are standard Julia functions and the domains are intervals
+(resp. products of intervals): these are given as `Interval` (resp. `IntervalBox`)
+types, both defined in `IntervalArithmetic`.
+
+With the running example, using Taylor models substitution of order 4 gives:
+
+```julia
+julia> f(x) = -x^3/6 + 5x
+
+julia> dom = 1 .. 4
+[1, 4]
 
 julia> enclose(f, dom, :TaylorModels, order=4)
-[0.00449999, 15.1875]
+[4.27083, 12.7084]
 ```
-
-The same computation can be done using interval arithmetic substitution,
-```julia
-julia> enclose(f, dom, :IntervalArithmetic)
-[0.00449999, 15.1875]
-
-julia> enclose(f, dom) # use default solver
-[0.00449999, 15.1875]
-```
-Both methods give tight results for this example. We can also confirm by using
-interval (global) optimization:
+We can get tight bounds using interval (global) optimization,
 
 ```julia
 julia> enclose(f, dom, :IntervalOptimisation)
-[0.00449999, 15.1875]
+[4.83299, 10.5448]
 ```
-or polynomial optimization:
+or polynomial optimization ([semidefinite programming](https://en.wikipedia.org/wiki/Semidefinite_programming)), by changing the solver:
 ```julia
 julia> enclose(f, dom, :SumOfSquares)
-Strange behavior : primal < dual :: line 144 in sdpa_solve.cpp
-[0.00450017, 15.1876]
+[4.83333, 10.541]
 ```
 In the last calculation, the default semidefinite programming (SDP) solver `SDPA` is used,
 but you can pass in any other SDP solver accepted by `JuMP`. For instance, if you
-have `MosekTools` (and a Mosek license) installed, and want to use the maximum
+have `MosekTools` (and a Mosek license) installed, and want the maximum
 degree of the relaxation to be `4`, do:
 
 ```julia
 julia> using MosekTools
 
 julia> enclose(f, dom, :SumOfSquares, order=4, backend=MosekTools.Mosek.Optimizer, QUIET=true)
-[0.00450004, 15.1875]
+[4.83333, 10.541]
 ```
 (the optional `QUIET` argument is used to turn off the verbose mode).
 
@@ -123,6 +115,7 @@ julia> enclose(g, dom, :IntervalArithmetic)
 julia> enclose(g, dom, :SumOfSquares, order=5, backend=MosekTools.Mosek.Optimizer, QUIET=true)
 [9.30098e-07, 2594]
 ```
+The result returned by interval arithmetic substitution in this example is actually tight.
 
 ## Acknowledgements
 
