@@ -19,5 +19,5 @@ jobs:
       os: linux
       script:
         - julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate();'
-        - Julia --project=docs/ docs/make.jl
+        - julia --project=docs/ docs/make.jl
       after_success: skip
