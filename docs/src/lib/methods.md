@@ -9,9 +9,6 @@ Depth = 3
 
 ```@meta
 CurrentModule = RangeEnclosures
-DocTestSetup = quote
-    using RangeEnclosures
-end
 ```
 
 ## The `enclose` function
