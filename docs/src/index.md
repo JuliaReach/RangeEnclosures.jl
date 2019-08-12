@@ -1,9 +1,5 @@
 # RangeEnclosures.jl
 
-```@meta
-DocTestFilters = [r"[0-9\.]+ seconds \(.*\)"]
-```
-
 A [Julia](http://julialang.org) package to compute range enclosures of
 real-valued functions.
 
