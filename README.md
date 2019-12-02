@@ -56,7 +56,7 @@ julia> using RangeEnclosures
 julia> enclose(x -> -x^3/6 + 5x, 1 .. 4)  # using the default solver
 [-5.66667, 19.8334]
 ```
-It is guaranteed that the global minimum (resp. global maximum) of `f(x) = -x^3/6 + 5x` on the interval `[1, 4]` is smaller or equal to `-5.66667` (resp. bigger or equal to `19.8334`). Although interval arithmetic is very fast, the bounds obtained are not necessarily tight. Hence, it is often desired to employ different numerical approaches, available through different *solvers*.
+It is guaranteed that the global minimum (resp. global maximum) of `f(x) = -x^3/6 + 5x` on the interval `[1, 4]` is greater or equal than `-5.66667` (resp. smaller or equal than `19.8334`). Although interval arithmetic is very fast, the bounds obtained are not necessarily tight. Hence, it is often desired to employ different numerical approaches, available through different *solvers*.
 
 `RangeEnclosures` exports the function `enclose` accepting a real-valued function `f`, either univariate or multivariate, over a hyperrectangular (i.e. box-shaped) domain. Without extra arguments, `enclose` uses the default solver (`IntervalArithmetic`) as in the above computation, although other solvers are available through extra arguments to `enclose`. The available solvers are: `:IntervalArithmetic`, `:IntervalOptimisation`, `:TaylorModels`, `:AffineArithmetic` (optional) and `:SumOfSquares` (only for polynomials).
 
