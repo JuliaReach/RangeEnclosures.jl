@@ -18,3 +18,28 @@
         end
     end
 end
+
+@testset "Univariate example the Quickstart Guide" begin
+    f(x) = -x^3/6 + 5x
+    dom = Interval(1, 4)
+
+    x = enclose(f, dom, :IntervalArithmetic)
+    xref = Interval(-5.66667, 19.8334)
+    r = relative_precision(x, xref)
+    @test inf(r) ≤ 1e-5 && sup(r) ≤ 1e-5
+
+    x = enclose(f, dom, :TaylorModels, order=4)
+    xref = Interval(-4.2783, 12.7084)
+    r = relative_precision(x, xref)
+    @test inf(r) ≤ 1e-5 && sup(r) ≤ 1e-5
+
+    x = enclose(f, dom, :IntervalOptimisation)
+    xref = Interval(4.83299, 10.5448)
+    r = relative_precision(x, xref)
+    @test inf(r) ≤ 1e-5 && sup(r) ≤ 1e-5
+
+    x = enclose(f, dom, :SumOfSquares)
+    xref = Interval(4.8333, 10.541)
+    r = relative_precision(x, xref)
+    @test inf(r) ≤ 1e-5 && sup(r) ≤ 1e-5
+end
