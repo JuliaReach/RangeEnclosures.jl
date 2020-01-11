@@ -6,7 +6,7 @@ real-valued functions.
 ## Features
 
 - Computation of lower and upper bounds of real-valued functions, either
-  univariate or multivariate, over hyperrectangular (i.e. box shaped) domains. 
+  univariate or multivariate, over hyperrectangular (i.e. box shaped) domains.
 - The following solvers are available:
   - `IntervalArithmetic` from [IntervalArithmetic.jl](https://github.com/JuliaIntervals/IntervalArithmetic.jl/)
   - `IntervalOptimisation` from [IntervalOptimisation.jl](https://github.com/JuliaIntervals/IntervalOptimisation.jl)
