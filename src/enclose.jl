@@ -119,6 +119,12 @@ function enclose(f::Function, dom::Interval_or_IntervalBox,
     return R
 end
 
+function enclose(p::AbstractPolynomialLike, dom::Interval_or_IntervalBox,
+                 solver=:IntervalArithmetic; kwargs...)
+    f(x...) = p(variables(p) => x)
+    return enclose(f, dom, solver; kwargs...)
+end
+
 function enclose(f::Function, dom::Interval_or_IntervalBox,
                  method::Vector{Symbol}; kwargs...)::Interval
    return mapreduce(ξ -> enclose(f, dom, ξ, kwargs...), ∩, method)
