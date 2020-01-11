@@ -43,3 +43,14 @@ end
     r = relative_precision(x, xref)
     @test inf(r) ≤ 1e-5 && sup(r) ≤ 1e-5
 end
+
+@testset "Test univariate polynomial input" begin
+    @polyvar x
+    p = -x^3/6 + 5x
+    dom = Interval(1, 4)
+
+    x = enclose(p, dom)
+    xref = Interval(-5.66667, 19.8334)
+    r = relative_precision(x, xref)
+    @test inf(r) ≤ 1e-5 && sup(r) ≤ 1e-5
+end
