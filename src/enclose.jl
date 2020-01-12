@@ -1,6 +1,6 @@
 """
     enclose(f::Function, dom::Interval_or_IntervalBox,
-            solver::Symbol=:IntervalArithmetic; [kwargs]...)::Interval
+            solver::Symbol=:IntervalArithmetic; [kwargs]...)
 
 Return a range enclosure of a univariate or multivariate function on the given
 domain.
@@ -55,7 +55,7 @@ julia> enclose(x -> 1 - x^4 + x^5, 0..1, [:TaylorModels, :IntervalArithmetic])
 ```
 """
 function enclose(f::Function, dom::Interval_or_IntervalBox,
-                 solver::Symbol=:IntervalArithmetic; kwargs...)::Interval
+                 solver::Symbol=:IntervalArithmetic; kwargs...)
 
     𝑂 = Dict(kwargs)
     numvars = length(dom)
@@ -126,7 +126,7 @@ function enclose(p::AbstractPolynomialLike, dom::Interval_or_IntervalBox,
 end
 
 function enclose(f::Function, dom::Interval_or_IntervalBox,
-                 method::Vector{Symbol}; kwargs...)::Interval
+                 method::Vector{Symbol}; kwargs...)
    return mapreduce(ξ -> enclose(f, dom, ξ, kwargs...), ∩, method)
 end
 
