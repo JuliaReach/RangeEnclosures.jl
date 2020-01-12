@@ -81,15 +81,9 @@ end
 # for multidimensional domains, it is required that f has a single argument
 @inline wrap_f(f::Function, dom::IntervalBox) = X -> f(X...)
 
-# temporary upstream patch, see IntervalOptimisation#40
-function _maximise(f, dom; structure=HeapedVector, tol=1e-3)
-    bound, minimizers = minimise(x -> -f(x), dom, structure=structure, tol=tol)
-    return -bound, minimizers
-end
-
 function _range_and_optimisers(f, dom::Interval_or_IntervalBox, structure, tol)
     global_min, minimisers = minimise(f, dom, structure=structure, tol=tol)
-    global_max, maximisers = _maximise(f, dom, structure=structure, tol=tol)
+    global_max, maximisers = maximise(f, dom, structure=structure, tol=tol)
     return global_min, minimisers, global_max, maximisers
 end
 
@@ -119,7 +113,7 @@ The solver finds the global minimum of the function `f` over the `Interval` or
 `IntervalBox` `dom` using the Moore-Skelboe algorithm. The method actually returns
 an *interval* containing the global minimum (resp. an *interval* containing the
 global maximum), as well as a list of boxes containing the minimisers
-(resp. maximisers); they can be obtained calling [`range_and_optimisers`](@ref). 
+(resp. maximisers); they can be obtained calling [`range_and_optimisers`](@ref).
 
 This function conservatively chooses the infimum (resp. supremum) over each interval.
 
