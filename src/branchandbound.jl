@@ -1,5 +1,5 @@
 # univariate
-function enclose_BranchandBound(f::Function, dom::Interval; order=10, tol=0.6) 
+function enclose_BranchandBound(f::Function, dom::Interval; order=10, tol=0.6)
     x0 = Interval(mid(dom))
     x = TaylorModel1(order, x0, dom)
     return branchandbound(f(x-x0).pol, dom, tol)
@@ -67,4 +67,35 @@ function divide_dom!(p::Union{TaylorN{T}, Taylor1{T}},
     RR = append!(R[1:index], evaluate(p, D[index + 1]))
     R = append!(RR, R[(index + 1):length(R)])
     return D, R
+end
+
+function enclose_binary(f, dom::Interval; kmax=3, tol=1e-3, algorithm=:IntervalArithmetic)
+    y = enclose(f, dom, algorithm=algorithm)
+    yinf, ysup = inf(y), sup(y)
+    kmax == 0 && return Interval(yinf, ysup)
+    x = bisect(dom)
+    fx1 = enclose(f, x[1], algorithm=algorithm)
+    fx2 = enclose(f, x[2], algorithm=algorithm)
+    ynew = hull(fx1, fx2)
+    ynew_inf, ynew_sup = inf(ynew), sup(ynew)
+    inf_close = abs(yinf - ynew_inf) <= tol
+    sup_close = abs(ysup - ynew_sup) <= tol
+    both_close = inf_close && sup_close
+    inf_improves = ynew_inf > yinf
+    sup_improves = ynew_sup < ysup
+    both_improve = inf_improves && sup_improves
+    if both_close || !both_improve
+        return Interval(yinf, ysup)
+    end
+    yinf = max(yinf, ynew_inf)
+    ysup = min(ysup, ynew_sup)
+    if inf_improves
+        yinf = ynew_inf
+    end
+    if sup_improves
+        ysup = ynew_sup
+    end
+    e1 = enclose_binary(f, x[1], kmax=kmax-1, algorithm=algorithm)
+    e2 = enclose_binary(f, x[2], kmax=kmax-1, algorithm=algorithm)
+    return Interval(hull(e1, e2))
 end
