@@ -76,7 +76,7 @@ function enclose_binary(f, dom::Interval; kmax=3, tol=1e-3, algorithm=:IntervalA
     x = bisect(dom)
     fx1 = enclose(f, x[1], algorithm=algorithm)
     fx2 = enclose(f, x[2], algorithm=algorithm)
-    ynew = union(fx1, fx2)
+    ynew = hull(fx1, fx2)
     ynew_inf, ynew_sup = inf(ynew), sup(ynew)
     inf_close = abs(yinf - ynew_inf) <= tol
     sup_close = abs(ysup - ynew_sup) <= tol
