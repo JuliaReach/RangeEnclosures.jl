@@ -69,7 +69,7 @@ function divide_dom!(p::Union{TaylorN{T}, Taylor1{T}},
     return D, R
 end
 
-function enclose_binary(f, dom; kmax=3, tol=1e-3)
+function enclose_binary(f, dom::Interval; kmax=3, tol=1e-3)
     y = f(dom)
     yinf, ysup = inf(y), sup(y)
     x = bisect(dom)
