@@ -89,6 +89,12 @@ function enclose_binary(f, dom::Interval; kmax=3, tol=1e-3, algorithm=:IntervalA
     end
     yinf = max(yinf, ynew_inf)
     ysup = min(ysup, ynew_sup)
+    if inf_improves
+        yinf = ynew_inf
+    end
+    if sup_improves
+        ysup = ynew_sup
+    end
     e1 = enclose_binary(f, x[1], kmax=kmax-1, algorithm=algorithm)
     e2 = enclose_binary(f, x[2], kmax=kmax-1, algorithm=algorithm)
     return Interval(min(inf(e1), inf(e2)), max(sup(e1), sup(e2)))
