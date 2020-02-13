@@ -72,22 +72,23 @@ end
 function enclose_binary(f, dom::Interval; kmax=3, tol=1e-3, algorithm=:IntervalArithmetic)
     y = enclose(f, dom, algorithm=algorithm)
     yinf, ysup = inf(y), sup(y)
+    kmax == 0 && return Interval(yinf, ysup)
     x = bisect(dom)
     fx1 = enclose(f, x[1], algorithm=algorithm)
     fx2 = enclose(f, x[2], algorithm=algorithm)
     ynew = union(fx1, fx2)
     ynew_inf, ynew_sup = inf(ynew), sup(ynew)
-    no_cambia_inf = abs(yinf - ynew_inf) < tol
-    no_cambia_sup = abs(ysup - ynew_sup) < tol
-    no_cambia_ninguno = (no_cambia_inf && no_cambia_sup)
-    empeora_inf = ynew_inf < yinf
-    empeora_sup = ynew_sup > ysup
-    empeoran_ambos = empeora_inf && empeora_sup
-    if kmax == 0 || no_cambia_ninguno || empeoran_ambos
+    inf_close = abs(yinf - ynew_inf) <= tol
+    sup_close = abs(ysup - ynew_sup) <= tol
+    both_close = inf_close && sup_close
+    inf_improves = ynew_inf > yinf
+    sup_improves = ynew_sup < ysup
+    both_improve = inf_improves && sup_improves
+    if both_close || !both_improve
         return Interval(yinf, ysup)
     end
-    yinf = max(yinf, ynew_inf) # mejoro al ysup
-    ysup = min(ysup, ynew_sup)  # mejoro al ysup
+    yinf = max(yinf, ynew_inf)
+    ysup = min(ysup, ynew_sup)
     e1 = enclose_binary(f, x[1], kmax=kmax-1, algorithm=algorithm)
     e2 = enclose_binary(f, x[2], kmax=kmax-1, algorithm=algorithm)
     return Interval(min(inf(e1), inf(e2)), max(sup(e1), sup(e2)))
