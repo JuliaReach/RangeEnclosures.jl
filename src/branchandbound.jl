@@ -69,8 +69,8 @@ function divide_dom!(p::Union{TaylorN{T}, Taylor1{T}},
     return D, R
 end
 
-function enclose_binary(f, dom::Interval; kmax=3, tol=1e-3)
-    y = f(dom)
+function enclose_binary(f, dom::Interval; kmax=3, tol=1e-3, algorithm=:IntervalArithmetic)
+    y = enclose(f, dom, algorithm=algorithm)
     yinf, ysup = inf(y), sup(y)
     x = bisect(dom)
     ynew = union(f(x[1]), f(x[2]))
@@ -86,7 +86,7 @@ function enclose_binary(f, dom::Interval; kmax=3, tol=1e-3)
     end
     yinf = max(yinf, ynew_inf) # mejoro al ysup
     ysup = min(ysup, ynew_sup)  # mejoro al ysup
-    e1 = enclose_binary(f, x[1], kmax=kmax-1)
-    e2 = enclose_binary(f, x[2], kmax=kmax-1)
+    e1 = enclose_binary(f, x[1], kmax=kmax-1, algorithm=algorithm)
+    e2 = enclose_binary(f, x[2], kmax=kmax-1, algorithm=algorithm)
     return Interval(min(inf(e1), inf(e2)), max(sup(e1), sup(e2)))
 end
