@@ -91,4 +91,7 @@ $ julia --color=yes docs/make.jl
 
 These persons have contributed to `RangeEnclosures.jl` (in alphabetic order):
 
-- [Marcelo Forets](http://mforets.github.io)
+- [Aadesh Deshmukh](https://github.com/aa25desh)
+- [Marcelo Forets](http://github.com/mforets)
+- [Daniel Freire](https://github.com/dfcaporale)
+
