@@ -7,7 +7,7 @@ makedocs(
     modules = [RangeEnclosures],
     format = Documenter.HTML(prettyurls=haskey(ENV, "GITHUB_ACTIONS")),
     doctest = false,
-    strict = true
+    strict = true,
     pages = [
         "Home" => "index.md",
         "Library" => Any[
@@ -19,5 +19,5 @@ makedocs(
 
 deploydocs(
     repo = "github.com/JuliaReach/RangeEnclosures.jl.git",
-    push_preview=true,
+    push_preview=true
 )
