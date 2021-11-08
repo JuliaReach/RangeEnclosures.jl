@@ -9,6 +9,8 @@
 A [Julia](http://julialang.org) package to compute range enclosures of
 real-valued functions.
 
+## :warning: NOTE: This library is currently unmaintained
+
 ## Resources
 
 - [Manual](http://juliareach.github.io/RangeEnclosures.jl/latest/)
