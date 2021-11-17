@@ -1,6 +1,5 @@
 name = "RangeEnclosures"
 uuid = "1b4d18b6-9e5d-11e9-236c-f792b01831f8"
-authors = ["mforets <mforets@gmail.com>"]
 version = "0.1.1"
 
 [deps]
