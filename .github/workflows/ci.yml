@@ -1,0 +1,65 @@
+name: CI
+
+on:
+  push:
+    paths-ignore:
+      - 'LICENSE'
+      - 'README.md'
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+    tags: '*'
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    if: "!contains(github.event.head_commit.message, 'skip ci')"
+    strategy:
+      fail-fast: false
+      matrix:
+        julia-version: ['1.6']
+        julia-arch: [x64]
+        os: [ubuntu-latest, windows-latest]
+        include:
+          - julia-version: '1.0'  # test on oldest supported version
+            julia-arch: x64
+            os: ubuntu-latest
+#          - julia-version: 'nightly'  # test on latest version
+#            julia-arch: x64
+#            os: ubuntu-latest
+#            experimental: true
+    env:
+      JULIA_PKG_SERVER: ''
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Set up Julia
+        uses: julia-actions/setup-julia@v1
+        with:
+          version: ${{ matrix.julia-version }}
+          arch: ${{ matrix.julia-arch }}
+      - name: Cache artifacts
+        uses: actions/cache@v1
+        env:
+          cache-name: cache-artifacts
+        with:
+          path: ~/.julia/artifacts
+          key: ${{ runner.os }}-test-${{ env.cache-name }}-${{ hashFiles('**/Project.toml') }}
+          restore-keys: |
+            ${{ runner.os }}-test-${{ env.cache-name }}-
+            ${{ runner.os }}-test-
+            ${{ runner.os }}-
+      - name: Build package
+        uses: julia-actions/julia-buildpkg@v1
+        continue-on-error: ${{ matrix.julia-version == 'nightly' }}
+      - name: Run tests
+        uses: julia-actions/julia-runtest@v1
+        continue-on-error: ${{ matrix.julia-version == 'nightly' }}
+      - name: Process coverage
+        uses: julia-actions/julia-processcoverage@v1
+      - name: Upload coverage
+        uses: codecov/codecov-action@v2
+        with:
+          files: lcov.info
