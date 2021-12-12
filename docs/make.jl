@@ -5,8 +5,10 @@ DocMeta.setdocmeta!(RangeEnclosures, :DocTestSetup, :(using RangeEnclosures); re
 makedocs(
     sitename = "RangeEnclosures.jl",
     modules = [RangeEnclosures],
-    format = Documenter.HTML(prettyurls=haskey(ENV, "GITHUB_ACTIONS")),
-    doctest = false,
+    format = Documenter.HTML(
+        prettyurls = get(ENV, "CI", nothing) == "true",
+        assets = ["assets/aligned.css"]),
+    doctest = true,
     strict = true,
     pages = [
         "Home" => "index.md",
