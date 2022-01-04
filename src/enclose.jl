@@ -27,10 +27,10 @@ its domain `dom`.
 julia> using RangeEnclosures
 
 julia> enclose(x -> 1 - x^4 + x^5, 0..1) # use default solver
-[0, 2]
+[-0, 2]
 
 julia> enclose(x -> 1 - x^4 + x^5, 0..1, :IntervalArithmetic)
-[0, 2]
+[-0, 2]
 
 julia> enclose(x -> 1 - x^4 + x^5, 0..1, :TaylorModels, order=4)
 [0.78125, 1.125]
