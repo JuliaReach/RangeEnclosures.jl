@@ -1,4 +1,4 @@
-using Documenter, RangeEnclosures
+using Documenter, RangeEnclosures, IntervalOptimisation
 
 DocMeta.setdocmeta!(RangeEnclosures, :DocTestSetup, :(using RangeEnclosures); recursive=true)
 
