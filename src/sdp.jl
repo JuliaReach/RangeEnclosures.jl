@@ -20,12 +20,20 @@ An instance of `SOSModel` for the given backend and options.
 @inline function new_sos(backend, kwargs...)
     𝑂 = Dict(kwargs)
 
-    # for mosek solver
-    if :QUIET ∈ keys(𝑂)
-        QUIET = :QUIET ∈ keys(𝑂) ? 𝑂[:QUIET] : true
-        SOSModel(with_optimizer(backend, QUIET=QUIET))
+    if VERSION < v"1.6"
+        if :QUIET ∈ keys(𝑂)
+            # for mosek solver
+            SOSModel(with_optimizer(backend, QUIET=𝑂[:QUIET]))
+        else
+            SOSModel(with_optimizer(backend))
+        end
     else
-        SOSModel(with_optimizer(backend))
+        if :QUIET ∈ keys(𝑂)
+            # for mosek solver
+            SOSModel(backend, QUIET=𝑂[:QUIET])
+        else
+            SOSModel(backend)
+        end
     end
 end
 

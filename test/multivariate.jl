@@ -30,5 +30,5 @@ end
     r = relative_precision(x, xref)
     @test inf(r) ≤ 1e-5 && sup(r) ≤ 1e-5
     # Note: DynamicPolynomials automatically expands p, and evaluation using
-    # interval arithmetic gives a worser left bound than the factored expression.
+    # interval arithmetic gives a worse left bound than the factored expression.
 end
