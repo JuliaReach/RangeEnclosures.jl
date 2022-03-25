@@ -1,7 +1,7 @@
 #======================================
 Methods using semidefinite programming
 ======================================#
-using SumOfSquares, DynamicPolynomials, SemialgebraicSets, SDPA
+using .SumOfSquares, .SemialgebraicSets, .SDPA
 
 """
     new_sos(backend; kwargs...)
@@ -107,7 +107,7 @@ function _enclose_SumOfSquares(f::Function, dom::Interval, order::Int,
 
     # ============
     # Upper bound
-    # ============ 
+    # ============
     model = new_sos(backend, kwargs...)
     @variable(model, γ) # JuMP decision variable
     @constraint(model, p <= γ, domain=B, maxdegree=order)
@@ -141,7 +141,7 @@ function _enclose_SumOfSquares(f::Function, dom::IntervalBox{N}, order::Int,
 
     # ============
     # Upper bound
-    # ============ 
+    # ============
     model = new_sos(backend, kwargs...)
     @variable(model, γ) # JuMP decision variable
     @constraint(model, p <= γ, domain=B, maxdegree=order)

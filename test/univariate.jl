@@ -38,10 +38,10 @@ end
     r = relative_precision(x, xref)
     @test inf(r) ≤ 1e-5 && sup(r) ≤ 1e-5
 
-    x = enclose(f, dom, :SumOfSquares)
-    xref = Interval(4.8333, 10.541)
-    r = relative_precision(x, xref)
-    @test inf(r) ≤ 1e-5 && sup(r) ≤ 1e-5
+    # x = enclose(f, dom, :SumOfSquares)
+    # xref = Interval(4.8333, 10.541)
+    # r = relative_precision(x, xref)
+    # @test inf(r) ≤ 1e-5 && sup(r) ≤ 1e-5
 end
 
 @testset "Test univariate polynomial input" begin
