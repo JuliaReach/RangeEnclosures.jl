@@ -1,7 +1,7 @@
 #======================================
 Methods using semidefinite programming
 ======================================#
-using .SumOfSquares, .SemialgebraicSets, .SDPA
+using .SumOfSquares, .SDPA
 
 """
     new_sos(backend; kwargs...)

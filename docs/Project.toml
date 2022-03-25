@@ -2,12 +2,10 @@
 Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
 IntervalOptimisation = "c7c68f13-a4a2-5b9a-b424-07d005f8d9d2"
 SDPA = "b9a10b5b-afa4-512f-a053-bb3d8080febc"
-SemialgebraicSets = "8e049039-38e8-557d-ae3a-bc521ccf6204"
 SumOfSquares = "4b9e565b-77fc-50a5-a571-1244f986bda1"
 
 [compat]
 Documenter = "0.24"
 IntervalOptimisation = "0.4.1"
 SDPA = "0.2, 0.3, 0.4"
-SemialgebraicSets = "0.2"
 SumOfSquares = "0.3.6, 0.4, 0.5, 0.6"
