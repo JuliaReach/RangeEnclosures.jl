@@ -24,7 +24,7 @@ its domain `dom`.
 ### Examples
 
 ```jldoctest enclose_examples
-julia> using RangeEnclosures
+julia> using RangeEnclosures, IntervalOptimisation
 
 julia> enclose(x -> 1 - x^4 + x^5, 0..1) # use default solver
 [0, 2]

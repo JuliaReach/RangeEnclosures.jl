@@ -19,17 +19,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        julia-version: ['1.6']
+        julia-version: ['1.7']
         julia-arch: [x64]
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest, macOS-latest, windows-latest]
         include:
-          - julia-version: '1.0'  # test on oldest supported version
+          - julia-version: '1.6'  # test on latest version
             julia-arch: x64
             os: ubuntu-latest
-#          - julia-version: 'nightly'  # test on latest version
-#            julia-arch: x64
-#            os: ubuntu-latest
-#            experimental: true
     env:
       JULIA_PKG_SERVER: ''
     steps:

@@ -4,6 +4,7 @@
 deps/deps.jl
 *.svg
 *.DS_Store
+Manifest.toml
 
 docs/build/
 docs/site/
