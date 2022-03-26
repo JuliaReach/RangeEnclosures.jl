@@ -21,11 +21,8 @@ jobs:
       matrix:
         julia-version: ['1.6']
         julia-arch: [x64]
-        os: [ubuntu-latest, windows-latest]
-        include:
-          - julia-version: '1.0'  # test on oldest supported version
-            julia-arch: x64
-            os: ubuntu-latest
+        os: [ubuntu-latest, macOS-latest, windows-latest]
+#        include:
 #          - julia-version: 'nightly'  # test on latest version
 #            julia-arch: x64
 #            os: ubuntu-latest
