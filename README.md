@@ -9,7 +9,7 @@
 A [Julia](http://julialang.org) package to compute range enclosures of
 real-valued functions.
 
-## :warning: NOTE: This library is currently unmaintained
+## :warning: NOTE: This library is currently a work-in-progress
 
 ## Resources
 
