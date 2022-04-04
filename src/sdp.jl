@@ -82,8 +82,8 @@ julia> enclose_SumOfSquares(f, dom, order, backend=backend, QUIET=true)
 
 To get the runtime, use `MOI.get(model, MOI.SolveTime())`.
 """
-function enclose_SumOfSquares(f::Function, dom::Interval_or_IntervalBox;
-                              order::Int=5, backend=SDPA.Optimizer, kwargs...)
+function enclose_SumOfSquares(f::Function, dom::Interval_or_IntervalBox, backend;
+                              order::Int=5, kwargs...)
     _enclose_SumOfSquares(f, dom, order, backend; kwargs...)
 end
 
