@@ -29,8 +29,8 @@ An instance of `SOSModel` for the given backend and options.
 end
 
 """
-    enclose_SumOfSquares(f::Function, dom::Interval_or_IntervalBox, backend,
-                         order::Int=5; kwargs...)
+    enclose_SumOfSquares(f::Function, dom::Interval_or_IntervalBox; backend,
+                         order::Int=5, kwargs...)
 
 Compute a range enclosure using sum-of-squares optimization.
 
@@ -65,7 +65,7 @@ julia > using SDPA
 
 julia> backend = SDPA.Optimizer
 
-julia> enclose_SumOfSquares(f, dom, order, backend=backend)
+julia> enclose_SumOfSquares(f, dom, order; backend=backend)
 ...
 ```
 
@@ -76,14 +76,14 @@ julia> using MosekTools
 
 julia> backend = MosekTools.Mosek.Optimizer;
 
-julia> enclose_SumOfSquares(f, dom, order, backend=backend, QUIET=true)
+julia> enclose_SumOfSquares(f, dom, order; backend=backend, QUIET=true)
 ...
 ```
 
 To get the runtime, use `MOI.get(model, MOI.SolveTime())`.
 """
-function enclose_SumOfSquares(f::Function, dom::Interval_or_IntervalBox, backend;
-                              order::Int=5, kwargs...)
+function enclose_SumOfSquares(f::Function, dom::Interval_or_IntervalBox;
+                              backend, order::Int=5, kwargs...)
     _enclose_SumOfSquares(f, dom, order, backend; kwargs...)
 end
 

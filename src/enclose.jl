@@ -102,7 +102,7 @@ function enclose(f::Function, dom::Interval_or_IntervalBox,
             throw(ArgumentError("No SDP backend provided"))
         end
 
-        R = enclose_SumOfSquares(f, dom, backend; order=order, 𝑂...)
+        R = enclose_SumOfSquares(f, dom; backend=backend, order=order, 𝑂...)
 
     elseif solver == :AffineArithmetic
         # requires affine arithmetic to be loaded
