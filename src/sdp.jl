@@ -1,7 +1,7 @@
 #======================================
 Methods using semidefinite programming
 ======================================#
-using .SumOfSquares, .SDPA
+using .SumOfSquares
 
 """
     new_sos(backend; kwargs...)
@@ -20,26 +20,17 @@ An instance of `SOSModel` for the given backend and options.
 @inline function new_sos(backend, kwargs...)
     𝑂 = Dict(kwargs)
 
-    if VERSION < v"1.6"
-        if :QUIET ∈ keys(𝑂)
-            # for mosek solver
-            SOSModel(with_optimizer(backend, QUIET=𝑂[:QUIET]))
-        else
-            SOSModel(with_optimizer(backend))
-        end
+    if :QUIET ∈ keys(𝑂)
+        # for mosek solver
+        SOSModel(backend, QUIET=𝑂[:QUIET])
     else
-        if :QUIET ∈ keys(𝑂)
-            # for mosek solver
-            SOSModel(backend, QUIET=𝑂[:QUIET])
-        else
-            SOSModel(backend)
-        end
+        SOSModel(backend)
     end
 end
 
 """
-    enclose_SumOfSquares(f::Function, dom::Interval_or_IntervalBox,
-                         order::Int=5, backend=SDPA.Optimizer; kwargs...)
+    enclose_SumOfSquares(f::Function, dom::Interval_or_IntervalBox; backend,
+                         order::Int=5, kwargs...)
 
 Compute a range enclosure using sum-of-squares optimization.
 
@@ -48,9 +39,8 @@ Compute a range enclosure using sum-of-squares optimization.
 - `f`       -- function
 - `dom`     -- hyperrectangular domain, either a unidimensional `Interval` or
                a multidimensional `IntervalBox`
+- `backend` -- the optimization backend (aka JuMP solver)
 - `order`   -- (optional, default: `5`) maximum degree of the SDP relaxation
-- `backend` -- (optional, default: `SDPA.Optimizer`) the optimization backend
-               (aka JuMP solver)
 - `kwargs`  -- additional keyword arguments
 
 ### Output
@@ -65,15 +55,17 @@ We refer to the documentation and examples of `SumOfSquares.jl` for details.
 
 ### Notes
 
-Use the `backend` keyword argument to pass an SDP solver backend of your choice;
-additional arguments to the solver can be passed in `kwargs`.
+You need to import and pass an SDP solver as the `backend` parameter. A list of SDP solvers
+can be found [here](https://jump.dev/JuMP.jl/stable/installation/#Supported-solvers).
 
-For instance, to use `SDPA` (default choice), use it as:
+For instance, to use `SDPA`, use it as:
 
 ```julia
+julia > using SDPA
+
 julia> backend = SDPA.Optimizer
 
-julia> enclose_SumOfSquares(f, dom, order, backend=backend)
+julia> enclose_SumOfSquares(f, dom, order; backend=backend)
 ...
 ```
 
@@ -84,14 +76,14 @@ julia> using MosekTools
 
 julia> backend = MosekTools.Mosek.Optimizer;
 
-julia> enclose_SumOfSquares(f, dom, order, backend=backend, QUIET=true)
+julia> enclose_SumOfSquares(f, dom, order; backend=backend, QUIET=true)
 ...
 ```
 
 To get the runtime, use `MOI.get(model, MOI.SolveTime())`.
 """
 function enclose_SumOfSquares(f::Function, dom::Interval_or_IntervalBox;
-                              order::Int=5, backend=SDPA.Optimizer, kwargs...)
+                              backend, order::Int=5, kwargs...)
     _enclose_SumOfSquares(f, dom, order, backend; kwargs...)
 end
 

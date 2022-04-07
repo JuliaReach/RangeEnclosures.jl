@@ -40,7 +40,7 @@ end
 
     if VERSION < v"1.7"
         using SumOfSquares, SDPA
-        x = enclose(f, dom, :SumOfSquares)
+        x = enclose(f, dom, :SumOfSquares; backend=SDPA.Optimizer)
         xref = Interval(4.8333, 10.541)
         r = relative_precision(x, xref)
         @test inf(r) ≤ 1e-5 && sup(r) ≤ 1e-5

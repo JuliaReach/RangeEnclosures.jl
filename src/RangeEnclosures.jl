@@ -23,9 +23,7 @@ Optional methods
 function __init__()
     @require AffineArithmetic = "2e89c364-fad6-56cb-99bd-ebadcd2cf8d2" include("affine.jl")
 
-    @require SumOfSquares = "4b9e565b-77fc-50a5-a571-1244f986bda1" begin
-        @require SDPA = "b9a10b5b-afa4-512f-a053-bb3d8080febc" include("sdp.jl")
-    end
+    @require SumOfSquares = "4b9e565b-77fc-50a5-a571-1244f986bda1" include("sdp.jl")
 
     @require IntervalOptimisation = "c7c68f13-a4a2-5b9a-b424-07d005f8d9d2" include("intervaloptimisation.jl")
 end

@@ -15,7 +15,6 @@ IntervalArithmetic = "0.15, 0.16, 0.17, 0.18, 0.19, 0.20"
 IntervalOptimisation = "0.4.1"
 Reexport = "0.2, 1"
 Requires = "0.5, 1"
-SDPA = "0.2, 0.3, 0.4"
 SumOfSquares = "0.3.6, 0.4, 0.5, 0.6"
 TaylorModels = "0.3, 0.4, 0.5"
 julia = "1.6"
@@ -23,8 +22,7 @@ julia = "1.6"
 [extras]
 IntervalOptimisation = "c7c68f13-a4a2-5b9a-b424-07d005f8d9d2"
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
-SDPA = "b9a10b5b-afa4-512f-a053-bb3d8080febc"
 SumOfSquares = "4b9e565b-77fc-50a5-a571-1244f986bda1"
 
 [targets]
-test = ["Test", "IntervalOptimisation", "SumOfSquares", "SDPA"]
+test = ["Test", "IntervalOptimisation", "SumOfSquares"]
