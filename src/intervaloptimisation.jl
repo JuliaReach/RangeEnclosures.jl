@@ -25,13 +25,8 @@ its domain `dom`.
 
 ### Algorithm
 
-The solver finds the global minimum of the function `f` over the `Interval` or
-`IntervalBox` `dom` using the Moore-Skelboe algorithm. The method actually returns
-an *interval* containing the global minimum (resp. an *interval* containing the
-global maximum), as well as a list of boxes containing the minimisers
-(resp. maximisers); they can be obtained calling [`range_and_optimisers`](@ref).
-
-This function conservatively chooses the infimum (resp. supremum) over each interval.
+The solver finds the global minimum  and maximum of the function `f` over the `Interval` or
+`IntervalBox` `dom` using the Moore-Skelboe algorithm.
 
 We refer to the documentation and source code of `IntervalOptimisation` for details
 on the implemented methods.
