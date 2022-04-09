@@ -52,7 +52,7 @@ end
 """
     SumOfSquaresEnclosure{T} <: AbstractEnclosureAlgorithm
 
-Data structure to compute the range of `f` over `X` using the sum of squares algorithm.
+Data structure to compute the range of `f` over `X` using the sum-of-squares algorithm.
 See `SumOfSquares.jl` for more details
 
 ### Fields
