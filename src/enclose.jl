@@ -104,14 +104,6 @@ function enclose(f::Function, dom::Interval_or_IntervalBox,
 
         R = enclose_SumOfSquares(f, dom; backend=backend, order=order, 𝑂...)
 
-    elseif solver == :AffineArithmetic
-        # requires affine arithmetic to be loaded
-        @assert isdefined(@__MODULE__, :AffineArithmetic) "package `AffineArithmetic` " *
-        "not loaded but it is required for executing `enclose`"
-
-        # solver
-        R = enclose_AffineArithmetic(f, dom)
-
     else
         error("algorithm $algorithm unknown")
     end
