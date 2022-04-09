@@ -32,12 +32,6 @@ enclose_TaylorModels
 enclose_SumOfSquares
 ```
 
-## Specifics to interval optimization
-
-```@docs
-range_and_optimisers
-```
-
 ## Specifics to sum-of-squares optimization
 
 ```@docs
