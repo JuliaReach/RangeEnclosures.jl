@@ -33,7 +33,7 @@ end
 """
     TaylorModelsEnclosure <: AbstractEnclosureAlgorithm
 
-Data structure to compute the range of `f` over `X` using taylor models.
+Data structure to compute the range of `f` over `X` using Taylor models.
 See `TaylorModels.jl` for more details.
 
 ### Fields
