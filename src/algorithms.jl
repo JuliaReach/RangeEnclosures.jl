@@ -56,8 +56,8 @@ Data structure to compute the range of `f` over `X` using the sum-of-squares alg
 See `SumOfSquares.jl` for more details
 
 ### Fields
-- `backend` -- backend used to solve the optimization problem, a list of available backends
-             can be found at
+- `backend` -- backend used to solve the optimization problem; a list of available backends
+             can be found [here](TODO)
 - `order` -- (default `5`), maximum degree of the SDP relaxation
 - `quiet` -- (default `false`), I don't know what this is
 
