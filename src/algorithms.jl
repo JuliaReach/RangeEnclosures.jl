@@ -1,7 +1,7 @@
 abstract type AbstractEnclosureAlgorithm end
 
 """
-    $(TYPE)
+   NaturalEnclosure <: AbstractEnclosureAlgorithm
 
 Data structure to compute the range of `f` over `X` using natural enclosure, that is simply
 evaluates `f(X)` using interval arithmetic.
@@ -9,7 +9,7 @@ evaluates `f(X)` using interval arithmetic.
 struct NaturalEnclosure <: AbstractEnclosureAlgorithm end
 
 """
-    $(TYPE)
+    MooreSkelboeEnclosure{T} <: AbstractEnclosureAlgorithm
 
 Data structure to compute the range of `f` over `X` using the Moore-Skelboe algorithm, which
 computes rigorously the global minimum and maximum of the function.
@@ -31,7 +31,7 @@ struct MooreSkelboeEnclosure{T} <: AbstractEnclosureAlgorithm
 end
 
 """
-    $(TYPE)
+    TaylorModelsEnclosure <: AbstractEnclosureAlgorithm
 
 Data structure to compute the range of `f` over `X` using taylor models.
 See `TaylorModels.jl` for more details.
@@ -50,7 +50,7 @@ struct TaylorModelsEnclosure <: AbstractEnclosureAlgorithm
 end
 
 """
-    $(TYPE)
+    SumOfSquaresEnclosure{T} <: AbstractEnclosureAlgorithm
 
 Data structure to compute the range of `f` over `X` using the sum of squares algorithm.
 See `SumOfSquares.jl` for more details

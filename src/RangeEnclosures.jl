@@ -13,6 +13,7 @@ const available_solvers = [:IntervalArithmetic,
 
 const optional_solvers = [:AffineArithmetic, :IntervalOptimisation, :SumOfSquares]
 
+include("algorithms.jl")
 include("intervals.jl")
 include("taylormodels.jl")
 include("branchandbound.jl")
