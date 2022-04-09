@@ -33,6 +33,7 @@ API
 =================#
 include("enclose.jl")
 
-export enclose
+export enclose,
+  NaturalEnclosure, MooreSkelboeEnclosure, SumOfSquaresEnclosure, TaylorModelsEnclosure
 
 end # module
