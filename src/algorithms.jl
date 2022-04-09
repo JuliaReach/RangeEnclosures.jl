@@ -3,7 +3,7 @@ abstract type AbstractEnclosureAlgorithm end
 """
    NaturalEnclosure <: AbstractEnclosureAlgorithm
 
-Data structure to compute the range of `f` over `X` using natural enclosure, that is simply
+Data type to compute the range of `f` over `X` using natural enclosure, that is simply
 evaluates `f(X)` using interval arithmetic.
 """
 struct NaturalEnclosure <: AbstractEnclosureAlgorithm end
@@ -11,7 +11,7 @@ struct NaturalEnclosure <: AbstractEnclosureAlgorithm end
 """
     MooreSkelboeEnclosure{T} <: AbstractEnclosureAlgorithm
 
-Data structure to compute the range of `f` over `X` using the Moore-Skelboe algorithm, which
+Data type to compute the range of `f` over `X` using the Moore-Skelboe algorithm, which
 computes rigorously the global minimum and maximum of the function.
 See `IntervalOptimisation.jl` for more details.
 
@@ -33,14 +33,14 @@ end
 """
     TaylorModelsEnclosure <: AbstractEnclosureAlgorithm
 
-Data structure to compute the range of `f` over `X` using Taylor models.
+Data type to compute the range of `f` over `X` using Taylor models.
 See `TaylorModels.jl` for more details.
 
 ### Fields
 
 - `order`     -- (default: `10`) order of the taylor model used to compute
                  an enclosure of `f` over `dom`
-- `normalize` -- (default: `true`) if `true`, normalize the taylor model
+- `normalize` -- (default: `true`) if `true`, normalize the Taylor model
                  on the unit symmetric box around the origin
 
 """
@@ -52,12 +52,12 @@ end
 """
     SumOfSquaresEnclosure{T} <: AbstractEnclosureAlgorithm
 
-Data structure to compute the range of `f` over `X` using the sum-of-squares algorithm.
+Data type to compute the range of `f` over `X` using the sum-of-squares algorithm.
 See `SumOfSquares.jl` for more details
 
 ### Fields
 - `backend` -- backend used to solve the optimization problem; a list of available backends
-             can be found [here](TODO)
+             can be found [here](https://jump.dev/JuMP.jl/stable/installation/#Supported-solvers)
 - `order` -- (default `5`), maximum degree of the SDP relaxation
 - `quiet` -- (default `false`), I don't know what this is
 
