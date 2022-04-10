@@ -38,7 +38,7 @@ See `TaylorModels.jl` for more details.
 
 ### Fields
 
-- `order`     -- (default: `10`) order of the taylor model used to compute
+- `order`     -- (default: `10`) order of the Taylor model used to compute
                  an enclosure of `f` over `dom`
 - `normalize` -- (default: `true`) if `true`, normalize the Taylor model
                  on the unit symmetric box around the origin
