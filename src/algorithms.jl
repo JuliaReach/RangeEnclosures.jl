@@ -61,7 +61,7 @@ TaylorModelsEnclosure(; order=10, normalize=true) = TaylorModelsEnclosure(order,
     SumOfSquaresEnclosure{T} <: AbstractEnclosureAlgorithm
 
 Data type to compute the range of `f` over `X` using sum-of-squares optimization.
-See `SumOfSquares.jl` for more details
+See [`SumOfSquares.jl`](https://github.com/jump-dev/SumOfSquares.jl) for more details
 
 ### Fields
 - `backend` -- backend used to solve the optimization problem; a list of available backends
