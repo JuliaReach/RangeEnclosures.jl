@@ -3,7 +3,7 @@ abstract type AbstractEnclosureAlgorithm end
 """
    NaturalEnclosure <: AbstractEnclosureAlgorithm
 
-Data type to compute the range of `f` over `X` using natural enclosure, i.e., to
+Data type to bound the range of `f` over `X` using natural enclosure, i.e., to
 evaluate `f(X)` with interval arithmetic.
 """
 struct NaturalEnclosure <: AbstractEnclosureAlgorithm end
@@ -11,7 +11,7 @@ struct NaturalEnclosure <: AbstractEnclosureAlgorithm end
 """
     MooreSkelboeEnclosure{T} <: AbstractEnclosureAlgorithm
 
-Data type to compute the range of `f` over `X` using the Moore-Skelboe algorithm, which
+Data type to bound the range of `f` over `X` using the Moore-Skelboe algorithm, which
 rigorously computes the global minimum and maximum of the function.
 See [`IntervalOptimisation.jl`](https://github.com/JuliaIntervals/IntervalOptimisation.jl) for more details.
 
@@ -33,7 +33,7 @@ end
 """
     TaylorModelsEnclosure <: AbstractEnclosureAlgorithm
 
-Data type to compute the range of `f` over `X` using Taylor models.
+Data type to bound the range of `f` over `X` using Taylor models.
 See [`TaylorModels.jl`](https://github.com/JuliaIntervals/TaylorModels.jl) for more details.
 
 ### Fields
@@ -53,7 +53,7 @@ end
 """
     SumOfSquaresEnclosure{T} <: AbstractEnclosureAlgorithm
 
-Data type to compute the range of `f` over `X` using sum-of-squares optimization.
+Data type to bound the range of `f` over `X` using sum-of-squares optimization.
 See [`SumOfSquares.jl`](https://github.com/jump-dev/SumOfSquares.jl) for more details
 
 ### Fields
