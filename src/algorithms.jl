@@ -59,7 +59,6 @@ See `SumOfSquares.jl` for more details
 - `backend` -- backend used to solve the optimization problem; a list of available backends
              can be found [here](https://jump.dev/JuMP.jl/stable/installation/#Supported-solvers)
 - `order` -- (default `5`), maximum degree of the SDP relaxation
-- `quiet` -- (default `false`), I don't know what this is
 
 ### Notes
 
@@ -70,9 +69,8 @@ result of this algorithm is not rigorous.
 struct SumOfSquaresEnclosure{T} <: AbstractEnclosureAlgorithm
     backend::T
     order::Int
-    quiet::Bool
 end
 
-function SumOfSquaresEnclosure(backend; order=5, quiet=false)
-    return SumOfSquaresEnclosure(backend, order, quiet)
+function SumOfSquaresEnclosure(backend; order=5)
+    return SumOfSquaresEnclosure(backend, order)
 end
