@@ -39,7 +39,7 @@ end
     TaylorModelsEnclosure <: AbstractEnclosureAlgorithm
 
 Data type to compute the range of `f` over `X` using Taylor models.
-See `TaylorModels.jl` for more details.
+See [`TaylorModels.jl`](https://github.com/JuliaIntervals/TaylorModels.jl) for more details.
 
 ### Fields
 
