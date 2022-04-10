@@ -10,3 +10,10 @@ Depth = 3
 ```@meta
 CurrentModule = RangeEnclosures
 ```
+
+```@docs
+NaturalEnclosure
+MooreSkelboeEnclosure
+SumOfSquaresEnclosure
+TaylorModelsEnclosure
+```

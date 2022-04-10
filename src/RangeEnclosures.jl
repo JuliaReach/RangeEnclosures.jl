@@ -13,6 +13,7 @@ const available_solvers = [:IntervalArithmetic,
 
 const optional_solvers = [:IntervalOptimisation, :SumOfSquares]
 
+include("algorithms.jl")
 include("intervals.jl")
 include("taylormodels.jl")
 include("branchandbound.jl")
@@ -31,6 +32,7 @@ API
 =================#
 include("enclose.jl")
 
-export enclose
+export enclose,
+  NaturalEnclosure, MooreSkelboeEnclosure, SumOfSquaresEnclosure, TaylorModelsEnclosure
 
 end # module
