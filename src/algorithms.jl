@@ -30,6 +30,11 @@ struct MooreSkelboeEnclosure{T} <: AbstractEnclosureAlgorithm
     tol::Float64
 end
 
+function MooreSkelboeEnclosure(; structure=HeapedVector, tol=1e-3)
+    return MooreSkelboeEnclosure(structure, tol)
+end
+
+
 """
     TaylorModelsEnclosure <: AbstractEnclosureAlgorithm
 
@@ -48,6 +53,9 @@ struct TaylorModelsEnclosure <: AbstractEnclosureAlgorithm
     order::Int
     normalize::Bool
 end
+
+TaylorModelsEnclosure(; order=10, normalize=true) = TaylorModelsEnclosure(order, normalize)
+
 
 """
     SumOfSquaresEnclosure{T} <: AbstractEnclosureAlgorithm
