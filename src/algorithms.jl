@@ -13,7 +13,7 @@ struct NaturalEnclosure <: AbstractEnclosureAlgorithm end
 
 Data type to compute the range of `f` over `X` using the Moore-Skelboe algorithm, which
 computes rigorously the global minimum and maximum of the function.
-See `IntervalOptimisation.jl` for more details.
+See [`IntervalOptimisation.jl`](https://github.com/JuliaIntervals/IntervalOptimisation.jl) for more details.
 
 ### Fields
 
