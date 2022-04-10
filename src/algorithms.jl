@@ -25,15 +25,10 @@ See [`IntervalOptimisation.jl`](https://github.com/JuliaIntervals/IntervalOptimi
 
 To use this algorithm, you need to import `IntervalOptimisation.jl`
 """
-struct MooreSkelboeEnclosure{T} <: AbstractEnclosureAlgorithm
-    structure::T
-    tol::Float64
+Base.@kwdef struct MooreSkelboeEnclosure{T} <: AbstractEnclosureAlgorithm
+    structure::T = HeapedVector
+    tol::Float64 = 1e-3
 end
-
-function MooreSkelboeEnclosure(; structure=HeapedVector, tol=1e-3)
-    return MooreSkelboeEnclosure(structure, tol)
-end
-
 
 """
     TaylorModelsEnclosure <: AbstractEnclosureAlgorithm
@@ -49,12 +44,10 @@ See [`TaylorModels.jl`](https://github.com/JuliaIntervals/TaylorModels.jl) for m
                  on the unit symmetric box around the origin
 
 """
-struct TaylorModelsEnclosure <: AbstractEnclosureAlgorithm
-    order::Int
-    normalize::Bool
+Base.@kwdef struct TaylorModelsEnclosure <: AbstractEnclosureAlgorithm
+    order::Int = 10
+    normalize::Bool = true
 end
-
-TaylorModelsEnclosure(; order=10, normalize=true) = TaylorModelsEnclosure(order, normalize)
 
 
 """
@@ -74,11 +67,7 @@ To use this solver you need to import `SumOfSquares.jl` and a backend.
 Since the optimization problem is solved numerically and not with interval arithmetic, the
 result of this algorithm is not rigorous.
 """
-struct SumOfSquaresEnclosure{T} <: AbstractEnclosureAlgorithm
+Base.@kwdef struct SumOfSquaresEnclosure{T} <: AbstractEnclosureAlgorithm
     backend::T
-    order::Int
-end
-
-function SumOfSquaresEnclosure(backend; order=5)
-    return SumOfSquaresEnclosure(backend, order)
+    order::Int = 5
 end
