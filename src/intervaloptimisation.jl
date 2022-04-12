@@ -31,7 +31,8 @@ The solver finds the global minimum  and maximum of the function `f` over the `I
 We refer to the documentation and source code of `IntervalOptimisation` for details
 on the implemented methods.
 """
-function enclose(f::Function, dom::Interval_or_IntervalBox, mse::MooreSkelboeEnclosure)
+function _enclose(mse::MooreSkelboeEnclosure, f::Function, dom::Interval_or_IntervalBox;
+                  kwargs...)
 
     global_min, _ = minimise(X->f(X...), dom, structure=mse.structure, tol=mse.tol)
     global_max, _ = maximise(X->f(X...), dom, structure=mse.structure, tol=mse.tol)

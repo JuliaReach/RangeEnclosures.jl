@@ -54,6 +54,11 @@ julia> enclose(x -> 1 - x^4 + x^5, 0..1, [:TaylorModels, :IntervalArithmetic])
 [0.8125, 1.09375]
 ```
 """
+function enclose(f::Function, dom::Interval_or_IntervalBox,
+                 solver::AbstractEnclosureAlgorithm=NaturalEnclosure(); kwargs...)
+    return _enclose(solver, f, dom; kwargs)
+end
+
 function enclose(f::Function, dom::Interval_or_IntervalBox, solver::Symbol; kwargs...)
 
     𝑂 = Dict(kwargs)

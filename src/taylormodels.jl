@@ -35,7 +35,8 @@ symmetric ``[-1..1]^n`` domain.
 
 We refer to the documentation and source code of `TaylorModels` for details.
 """
-function enclose(f::Function, dom::Interval_or_IntervalBox, tme::TaylorModelsEnclosure)
+function _enclose(tme::TaylorModelsEnclosure, f::Function, dom::Interval_or_IntervalBox;
+                  kwargs...)
 
     if tme.normalize
         R = _enclose_TaylorModels_norm(f, dom, tme.order)
