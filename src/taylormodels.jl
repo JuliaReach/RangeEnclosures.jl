@@ -35,12 +35,12 @@ symmetric ``[-1..1]^n`` domain.
 
 We refer to the documentation and source code of `TaylorModels` for details.
 """
-function enclose_TaylorModels(f::Function, dom::Interval_or_IntervalBox;
-                              order::Int=10, normalize::Bool=true)
-    if normalize
-        R = _enclose_TaylorModels_norm(f, dom, order)
+function enclose(f::Function, dom::Interval_or_IntervalBox, tme::TaylorModelsEnclosure)
+
+    if tme.normalize
+        R = _enclose_TaylorModels_norm(f, dom, tme.order)
     else
-        R = _enclose_TaylorModels(f, dom, order)
+        R = _enclose_TaylorModels(f, dom, tme.order)
     end
     return R
 end

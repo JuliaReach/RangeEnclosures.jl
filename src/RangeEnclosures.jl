@@ -4,14 +4,6 @@ using DynamicPolynomials, Requires, Reexport
 @reexport using IntervalArithmetic
 const Interval_or_IntervalBox = Union{Interval, IntervalBox}
 
-#=================
-Available methods
-==================#
-const available_solvers = [:IntervalArithmetic,
-                           :TaylorModels,
-                           :BranchandBound]
-
-const optional_solvers = [:IntervalOptimisation, :SumOfSquares]
 
 include("algorithms.jl")
 include("intervals.jl")

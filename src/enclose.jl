@@ -54,56 +54,15 @@ julia> enclose(x -> 1 - x^4 + x^5, 0..1, [:TaylorModels, :IntervalArithmetic])
 [0.8125, 1.09375]
 ```
 """
-function enclose(f::Function, dom::Interval_or_IntervalBox,
-                 solver::Symbol=:IntervalArithmetic; kwargs...)
+function enclose(f::Function, dom::Interval_or_IntervalBox, solver::Symbol; kwargs...)
 
     𝑂 = Dict(kwargs)
-    numvars = length(dom)
 
-    if solver == :IntervalArithmetic
-        # solver
-        R = enclose_IntervalArithmetic(f, dom)
-
-    elseif solver == :BranchandBound
+    if solver == :BranchandBound
         tol =  :tol ∈ keys(𝑂) ? 𝑂[:tol] : 0.6
         order = :order ∈ keys(𝑂) ? 𝑂[:order] : 10
         #solver
         R = enclose_BranchandBound(f, dom, order=order, tol=tol)
-
-    elseif solver == :IntervalOptimisation
-        # unpack options or set defaults
-        structure =  :structure ∈ keys(𝑂) ? 𝑂[:structure] : HeapedVector
-        tol =  :tol ∈ keys(𝑂) ? 𝑂[:tol] : 1e-3
-
-        # solver
-        R = enclose_IntervalOptimisation(f, dom, structure=structure, tol=tol)
-
-    elseif solver == :TaylorModels
-        # unpack options or set defaults
-        normalize =  :normalize ∈ keys(𝑂) ? 𝑂[:normalize] : true
-        order = :order ∈ keys(𝑂) ? 𝑂[:order] : 10
-
-        # solver
-        R = enclose_TaylorModels(f, dom; order=order, normalize=normalize)
-
-    elseif solver == :SumOfSquares
-        # unpack options or set defaults
-        if :order ∈ keys(𝑂)
-            order = 𝑂[:order]
-            pop!(𝑂, :order)
-        else
-            order = 5
-        end
-
-        if :backend ∈ keys(𝑂)
-            backend = 𝑂[:backend]
-            pop!(𝑂, :backend)
-        else
-            throw(ArgumentError("No SDP backend provided"))
-        end
-
-        R = enclose_SumOfSquares(f, dom; backend=backend, order=order, 𝑂...)
-
     else
         error("algorithm $algorithm unknown")
     end
@@ -112,13 +71,13 @@ function enclose(f::Function, dom::Interval_or_IntervalBox,
 end
 
 function enclose(p::AbstractPolynomialLike, dom::Interval_or_IntervalBox,
-                 solver=:IntervalArithmetic; kwargs...)
+                 solver::AbstractEnclosureAlgorithm=NaturalEnclosure(); kwargs...)
     f(x...) = p(variables(p) => x)
     return enclose(f, dom, solver; kwargs...)
 end
 
 function enclose(f::Function, dom::Interval_or_IntervalBox,
-                 method::Vector{Symbol}; kwargs...)
+                 method::Vector; kwargs...)
    return mapreduce(ξ -> enclose(f, dom, ξ, kwargs...), ∩, method)
 end
 

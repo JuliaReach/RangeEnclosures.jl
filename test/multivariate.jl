@@ -14,7 +14,7 @@ end
     g(x, y) = (x + 2y - 7)^2 + (2x + y - 5)^2
     dom = IntervalBox(-10..10, 2)
 
-    x = enclose(g, dom, :IntervalArithmetic)
+    x = enclose(g, dom, NaturalEnclosure())
     xref = Interval(0, 2594)
     r = relative_precision(x, xref)
     @test inf(r) ≤ 1e-5 && sup(r) ≤ 1e-5

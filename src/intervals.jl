@@ -26,6 +26,6 @@ application of the rules of interval arithmetic.
 
 We refer to the documentation and source code of `IntervalArithmetic` for details.
 """
-function enclose_IntervalArithmetic(f::Function, dom::Interval_or_IntervalBox)
+function enclose(f::Function, dom::Interval_or_IntervalBox, ::NaturalEnclosure)
     return f(dom...)
 end

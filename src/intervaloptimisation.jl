@@ -31,11 +31,10 @@ The solver finds the global minimum  and maximum of the function `f` over the `I
 We refer to the documentation and source code of `IntervalOptimisation` for details
 on the implemented methods.
 """
-function enclose_IntervalOptimisation(f::Function, dom::Interval_or_IntervalBox;
-                                      structure=HeapedVector, tol=1e-3)
+function enclose(f::Function, dom::Interval_or_IntervalBox, mse::MooreSkelboeEnclosure)
 
-    global_min, _ = minimise(X->f(X...), dom, structure=structure, tol=tol)
-    global_max, _ = maximise(X->f(X...), dom, structure=structure, tol=tol)
+    global_min, _ = minimise(X->f(X...), dom, structure=mse.structure, tol=mse.tol)
+    global_max, _ = maximise(X->f(X...), dom, structure=mse.structure, tol=mse.tol)
 
     return Interval(inf(global_min), sup(global_max))
 end
