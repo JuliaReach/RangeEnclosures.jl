@@ -25,8 +25,7 @@ API
 include("enclose.jl")
 
 export enclose,
-  NaturalEnclosure, MooreSkelboeEnclosure, SumOfSquaresEnclosure, TaylorModelsEnclosure
+  NaturalEnclosure, MooreSkelboeEnclosure, SumOfSquaresEnclosure, TaylorModelsEnclosure,
+  AbstractEnclosureAlgorithm
 
-const available_solvers = (NaturalEnclosure, MooreSkelboeEnclosure,
-                           SumOfSquaresEnclosure, TaylorModelsEnclosure)
 end # module

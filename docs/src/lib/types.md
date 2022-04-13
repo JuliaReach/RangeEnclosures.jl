@@ -12,6 +12,7 @@ CurrentModule = RangeEnclosures
 ```
 
 ```@docs
+AbstractRangeEnclosure
 NaturalEnclosure
 MooreSkelboeEnclosure
 SumOfSquaresEnclosure

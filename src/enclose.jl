@@ -10,8 +10,8 @@ domain.
 - `dom`    -- hyperrectangular domain, either a unidimensional  `Interval` or
               a multidimensional `IntervalBox`
 - `solver` -- (optional, default: `NaturalEnclosure()`) choose one among the
-              available solvers; see `RangeEnclosures.available_solvers` for the
-              full list
+              available solvers; you can get a list of available solvers with
+              `subtypes(AbstractEnclosureAlgorithm)`
 - `kwargs` -- optional keyword arguments passed to the solver; for available
               options see the documentation of each solver
 

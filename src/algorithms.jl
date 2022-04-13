@@ -1,3 +1,8 @@
+"""
+    AbstractEnclosureAlgorithm
+
+Abstract type for range enclosure algorithms.
+"""
 abstract type AbstractEnclosureAlgorithm end
 
 """
