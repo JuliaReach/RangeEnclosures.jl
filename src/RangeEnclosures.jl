@@ -27,4 +27,6 @@ include("enclose.jl")
 export enclose,
   NaturalEnclosure, MooreSkelboeEnclosure, SumOfSquaresEnclosure, TaylorModelsEnclosure
 
+const available_solvers = (NaturalEnclosure, MooreSkelboeEnclosure,
+                           SumOfSquaresEnclosure, TaylorModelsEnclosure)
 end # module

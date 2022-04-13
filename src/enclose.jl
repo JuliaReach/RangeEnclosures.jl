@@ -1,16 +1,15 @@
 """
-    enclose(f::Function, dom::Interval_or_IntervalBox,
-            solver::Symbol=:IntervalArithmetic; [kwargs]...)
+    enclose(f, dom[, solver=NaturalEnclosure()]; kwargs...)
 
 Return a range enclosure of a univariate or multivariate function on the given
 domain.
 
 ### Input
 
-- `f`      -- function
+- `f`      -- function or `AbstractPolynomialLike` object
 - `dom`    -- hyperrectangular domain, either a unidimensional  `Interval` or
               a multidimensional `IntervalBox`
-- `solver` -- (optional, default: `IntervalArithmetic`) choose one among the
+- `solver` -- (optional, default: `NaturalEnclosure()`) choose one among the
               available solvers; see `RangeEnclosures.available_solvers` for the
               full list
 - `kwargs` -- optional keyword arguments passed to the solver; for available
@@ -18,40 +17,25 @@ domain.
 
 ### Output
 
-An interval representing the range enclosure (minimum and maximum) of `f` over
-its domain `dom`.
+An interval enclosure of the range of `f` over `dom`.
 
 ### Examples
 
 ```jldoctest enclose_examples
-julia> using RangeEnclosures, IntervalOptimisation
-
 julia> enclose(x -> 1 - x^4 + x^5, 0..1) # use default solver
 [0, 2]
 
-julia> enclose(x -> 1 - x^4 + x^5, 0..1, :IntervalArithmetic)
-[0, 2]
-
-julia> enclose(x -> 1 - x^4 + x^5, 0..1, :TaylorModels, order=4)
-[0.78125, 1.125]
-
-julia> enclose(x -> 1 - x^4 + x^5, 0..1, :TaylorModels, order=10)
+julia> enclose(x -> 1 - x^4 + x^5, 0..1, TaylorModelsEnclosure())
 [0.8125, 1.09375]
-
-julia> enclose(x -> 1 - x^4 + x^5, 0..1, :IntervalOptimisation)
-[0.916034, 1.00213]
 ```
-You can also try other solvers such as `SumOfSquares` and `AffineArithmetic`.
 
 A vector of solvers can be passed in the `solver` options. Then, the result is
 obtained by intersecting the range enclosure of each solver.
-In the previous example,
 
 ```jldoctest enclose_examples
-julia> using RangeEnclosures
-
-julia> enclose(x -> 1 - x^4 + x^5, 0..1, [:TaylorModels, :IntervalArithmetic])
+julia> enclose(x -> 1 - x^4 + x^5, 0..1, [TaylorModelsEnclosure(), NaturalEnclosure()])
 [0.8125, 1.09375]
+
 ```
 """
 function enclose(f::Function, dom::Interval_or_IntervalBox,

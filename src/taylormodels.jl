@@ -6,35 +6,7 @@ using TaylorModels
 @inline zeroBox(N) = IntervalBox(0..0, N)
 @inline symBox(N) = IntervalBox(-1..1, N)
 
-"""
-    enclose_TaylorModels(f::Function, dom::Interval_or_IntervalBox;
-                         order::Int=10, normalize::Bool=true)
 
-Compute a range enclosure using Taylor Models substitution.
-
-### Input
-
-- `f`         -- function
-- `dom`       -- hyperrectangular domain, either a unidimensional  `Interval` or
-                 a multidimensional `IntervalBox`
-- `order`     -- (optional, default: `10`) order of the taylor model used to compute
-                 an enclosure of `f` over `dom`
-- `normalize` -- (optional, default: `true`) if `true`, normalize the taylor model
-                 on the unit symmetric box around the origin
-
-### Output
-
-An interval representing the range enclosure (minimum and maximum) of `f` over
-its domain `dom`.
-
-### Algorithm
-
-The result is obtained by an evaluation of the function over Taylor model variables
-after recentering in the given domain and (optionally) normalizing in the
-symmetric ``[-1..1]^n`` domain.
-
-We refer to the documentation and source code of `TaylorModels` for details.
-"""
 function _enclose(tme::TaylorModelsEnclosure, f::Function, dom::Interval_or_IntervalBox;
                   kwargs...)
 
