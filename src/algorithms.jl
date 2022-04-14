@@ -42,7 +42,7 @@ To use this algorithm, you need to import `IntervalOptimisation.jl`
 ```jldoctest
 julia> using IntervalOptimisation
 
-julia> enclose(x -> 1 - x^4 + x^5, 0..1, MooreSkelboeEnclosure()) # default values
+julia> enclose(x -> 1 - x^4 + x^5, 0..1, MooreSkelboeEnclosure()) # default parameters
 [0.916034, 1.00213]
 
 julia> enclose(x -> 1 - x^4 + x^5, 0..1, MooreSkelboeEnclosure(; tol=1e-2))
@@ -69,7 +69,7 @@ See [`TaylorModels.jl`](https://github.com/JuliaIntervals/TaylorModels.jl) for m
 ### Examples
 
 ```jldoctest
-julia> enclose(x -> 1 - x^4 + x^5, 0..1, TaylorModelsEnclosure()) # default values
+julia> enclose(x -> 1 - x^4 + x^5, 0..1, TaylorModelsEnclosure()) # default parameters
 [0.8125, 1.09375]
 
 julia> enclose(x -> 1 - x^4 + x^5, 0..1, TaylorModelsEnclosure(; order=4))
