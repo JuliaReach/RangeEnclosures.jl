@@ -109,14 +109,6 @@ julia> backend = SDPA.Optimizer
 julia> enclose(x -> -x^3/6 + 5x, 1..4, SumOfSquaresEnclosure(; backend=backend))
 [4.8333, 10.541]
 ```
-
-You can also pass additional keyword arguments that will be passed to the `SOSModel`, e.g. to
-print in non-verbose mode
-
-```julia
-julia> enclose(x -> -x^3/6 + 5x, 1..4, SumOfSquaresEnclosure(; backend=backend); QUIET=true)
-[4.8333, 10.541]
-```
 """
 Base.@kwdef struct SumOfSquaresEnclosure{T} <: AbstractEnclosureAlgorithm
     backend::T
