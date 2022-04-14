@@ -3,7 +3,7 @@ using RangeEnclosures: relative_precision
 
 using DynamicPolynomials: @polyvar
 
-available_solvers = (:IntervalArithmetic, :TaylorModels, :BranchandBound, :IntervalOptimisation)
+available_solvers = (NaturalEnclosure(), TaylorModelsEnclosure(), :BranchandBound, MooreSkelboeEnclosure())
 
 include("univariate.jl")
 include("multivariate.jl")

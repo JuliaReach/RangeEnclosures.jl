@@ -4,14 +4,6 @@ using DynamicPolynomials, Requires, Reexport
 @reexport using IntervalArithmetic
 const Interval_or_IntervalBox = Union{Interval, IntervalBox}
 
-#=================
-Available methods
-==================#
-const available_solvers = [:IntervalArithmetic,
-                           :TaylorModels,
-                           :BranchandBound]
-
-const optional_solvers = [:IntervalOptimisation, :SumOfSquares]
 
 include("algorithms.jl")
 include("intervals.jl")
@@ -33,6 +25,7 @@ API
 include("enclose.jl")
 
 export enclose,
-  NaturalEnclosure, MooreSkelboeEnclosure, SumOfSquaresEnclosure, TaylorModelsEnclosure
+  NaturalEnclosure, MooreSkelboeEnclosure, SumOfSquaresEnclosure, TaylorModelsEnclosure,
+  AbstractEnclosureAlgorithm
 
 end # module

@@ -23,15 +23,6 @@ enclose
 relative_precision
 ```
 
-## Enclosure methods
-
-```@docs
-enclose_IntervalArithmetic
-enclose_IntervalOptimisation
-enclose_TaylorModels
-enclose_SumOfSquares
-```
-
 ## Specifics to sum-of-squares optimization
 
 ```@docs

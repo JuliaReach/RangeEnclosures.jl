@@ -1,109 +1,57 @@
 """
-    enclose(f::Function, dom::Interval_or_IntervalBox,
-            solver::Symbol=:IntervalArithmetic; [kwargs]...)
+    enclose(f, dom[, solver=NaturalEnclosure()]; kwargs...)
 
 Return a range enclosure of a univariate or multivariate function on the given
 domain.
 
 ### Input
 
-- `f`      -- function
+- `f`      -- function or `AbstractPolynomialLike` object
 - `dom`    -- hyperrectangular domain, either a unidimensional  `Interval` or
               a multidimensional `IntervalBox`
-- `solver` -- (optional, default: `IntervalArithmetic`) choose one among the
-              available solvers; see `RangeEnclosures.available_solvers` for the
-              full list
+- `solver` -- (optional, default: `NaturalEnclosure()`) choose one among the
+              available solvers; you can get a list of available solvers with
+              `subtypes(AbstractEnclosureAlgorithm)`
 - `kwargs` -- optional keyword arguments passed to the solver; for available
               options see the documentation of each solver
 
 ### Output
 
-An interval representing the range enclosure (minimum and maximum) of `f` over
-its domain `dom`.
+An interval enclosure of the range of `f` over `dom`.
 
 ### Examples
 
 ```jldoctest enclose_examples
-julia> using RangeEnclosures, IntervalOptimisation
-
 julia> enclose(x -> 1 - x^4 + x^5, 0..1) # use default solver
 [0, 2]
 
-julia> enclose(x -> 1 - x^4 + x^5, 0..1, :IntervalArithmetic)
-[0, 2]
-
-julia> enclose(x -> 1 - x^4 + x^5, 0..1, :TaylorModels, order=4)
-[0.78125, 1.125]
-
-julia> enclose(x -> 1 - x^4 + x^5, 0..1, :TaylorModels, order=10)
+julia> enclose(x -> 1 - x^4 + x^5, 0..1, TaylorModelsEnclosure())
 [0.8125, 1.09375]
-
-julia> enclose(x -> 1 - x^4 + x^5, 0..1, :IntervalOptimisation)
-[0.916034, 1.00213]
 ```
-You can also try other solvers such as `SumOfSquares` and `AffineArithmetic`.
 
 A vector of solvers can be passed in the `solver` options. Then, the result is
 obtained by intersecting the range enclosure of each solver.
-In the previous example,
 
 ```jldoctest enclose_examples
-julia> using RangeEnclosures
-
-julia> enclose(x -> 1 - x^4 + x^5, 0..1, [:TaylorModels, :IntervalArithmetic])
+julia> enclose(x -> 1 - x^4 + x^5, 0..1, [TaylorModelsEnclosure(), NaturalEnclosure()])
 [0.8125, 1.09375]
+
 ```
 """
 function enclose(f::Function, dom::Interval_or_IntervalBox,
-                 solver::Symbol=:IntervalArithmetic; kwargs...)
+                 solver::AbstractEnclosureAlgorithm=NaturalEnclosure(); kwargs...)
+    return _enclose(solver, f, dom; kwargs...)
+end
+
+function enclose(f::Function, dom::Interval_or_IntervalBox, solver::Symbol; kwargs...)
 
     𝑂 = Dict(kwargs)
-    numvars = length(dom)
 
-    if solver == :IntervalArithmetic
-        # solver
-        R = enclose_IntervalArithmetic(f, dom)
-
-    elseif solver == :BranchandBound
+    if solver == :BranchandBound
         tol =  :tol ∈ keys(𝑂) ? 𝑂[:tol] : 0.6
         order = :order ∈ keys(𝑂) ? 𝑂[:order] : 10
         #solver
         R = enclose_BranchandBound(f, dom, order=order, tol=tol)
-
-    elseif solver == :IntervalOptimisation
-        # unpack options or set defaults
-        structure =  :structure ∈ keys(𝑂) ? 𝑂[:structure] : HeapedVector
-        tol =  :tol ∈ keys(𝑂) ? 𝑂[:tol] : 1e-3
-
-        # solver
-        R = enclose_IntervalOptimisation(f, dom, structure=structure, tol=tol)
-
-    elseif solver == :TaylorModels
-        # unpack options or set defaults
-        normalize =  :normalize ∈ keys(𝑂) ? 𝑂[:normalize] : true
-        order = :order ∈ keys(𝑂) ? 𝑂[:order] : 10
-
-        # solver
-        R = enclose_TaylorModels(f, dom; order=order, normalize=normalize)
-
-    elseif solver == :SumOfSquares
-        # unpack options or set defaults
-        if :order ∈ keys(𝑂)
-            order = 𝑂[:order]
-            pop!(𝑂, :order)
-        else
-            order = 5
-        end
-
-        if :backend ∈ keys(𝑂)
-            backend = 𝑂[:backend]
-            pop!(𝑂, :backend)
-        else
-            throw(ArgumentError("No SDP backend provided"))
-        end
-
-        R = enclose_SumOfSquares(f, dom; backend=backend, order=order, 𝑂...)
-
     else
         error("algorithm $algorithm unknown")
     end
@@ -112,14 +60,14 @@ function enclose(f::Function, dom::Interval_or_IntervalBox,
 end
 
 function enclose(p::AbstractPolynomialLike, dom::Interval_or_IntervalBox,
-                 solver=:IntervalArithmetic; kwargs...)
+                 solver::AbstractEnclosureAlgorithm=NaturalEnclosure(); kwargs...)
     f(x...) = p(variables(p) => x)
-    return enclose(f, dom, solver; kwargs...)
+    return _enclose(solver, f, dom; kwargs...)
 end
 
 function enclose(f::Function, dom::Interval_or_IntervalBox,
-                 method::Vector{Symbol}; kwargs...)
-   return mapreduce(ξ -> enclose(f, dom, ξ, kwargs...), ∩, method)
+                 method::Vector; kwargs...)
+   return mapreduce(ξ -> _enclose(ξ, f, dom; kwargs...), ∩, method)
 end
 
 """

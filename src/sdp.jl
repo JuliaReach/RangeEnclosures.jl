@@ -28,63 +28,11 @@ An instance of `SOSModel` for the given backend and options.
     end
 end
 
-"""
-    enclose_SumOfSquares(f::Function, dom::Interval_or_IntervalBox; backend,
-                         order::Int=5, kwargs...)
 
-Compute a range enclosure using sum-of-squares optimization.
+function _enclose(sose::SumOfSquaresEnclosure, f::Function, dom::Interval_or_IntervalBox;
+                  kwargs...)
 
-### Input
-
-- `f`       -- function
-- `dom`     -- hyperrectangular domain, either a unidimensional `Interval` or
-               a multidimensional `IntervalBox`
-- `backend` -- the optimization backend (aka JuMP solver)
-- `order`   -- (optional, default: `5`) maximum degree of the SDP relaxation
-- `kwargs`  -- additional keyword arguments
-
-### Output
-
-An interval representing the range enclosure (minimum and maximum) of `f` over
-its domain `dom`.
-
-### Algorithm
-
-The range enclosure is computed using polynomial optimization methods.
-We refer to the documentation and examples of `SumOfSquares.jl` for details.
-
-### Notes
-
-You need to import and pass an SDP solver as the `backend` parameter. A list of SDP solvers
-can be found [here](https://jump.dev/JuMP.jl/stable/installation/#Supported-solvers).
-
-For instance, to use `SDPA`, use it as:
-
-```julia
-julia > using SDPA
-
-julia> backend = SDPA.Optimizer
-
-julia> enclose_SumOfSquares(f, dom, order; backend=backend)
-...
-```
-
-To use `MOSEK` in non-verbose mode, let
-
-```julia
-julia> using MosekTools
-
-julia> backend = MosekTools.Mosek.Optimizer;
-
-julia> enclose_SumOfSquares(f, dom, order; backend=backend, QUIET=true)
-...
-```
-
-To get the runtime, use `MOI.get(model, MOI.SolveTime())`.
-"""
-function enclose_SumOfSquares(f::Function, dom::Interval_or_IntervalBox;
-                              backend, order::Int=5, kwargs...)
-    _enclose_SumOfSquares(f, dom, order, backend; kwargs...)
+    _enclose_SumOfSquares(f, dom, sose.order, sose.backend; kwargs...)
 end
 
 function _enclose_SumOfSquares(f::Function, dom::Interval, order::Int,
