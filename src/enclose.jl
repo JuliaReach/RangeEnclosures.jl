@@ -71,10 +71,9 @@ function enclose(f::Function, dom::Interval_or_IntervalBox,
 end
 
 """
-    relative_precision(x::Interval{N}, xref::Interval{N}) where {N}
+    relative_precision(x::Interval, xref::Interval)
 
-Return the relative precision of an interval representing a range enclosure
-given a reference interval.
+Return the relative precision of an interval with respect to a reference interval.
 
 ### Input
 
@@ -83,57 +82,44 @@ given a reference interval.
 
 ### Output
 
-An interval containing the left (resp. right) percentages that describe the
-relative precision of `x` with respect to the reference interval `xref`.
+Left and right relative precision (in %) computed as
+- `rleft = (inf(xref) - inf(x)) / diam(xref) * 100%`
+- `rright = (sup(x) - sup(xright)) / diam(xref) * 100%`
 
 ### Examples
 
-Suppose that the reference interval is ``[-1.2, 4.6]``, and let ``[-1.25, 7.45]``
-be the overapproximation of the reference interval obtained with some global
-optimisation method that returns a range enclosure.
-The relative precision is then:
-
 ```jldoctest relative_precision
-julia> using RangeEnclosures: relative_precision
-
-julia> xref = Interval(-1.2, 4.6)
+julia> xref = interval(-1.2, 4.6)
 [-1.2, 4.6]
 
-julia> x = Interval(-1.25, 7.45)
+julia> x = interval(-1.25, 7.45)
 [-1.25, 7.45001]
 
 julia> relative_precision(x, xref)
-[0.862068, 49.138]
+(0.862068, 49.138)
 ```
-Notice how the percentage of relative error of the maximum is big, close to
-``50%``, while the approximation of the minimum is much smaller, close to ``1%``
-of the reference value.
 
 ### Algorithm
 
 This function measures the relative precision of the result in a more informative
 way than taking the scalar overestimation because it evaluates the precision of
-the lower and the upper range bounds separately (cf. Eq. (20) in [1]).
+the lower and the upper bounds separately (cf. Eq. (20) in [1]).
 
 [1] Althoff, Matthias, Dmitry Grebenyuk, and Niklas Kochdumper.
    *Implementation of Taylor models in CORA 2018.*
    Proc. of the 5th International Workshop on Applied Verification for
    Continuous and Hybrid Systems. 2018.
 
-### Notes
-
-It is assumed that the test, or paragon interval, is an overapproximation of the
-reference interval; otherwise the left or right percentages will be negative.
 """
-function relative_precision(x::Interval{N}, xref::Interval{N}) where {N}
+function relative_precision(x::Interval, xref::Interval)
     x⁻, x⁺ = inf(x), sup(x)
     xref⁻, xref⁺ = inf(xref), sup(xref)
 
     Δref = xref⁺ - xref⁻
-    @assert Δref != zero(N) "the width of the reference interval is $Δref, but " *
+    @assert Δref != zero(Δref) "the width of the reference interval is $Δref, but " *
     "it should have a non-zero width"
 
-    rel⁻ = -(x⁻ - xref⁻) / Δref
-    rel⁺ = (x⁺ - xref⁺) / Δref
-    return 100 * Interval(rel⁻, rel⁺)
+    rel⁻ = -(x⁻ - xref⁻) / Δref * 100
+    rel⁺ = (x⁺ - xref⁺) / Δref * 100
+    return rel⁻, rel⁺
 end

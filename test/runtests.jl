@@ -1,5 +1,4 @@
 using IntervalOptimisation, Test, RangeEnclosures
-using RangeEnclosures: relative_precision
 
 using DynamicPolynomials: @polyvar
 
