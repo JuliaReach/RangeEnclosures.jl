@@ -6,15 +6,15 @@
 
     for solver in available_solvers
         x = enclose(f, dom, solver)
-        r = relative_precision(x, xref)
+        rleft, rright = relative_precision(x, xref)
         if solver isa TaylorModelsEnclosure
             # for this example, TaylorModels cannot tightly approximate the lhs
-            @test inf(r) ≤ 30 && sup(r) ≤ 1e-10
+            @test rleft ≤ 30 && rright ≤ 1e-10
         elseif solver isa SumOfSquaresEnclosure
             # solver returns negative -1.06259e-06
-            @test abs(inf(r)) ≤ 1e-5 && sup(r) ≤ 1e-5
+            @test rleft ≥ -1e-5 && rright ≤ 1e-5
         else
-            @test inf(r) ≤ 1e-5 && sup(r) ≤ 1e-5
+            @test rleft ≤ 1e-5 && rright ≤ 1e-5
         end
     end
 end
@@ -25,25 +25,25 @@ end
 
     x = enclose(f, dom, NaturalEnclosure())
     xref = Interval(-5.66667, 19.8334)
-    r = relative_precision(x, xref)
-    @test inf(r) ≤ 1e-5 && sup(r) ≤ 1e-5
+    rleft, rright = relative_precision(x, xref)
+    @test rleft ≤ 1e-5 && rright ≤ 1e-5
 
     x = enclose(f, dom, TaylorModelsEnclosure(order=4))
     xref = Interval(-4.2783, 12.7084)
-    r = relative_precision(x, xref)
-    @test inf(r) ≤ 1e-5 && sup(r) ≤ 1e-5
+    rleft, rright = relative_precision(x, xref)
+    @test rleft ≤ 1e-5 && rright ≤ 1e-5
 
     x = enclose(f, dom, MooreSkelboeEnclosure())
     xref = Interval(4.83299, 10.5448)
-    r = relative_precision(x, xref)
-    @test inf(r) ≤ 1e-5 && sup(r) ≤ 1e-5
+    rleft, rright = relative_precision(x, xref)
+    @test rleft ≤ 1e-5 && rright ≤ 1e-5
 
     if VERSION < v"1.7"
         using SumOfSquares, SDPA
         x = enclose(f, dom, SumOfSquaresEnclosure(backend=SDPA.Optimizer))
         xref = Interval(4.8333, 10.541)
-        r = relative_precision(x, xref)
-        @test inf(r) ≤ 1e-5 && sup(r) ≤ 1e-5
+        rleft, rright = relative_precision(x, xref)
+        @test rleft ≤ 1e-5 && rright ≤ 1e-5
     end
 end
 
@@ -54,6 +54,6 @@ end
 
     x = enclose(p, dom)
     xref = Interval(-5.66667, 19.8334)
-    r = relative_precision(x, xref)
-    @test inf(r) ≤ 1e-5 && sup(r) ≤ 1e-5
+    rleft, rright = relative_precision(x, xref)
+    @test rleft ≤ 1e-5 && rright ≤ 1e-5
 end

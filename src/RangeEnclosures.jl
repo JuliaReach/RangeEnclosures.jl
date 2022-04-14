@@ -24,7 +24,7 @@ API
 =================#
 include("enclose.jl")
 
-export enclose,
+export enclose, relative_precision,
   NaturalEnclosure, MooreSkelboeEnclosure, SumOfSquaresEnclosure, TaylorModelsEnclosure,
   AbstractEnclosureAlgorithm
 

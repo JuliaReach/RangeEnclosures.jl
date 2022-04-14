@@ -5,8 +5,8 @@
     xref = Interval(-20.786552979420335, -0.540012836551535) # MOSEK deg 6
     for solver in available_solvers
         x = enclose(f, dom, solver)
-        r = relative_precision(x, xref)
-        @test inf(r) ≤ 5 && sup(r) ≤ 16
+        rleft, rright = relative_precision(x, xref)
+        @test rleft ≤ 5 && rright ≤ 16
     end
 end
 
@@ -16,8 +16,8 @@ end
 
     x = enclose(g, dom, NaturalEnclosure())
     xref = Interval(0, 2594)
-    r = relative_precision(x, xref)
-    @test inf(r) ≤ 1e-5 && sup(r) ≤ 1e-5
+    rleft, rright = relative_precision(x, xref)
+    @test rleft ≤ 1e-5 && rright ≤ 1e-5
 end
 
 @testset "Test multivariate polynomial input" begin
@@ -27,8 +27,8 @@ end
 
     x = enclose(p, dom)
     xref = Interval(-1446, 2594)
-    r = relative_precision(x, xref)
-    @test inf(r) ≤ 1e-5 && sup(r) ≤ 1e-5
+    rleft, rright = relative_precision(x, xref)
+    @test rleft ≤ 1e-5 && rright ≤ 1e-5
     # Note: DynamicPolynomials automatically expands p, and evaluation using
     # interval arithmetic gives a worse left bound than the factored expression.
 end
