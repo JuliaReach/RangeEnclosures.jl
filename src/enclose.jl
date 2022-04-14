@@ -96,7 +96,7 @@ julia> x = interval(-1.25, 7.45)
 [-1.25, 7.45001]
 
 julia> relative_precision(x, xref)
-(0.862068, 49.138)
+(0.8620689655172422, 49.13793103448277)
 ```
 
 ### Algorithm
