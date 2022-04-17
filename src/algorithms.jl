@@ -114,3 +114,35 @@ Base.@kwdef struct SumOfSquaresEnclosure{T} <: AbstractEnclosureAlgorithm
     backend::T
     order::Int = 5
 end
+
+"""
+    BranchAndBoundEnclosure
+
+Data type to bound the range of `f` over `X` using the branch and bound algorithm.
+
+### Fields
+
+- `maxdepth` (default `10`): maximum depth of the search tree
+- `tol` (default `1e-3`): tolerance to compute the range of the function
+
+### Algorithm
+
+It evaluates the function over the interval `X`. If the maximum depth is reached or the
+width of `f(X)` is below the tolerance, it returns the computed range, otherwise it bisects
+the interval/interval box. For univariate functions, it checks if the function is monotone
+(by default using `ForwardDiff.jl`, but can be customized with the `df` keyword argument in
+`enclose`). If it is, it computes the range by evaluating the function at the extrema of the interval.
+
+### Examples
+
+```jldoctest
+julia> enclose(x -> -x^3/6 + 5x, 1..4, BranchAndBoundEnclosure())
+[4.83333, 10.5709]
+
+julia> enclose(x -> -x^3/6 + 5x, 1..4, BranchAndBoundEnclosure(tol=1e-2); df=x->-x^2/2+5)
+[4.83333, 10.5709]
+"""
+Base.@kwdef struct BranchAndBoundEnclosure <: AbstractEnclosureAlgorithm
+    maxdepth = 10
+    tol = 1e-3
+end

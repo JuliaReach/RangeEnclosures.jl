@@ -4,6 +4,7 @@ version = "0.1.1"
 
 [deps]
 DynamicPolynomials = "7c1d4256-1411-5781-91ec-d7bc3513ac07"
+ForwardDiff = "f6369f11-7733-5829-9624-2563aa707210"
 IntervalArithmetic = "d1acc4aa-44c8-5952-acd4-ba5d80a2a253"
 Reexport = "189a3867-3050-52da-a836-e630ba90ab69"
 Requires = "ae029012-a4dd-5104-9daa-d747884805df"
@@ -11,6 +12,7 @@ TaylorModels = "314ce334-5f6e-57ae-acf6-00b6e903104a"
 
 [compat]
 DynamicPolynomials = "0.3, 0.4"
+ForwardDiff = "0.10"
 IntervalArithmetic = "0.15, 0.16, 0.17, 0.18, 0.19, 0.20"
 IntervalOptimisation = "0.4.1"
 Reexport = "0.2, 1"
@@ -21,8 +23,8 @@ julia = "1.6"
 
 [extras]
 IntervalOptimisation = "c7c68f13-a4a2-5b9a-b424-07d005f8d9d2"
-Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 SumOfSquares = "4b9e565b-77fc-50a5-a571-1244f986bda1"
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [targets]
 test = ["Test", "IntervalOptimisation", "SumOfSquares"]
