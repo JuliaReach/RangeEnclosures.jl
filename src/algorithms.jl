@@ -129,9 +129,11 @@ Data type to bound the range of `f` over `X` using the branch and bound algorith
 
 It evaluates the function over the interval `X`. If the maximum depth is reached or the
 width of `f(X)` is below the tolerance, it returns the computed range, otherwise it bisects
-the interval/interval box. For univariate functions, it checks if the function is monotone
-(by default using `ForwardDiff.jl`, but can be customized with the `df` keyword argument in
-`enclose`). If it is, it computes the range by evaluating the function at the extrema of the interval.
+the interval/interval box.
+
+The algorithm also looks at the sign of the derivative / gradient to see if the range can be
+computed directly. By default, the derivative / gradient is computed using `ForwardDiff.jl`,
+but a custom value can be passed via the `df` keyword argument to [`enclose`](@ref).
 
 ### Examples
 
