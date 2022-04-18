@@ -1,6 +1,7 @@
 module RangeEnclosures
 
 using DynamicPolynomials, Requires, Reexport
+@reexport using ForwardDiff
 @reexport using IntervalArithmetic
 const Interval_or_IntervalBox = Union{Interval, IntervalBox}
 
@@ -25,7 +26,8 @@ API
 include("enclose.jl")
 
 export enclose, relative_precision,
-  NaturalEnclosure, MooreSkelboeEnclosure, SumOfSquaresEnclosure, TaylorModelsEnclosure,
+  NaturalEnclosure, MooreSkelboeEnclosure, SumOfSquaresEnclosure,
+  TaylorModelsEnclosure, BranchAndBoundEnclosure,
   AbstractEnclosureAlgorithm
 
 end # module

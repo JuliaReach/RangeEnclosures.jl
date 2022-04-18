@@ -1,101 +1,59 @@
 # univariate
-function enclose_BranchandBound(f::Function, dom::Interval; order=10, tol=0.6)
-    x0 = Interval(mid(dom))
-    x = TaylorModel1(order, x0, dom)
-    return branchandbound(f(x-x0).pol, dom, tol)
+
+@inline function enclose(f::Function, X::Interval, ba::BranchAndBoundEnclosure;
+                         df=Base.Fix1(ForwardDiff.derivative, f))
+    return _branch_bound(ba, f, X, df)
 end
 
-# multivariate
-function enclose_BranchandBound(f::Function, dom::IntervalBox{D};
-                                order=10, tol=0.6) where {D}
-    x0 = mid(dom)
-    set_variables(Float64, "x", order=2order, numvars=D)
-    x = [TaylorModelN(i, order, IntervalBox(x0), dom) for i=1:D]
-    return branchandbound(f(x...).pol, dom - x0, tol)
+@inline function enclose(f::Function, X::IntervalBox, ba::BranchAndBoundEnclosure;
+                         df=t->ForwardDiff.gradient(w->f(w...), t.v))
+    return _branch_bound(ba, f, X, df)
 end
 
-@inline _Rnext(R::Vector{<:Interval}) = Interval(minimum(inf.(R)), maximum(sup.(R)))
+function _branch_bound(ba::BranchAndBoundEnclosure, f::Function, X::Interval_or_IntervalBox, df;
+                       initial=emptyinterval(first(X)),
+                       cnt=1)
 
-const Kmax = 1000
+    dfX = df(X)
+    range_extrema, flag = _monotonicity_check(f, X, dfX)
+    flag && return hull(range_extrema, initial)
 
-function branchandbound(p::Union{Taylor1, TaylorN},
-                        dom::Interval_or_IntervalBox,
-                        tol::Number)
-    K = 1
-    Rprev = evaluate(p, dom)
-    D = bisect(dom)
-    R = [evaluate(p, D[1]), evaluate(p, D[2])]
-    Rnext = R[1] ∩ R[2]
+    fX = f(X...)  # TODO: allow user to choose how to evaluate this (mean value, natural enclosure)
+    # if tolerance or maximum number of iteration is met, return current enclosure
+    if diam(fX) <= ba.tol || cnt == ba.maxdepth
+        return hull(fX, initial)
+    end
 
-    while  (Rprev.hi - Rnext.hi) >= tol * diam(Rnext) &&
-           (Rprev.lo - Rnext.lo) >= tol * diam(Rnext)
+    X1, X2 = bisect(X)
+    y1 = _branch_bound(ba, f, X1, df; initial=initial, cnt=cnt+1)
+    return _branch_bound(ba, f, X2, df; initial=y1, cnt=cnt+1)
+end
 
-        Rprev = _Rnext(R)
-        R_x = sup.(R)
-        R_n = inf.(R)
-        max_range = maximum(R_x)
-        max_index = findall(x->x == max_range, R_x)[1]
-        min_range = minimum(R_n)
-        min_index = findall(x->x == min_range, R_n)[1]
-        l_D = length(D[1])
-        K += 1
-        if K == Kmax
-            error("convergence not achieved in branch and bound after $Kmax steps")
+function _monotonicity_check(f::Function, X::Interval, dfX::Interval)
+    if inf(dfX) >= 0 || sup(dfX) <= 0  # monotone function, evaluate at extrema
+        lo = Interval(X.lo)
+        hi = Interval(X.hi)
+        return hull(f(lo), f(hi)), true
+    end
+
+    return zero(eltype(dfX)), false
+end
+
+function _monotonicity_check(f::Function, X::IntervalBox{N}, ∇fX::AbstractVector) where {N}
+    low = zeros(eltype(X), N)
+    high = zeros(eltype(X), N)
+
+    @inbounds for (i, di) in enumerate(∇fX)
+        if di >=0  #  increasing
+            high[i] = sup(X[i])
+            low[i] = inf(X[i])
+        elseif di <= 0  # decreasing
+            high[i] = inf(X[i])
+            low[i] = sup(X[i])
+        else
+            return di, false
         end
+    end
 
-        D, R = divide_dom!(p, D, R, max_index)
-        if max_index < min_index
-            min_index += 1
-            D, R = divide_dom!(p, D, R, min_index)
-        end
-        Rnext = _Rnext(R)
-    end
-    return _Rnext(R)
-end
-
-function divide_dom!(p::Union{TaylorN{T}, Taylor1{T}},
-                     D::Union{Array{IntervalBox{N, W}, M}, Array{Interval{W}, M}},
-                     R::Array{Interval{W}, M}, index::Number) where {N, T, M, W}
-    BA = [ ((D[index][i]).hi - (D[index][i]).lo) for i = 1:length(D[1])]
-    Beta1 = maximum(BA)
-    β = findall(x->x == Beta1, BA)[1]
-    D1, D2 = bisect(D[index], β)
-    D[index] = D1
-    DD = push!(D[1:index], D2)
-    D = append!(DD, D[(index + 1):length(D)])
-    R[index] = evaluate(p, D[index])
-    RR = append!(R[1:index], evaluate(p, D[index + 1]))
-    R = append!(RR, R[(index + 1):length(R)])
-    return D, R
-end
-
-function enclose_binary(f, dom::Interval; kmax=3, tol=1e-3, algorithm=:IntervalArithmetic)
-    y = enclose(f, dom, algorithm)
-    yinf, ysup = inf(y), sup(y)
-    kmax == 0 && return Interval(yinf, ysup)
-    x = bisect(dom)
-    fx1 = enclose(f, x[1], algorithm)
-    fx2 = enclose(f, x[2], algorithm)
-    ynew = hull(fx1, fx2)
-    ynew_inf, ynew_sup = inf(ynew), sup(ynew)
-    inf_close = abs(yinf - ynew_inf) <= tol
-    sup_close = abs(ysup - ynew_sup) <= tol
-    both_close = inf_close && sup_close
-    inf_improves = ynew_inf > yinf
-    sup_improves = ynew_sup < ysup
-    both_improve = inf_improves && sup_improves
-    if both_close || !both_improve
-        return Interval(yinf, ysup)
-    end
-    yinf = max(yinf, ynew_inf)
-    ysup = min(ysup, ynew_sup)
-    if inf_improves
-        yinf = ynew_inf
-    end
-    if sup_improves
-        ysup = ynew_sup
-    end
-    e1 = enclose_binary(f, x[1], kmax=kmax-1, algorithm=algorithm)
-    e2 = enclose_binary(f, x[2], kmax=kmax-1, algorithm=algorithm)
-    return Interval(hull(e1, e2))
+    return hull(f(low...), f(high...)), true
 end

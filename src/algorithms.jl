@@ -114,3 +114,37 @@ Base.@kwdef struct SumOfSquaresEnclosure{T} <: AbstractEnclosureAlgorithm
     backend::T
     order::Int = 5
 end
+
+"""
+    BranchAndBoundEnclosure
+
+Data type to bound the range of `f` over `X` using the branch and bound algorithm.
+
+### Fields
+
+- `maxdepth` (default `10`): maximum depth of the search tree
+- `tol` (default `1e-3`): tolerance to compute the range of the function
+
+### Algorithm
+
+The algorithm evaluates a function `f` over an interval `X`. If the maximum depth is reached or the
+width of `f(X)` is below the tolerance, the algorithm returns the computed range; otherwise it bisects
+the interval/interval box.
+
+The algorithm also looks at the sign of the derivative / gradient to see if the range can be
+computed directly. By default, the derivative / gradient is computed using `ForwardDiff.jl`,
+but a custom value can be passed via the `df` keyword argument to [`enclose`](@ref).
+
+### Examples
+
+```jldoctest
+julia> enclose(x -> -x^3/6 + 5x, 1..4, BranchAndBoundEnclosure())
+[4.83333, 10.5709]
+
+julia> enclose(x -> -x^3/6 + 5x, 1..4, BranchAndBoundEnclosure(tol=1e-2); df=x->-x^2/2+5)
+[4.83333, 10.5709]
+"""
+Base.@kwdef struct BranchAndBoundEnclosure <: AbstractEnclosureAlgorithm
+    maxdepth = 10
+    tol = 1e-3
+end

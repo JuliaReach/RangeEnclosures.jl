@@ -43,22 +43,6 @@ function enclose(f::Function, dom::Interval_or_IntervalBox,
     return _enclose(solver, f, dom; kwargs...)
 end
 
-function enclose(f::Function, dom::Interval_or_IntervalBox, solver::Symbol; kwargs...)
-
-    𝑂 = Dict(kwargs)
-
-    if solver == :BranchandBound
-        tol =  :tol ∈ keys(𝑂) ? 𝑂[:tol] : 0.6
-        order = :order ∈ keys(𝑂) ? 𝑂[:order] : 10
-        #solver
-        R = enclose_BranchandBound(f, dom, order=order, tol=tol)
-    else
-        error("algorithm $algorithm unknown")
-    end
-
-    return R
-end
-
 function enclose(p::AbstractPolynomialLike, dom::Interval_or_IntervalBox,
                  solver::AbstractEnclosureAlgorithm=NaturalEnclosure(); kwargs...)
     f(x...) = p(variables(p) => x)
