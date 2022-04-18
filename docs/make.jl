@@ -1,4 +1,4 @@
-using Documenter, RangeEnclosures, IntervalOptimisation, SumOfSquares, SDPA
+using Documenter, RangeEnclosures, IntervalOptimisation, SumOfSquares, SDPA, TaylorModels
 
 DocMeta.setdocmeta!(RangeEnclosures, :DocTestSetup, :(using RangeEnclosures); recursive=true)
 
