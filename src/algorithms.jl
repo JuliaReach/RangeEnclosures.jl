@@ -127,8 +127,8 @@ Data type to bound the range of `f` over `X` using the branch and bound algorith
 
 ### Algorithm
 
-It evaluates the function over the interval `X`. If the maximum depth is reached or the
-width of `f(X)` is below the tolerance, it returns the computed range, otherwise it bisects
+The algorithm evaluates a function `f` over an interval `X`. If the maximum depth is reached or the
+width of `f(X)` is below the tolerance, the algorithm returns the computed range; otherwise it bisects
 the interval/interval box.
 
 The algorithm also looks at the sign of the derivative / gradient to see if the range can be
