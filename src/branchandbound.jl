@@ -1,7 +1,7 @@
 # univariate
 
 @inline function enclose(f::Function, X::Interval, ba::BranchAndBoundEnclosure;
-                         df=Base.Fix1(ForwardDiff.derivative, f)
+                         df=Base.Fix1(ForwardDiff.derivative, f))
     return _branch_bound(ba, f, X, df)
 end
 
