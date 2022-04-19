@@ -1,7 +1,7 @@
 #=================================
 Methods using Taylor Models
 =================================#
-using TaylorModels
+using .TaylorModels
 
 @inline zeroBox(N) = IntervalBox(0..0, N)
 @inline symBox(N) = IntervalBox(-1..1, N)

@@ -1,4 +1,4 @@
-using IntervalOptimisation, Test, RangeEnclosures
+using IntervalOptimisation, TaylorModels, Test, RangeEnclosures
 
 using DynamicPolynomials: @polyvar
 
