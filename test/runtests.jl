@@ -1,4 +1,4 @@
-using IntervalOptimisation, TaylorModels, Test, RangeEnclosures
+using IntervalOptimisation, TaylorModels, Test, RangeEnclosures, SumOfSquares, SDPA
 
 using DynamicPolynomials: @polyvar
 
