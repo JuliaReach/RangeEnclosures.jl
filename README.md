@@ -119,6 +119,7 @@ julia> enclose(g, dom, :SumOfSquares, order=5, backend=MosekTools.Mosek.Optimize
 ```
 The result returned by interval arithmetic substitution in this example is actually tight.
 
+<!--
 ## Acknowledgements
 
 If you use `RangeEnclosures.jl`, consider acknowledging or citing the Julia package
@@ -132,3 +133,4 @@ during the preparation of this package:
 - [Luis Benet](https://github.com/lbenet)
 - [Benoît Legat](https://github.com/blegat/)
 - [David P. Sanders](https://github.com/dpsanders/)
+-->
