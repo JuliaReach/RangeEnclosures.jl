@@ -8,7 +8,7 @@ abstract type AbstractEnclosureAlgorithm end
 """
     AbstractDirectRangeAlgorithm <: AbstractEnclosureAlgorithm
 
-Abstract type for range enclosures algorithms that directly evaluate the functions over a
+Abstract type for range enclosure algorithms that directly evaluate the functions over a
 given domain.
 """
 abstract type AbstractDirectRangeAlgorithm <: AbstractEnclosureAlgorithm end
