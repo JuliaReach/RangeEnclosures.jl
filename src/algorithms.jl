@@ -6,7 +6,23 @@ Abstract type for range enclosure algorithms.
 abstract type AbstractEnclosureAlgorithm end
 
 """
-   NaturalEnclosure <: AbstractEnclosureAlgorithm
+    AbstractDirectRangeAlgorithm <: AbstractEnclosureAlgorithm
+
+Abstract type for range enclosure algorithms that directly evaluate the functions over a
+given domain.
+"""
+abstract type AbstractDirectRangeAlgorithm <: AbstractEnclosureAlgorithm end
+
+"""
+    AbstractIterativeRangeAlgorithm <: AbstractEnclosureAlgorithm
+
+Abstract type for algorithms that iteratively bound the range of a function over a given
+domain.
+"""
+abstract type AbstractIterativeRangeAlgorithm <: AbstractEnclosureAlgorithm end
+
+"""
+   NaturalEnclosure <: AbstractDirectRangeAlgorithm
 
 Data type to bound the range of `f` over `X` using natural enclosure, i.e., to
 evaluate `f(X)` with interval arithmetic.
@@ -18,10 +34,10 @@ julia> enclose(x -> 1 - x^4 + x^5, 0..1, NaturalEnclosure())
 [0, 2]
 ```
 """
-struct NaturalEnclosure <: AbstractEnclosureAlgorithm end
+struct NaturalEnclosure <: AbstractDirectRangeAlgorithm end
 
 """
-    MooreSkelboeEnclosure{T} <: AbstractEnclosureAlgorithm
+    MooreSkelboeEnclosure{T} <: AbstractIterativeRangeAlgorithm
 
 Data type to bound the range of `f` over `X` using the Moore-Skelboe algorithm, which
 rigorously computes the global minimum and maximum of the function.
@@ -48,13 +64,13 @@ julia> enclose(x -> 1 - x^4 + x^5, 0..1, MooreSkelboeEnclosure()) # default para
 julia> enclose(x -> 1 - x^4 + x^5, 0..1, MooreSkelboeEnclosure(; tol=1e-2))
 [0.900812, 1.0326]
 """
-Base.@kwdef struct MooreSkelboeEnclosure{T} <: AbstractEnclosureAlgorithm
+Base.@kwdef struct MooreSkelboeEnclosure{T} <: AbstractIterativeRangeAlgorithm
     structure::T = HeapedVector
     tol::Float64 = 1e-3
 end
 
 """
-    TaylorModelsEnclosure <: AbstractEnclosureAlgorithm
+    TaylorModelsEnclosure <: AbstractDirectRangeAlgorithm
 
 Data type to bound the range of `f` over `X` using Taylor models.
 See [`TaylorModels.jl`](https://github.com/JuliaIntervals/TaylorModels.jl) for more details.
@@ -77,14 +93,14 @@ julia> enclose(x -> 1 - x^4 + x^5, 0..1, TaylorModelsEnclosure(; order=4))
 
 ```
 """
-Base.@kwdef struct TaylorModelsEnclosure <: AbstractEnclosureAlgorithm
+Base.@kwdef struct TaylorModelsEnclosure <: AbstractDirectRangeAlgorithm
     order::Int = 10
     normalize::Bool = true
 end
 
 
 """
-    SumOfSquaresEnclosure{T} <: AbstractEnclosureAlgorithm
+    SumOfSquaresEnclosure{T} <: AbstractIterativeRangeAlgorithm
 
 Data type to bound the range of `f` over `X` using sum-of-squares optimization.
 See [`SumOfSquares.jl`](https://github.com/jump-dev/SumOfSquares.jl) for more details
@@ -110,13 +126,13 @@ julia> enclose(x -> -x^3/6 + 5x, 1..4, SumOfSquaresEnclosure(; backend=backend))
 [4.8333, 10.541]
 ```
 """
-Base.@kwdef struct SumOfSquaresEnclosure{T} <: AbstractEnclosureAlgorithm
+Base.@kwdef struct SumOfSquaresEnclosure{T} <: AbstractIterativeRangeAlgorithm
     backend::T
     order::Int = 5
 end
 
 """
-    BranchAndBoundEnclosure
+    BranchAndBoundEnclosure <: AbstractIterativeRangeAlgorithm
 
 Data type to bound the range of `f` over `X` using the branch and bound algorithm.
 
@@ -144,7 +160,7 @@ julia> enclose(x -> -x^3/6 + 5x, 1..4, BranchAndBoundEnclosure())
 julia> enclose(x -> -x^3/6 + 5x, 1..4, BranchAndBoundEnclosure(tol=1e-2); df=x->-x^2/2+5)
 [4.83333, 10.5709]
 """
-Base.@kwdef struct BranchAndBoundEnclosure <: AbstractEnclosureAlgorithm
+Base.@kwdef struct BranchAndBoundEnclosure <: AbstractIterativeRangeAlgorithm
     maxdepth = 10
     tol = 1e-3
 end

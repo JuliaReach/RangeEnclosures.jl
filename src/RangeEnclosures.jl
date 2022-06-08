@@ -27,6 +27,6 @@ include("enclose.jl")
 export enclose, relative_precision,
   NaturalEnclosure, MooreSkelboeEnclosure, SumOfSquaresEnclosure,
   TaylorModelsEnclosure, BranchAndBoundEnclosure,
-  AbstractEnclosureAlgorithm
+  AbstractEnclosureAlgorithm, AbstractDirectRangeAlgorithm, AbstractIterativeRangeAlgorithm
 
 end # module

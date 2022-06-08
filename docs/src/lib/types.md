@@ -13,6 +13,8 @@ CurrentModule = RangeEnclosures
 
 ```@docs
 AbstractEnclosureAlgorithm
+AbstractDirectRangeAlgorithm
+AbstractIterativeRangeAlgorithm
 BranchAndBoundEnclosure
 NaturalEnclosure
 MooreSkelboeEnclosure
