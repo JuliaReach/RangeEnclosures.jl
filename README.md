@@ -32,7 +32,7 @@ julia> using Pkg; Pkg.add(url="https://github.com/JuliaReach/RangeEnclosures.jl.
 
 An *enclosure* of the [range](https://en.wikipedia.org/wiki/Range_(mathematics)) of a function `f : dom ⊂ R^n -> R` is an interval
 that contains the global minimum and maximum of `f` over its domain `dom`. `RangeEnclosures` offers an API to easily bound the range of
-a function with different algorithms. Here is a quick example, check the [docs](http://juliareach.github.io/RangeEnclosures.jl/latest/) for more.
+`f` with different algorithms. Here is a quick example (check the [docs](http://juliareach.github.io/RangeEnclosures.jl/latest/) for more).
 
 ```julia
 julia> f(x) = -x^3/6 + 5x
