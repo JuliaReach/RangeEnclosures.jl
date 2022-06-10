@@ -37,7 +37,7 @@ julia> enclose(f, dom, BranchAndBoundEnclosure())
 
 ## Contributing
 
-If you encounter bugs, want to suggest new features or have questions, feel free to [open an issue](https://github.com/JuliaReach/RangeEnclosures.jl/issues/new). You can also chat with the package developers on [gitter](https://gitter.im/JuliaReach/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) or in the `#reachability" stream on [julia zulip](https://julialang.zulipchat.com/). Pull requests implementing new features or fixing bugs are also welcome. Make sure to checkout the [contribution guidelines](https://juliareach.github.io/RangeEnclosures.jl/dev/about/#Contributing-1).
+If you encounter bugs, want to suggest new features or have questions, feel free to [open an issue](https://github.com/JuliaReach/RangeEnclosures.jl/issues/new). You can also chat with the package developers on [gitter](https://gitter.im/JuliaReach/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) or in the `#reachability" stream on [julia zulip](https://julialang.zulipchat.com/). Pull requests implementing new features or fixing bugs are also welcome. Make sure to check out the [contribution guidelines](https://juliareach.github.io/RangeEnclosures.jl/dev/about/#Contributing-1).
 
 ## Authors
 
