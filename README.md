@@ -1,24 +1,15 @@
 # RangeEnclosures.jl
 
 [![Build Status](https://github.com/JuliaReach/RangeEnclosures.jl/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/JuliaReach/RangeEnclosures.jl/actions/workflows/ci.yml?query=branch%3Amaster)
-[![Docs latest](https://img.shields.io/badge/docs-latest-blue.svg)](http://juliareach.github.io/RangeEnclosures.jl/latest/)
+<!--[![Docs latest](https://img.shields.io/badge/docs-stable-blue.svg)](http://juliareach.github.io/RangeEnclosures.jl/latest/)-->
 [![Docs dev](https://img.shields.io/badge/docs-dev-blue.svg)](http://juliareach.github.io/RangeEnclosures.jl/dev/)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](LICENSE)
 [![Code coverage](http://codecov.io/github/JuliaReach/RangeEnclosures.jl/coverage.svg?branch=master)](https://codecov.io/github/JuliaReach/RangeEnclosures.jl?branch=master)
 [![Join the chat at https://gitter.im/JuliaReach/Lobby](https://badges.gitter.im/JuliaReach/Lobby.svg)](https://gitter.im/JuliaReach/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-A [Julia](http://julialang.org) package to compute range enclosures of
-real-valued functions.
+A [Julia](http://julialang.org) package to bound the range of real-valued functions.
 
 ## :warning: NOTE: This library is currently a work-in-progress
-
-## Resources
-
-- [Docs latest](http://juliareach.github.io/RangeEnclosures.jl/latest/) -- documentation of the latest stable release
-- [Docs dev](http://juliareach.github.io/RangeEnclosures.jl/dev/) -- documentation of the dev version of the package
-- [Contributing](https://juliareach.github.io/RangeEnclosures.jl/latest/about/#Contributing-1)
-- [Release notes of tagged versions](https://github.com/JuliaReach/RangeEnclosures.jl/releases)
-- [Release notes of the development version](https://github.com/JuliaReach/RangeEnclosures.jl/wiki/Release-log-tracker)
 
 ## Installing
 
@@ -43,6 +34,10 @@ julia> dom = 1 .. 4
 julia> enclose(f, dom, BranchAndBoundEnclosure())
 [4.83333, 10.5709]
 ```
+
+## Contributing
+
+If you encounter bugs, want to suggest new features or have questions, feel free to [open an issue](https://github.com/JuliaReach/RangeEnclosures.jl/issues/new). You can also chat with the package developers on [gitter](https://gitter.im/JuliaReach/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) or in the `#reachability" stream on [julia zulip](https://julialang.zulipchat.com/). Pull requests implementing new features or fixing bugs are also welcome. Make sure to checkout the [contribution guidelines](https://juliareach.github.io/RangeEnclosures.jl/dev/about/#Contributing-1).
 
 ## Authors
 
