@@ -17,6 +17,7 @@ AbstractDirectRangeAlgorithm
 AbstractIterativeRangeAlgorithm
 BranchAndBoundEnclosure
 NaturalEnclosure
+MeanValueEnclosure
 MooreSkelboeEnclosure
 SumOfSquaresEnclosure
 TaylorModelsEnclosure
