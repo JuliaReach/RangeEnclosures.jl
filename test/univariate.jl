@@ -37,11 +37,6 @@ end
     xref = Interval(4.83299, 10.5448)
     rleft, rright = relative_precision(x, xref)
     @test rleft ≤ 1e-5 && rright ≤ 1e-5
-
-    x = enclose(f, dom, SumOfSquaresEnclosure(backend=SDPA.Optimizer))
-    xref = Interval(4.8333, 10.541)
-    rleft, rright = relative_precision(x, xref)
-    @test rleft ≤ 1e-5 && rright ≤ 1e-5
 end
 
 @testset "Test univariate polynomial input" begin
@@ -51,6 +46,11 @@ end
 
     x = enclose(p, dom)
     xref = Interval(-5.66667, 19.8334)
+    rleft, rright = relative_precision(x, xref)
+    @test rleft ≤ 1e-5 && rright ≤ 1e-5
+
+    x = enclose(p, dom, SumOfSquaresEnclosure(backend=SDPA.Optimizer))
+    xref = Interval(4.8333, 10.541)
     rleft, rright = relative_precision(x, xref)
     @test rleft ≤ 1e-5 && rright ≤ 1e-5
 end

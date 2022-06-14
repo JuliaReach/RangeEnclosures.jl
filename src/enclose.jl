@@ -43,12 +43,6 @@ function enclose(f::Function, dom::Interval_or_IntervalBox,
     return _enclose(solver, f, dom; kwargs...)
 end
 
-function enclose(p::AbstractPolynomialLike, dom::Interval_or_IntervalBox,
-                 solver::AbstractEnclosureAlgorithm=NaturalEnclosure(); kwargs...)
-    f(x...) = p(variables(p) => x)
-    return _enclose(solver, f, dom; kwargs...)
-end
-
 function enclose(f::Function, dom::Interval_or_IntervalBox,
                  method::Vector; kwargs...)
    return mapreduce(ξ -> _enclose(ξ, f, dom; kwargs...), ∩, method)
