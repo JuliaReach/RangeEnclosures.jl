@@ -40,7 +40,7 @@ struct NaturalEnclosure <: AbstractDirectRangeAlgorithm end
     MeanValueEnclosure
 
 Data type to bound the range of `f` over `X` using the mean value form, that is the range
-is bounded by the expression ``f(Xc) + f'(X) * (X - Xc)``. Where `Xc` is the midpoint of `X`
+is bounded by the expression ``f(Xc) + f'(X) * (X - Xc)``, where `Xc` is the midpoint of `X`
 and `f'` is the derivative / gradient of `f`.
 """
 struct MeanValueEnclosure <: AbstractDirectRangeAlgorithm end
