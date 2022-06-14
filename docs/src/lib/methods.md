@@ -22,9 +22,3 @@ enclose
 ```@docs
 relative_precision
 ```
-
-## Specifics to sum-of-squares optimization
-
-```@docs
-new_sos
-```
