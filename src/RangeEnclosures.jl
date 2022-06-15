@@ -1,6 +1,6 @@
 module RangeEnclosures
 
-using DynamicPolynomials, Requires, Reexport
+using Requires, Reexport
 @reexport using ForwardDiff
 @reexport using IntervalArithmetic
 const Interval_or_IntervalBox = Union{Interval, IntervalBox}
@@ -17,6 +17,7 @@ function __init__()
     @require SumOfSquares = "4b9e565b-77fc-50a5-a571-1244f986bda1" include("sdp.jl")
     @require TaylorModels = "314ce334-5f6e-57ae-acf6-00b6e903104a" include("taylormodels.jl")
     @require IntervalOptimisation = "c7c68f13-a4a2-5b9a-b424-07d005f8d9d2" include("intervaloptimisation.jl")
+    @require MultivariatePolynomials = "102ac46a-7ee4-5c85-9060-abc95bfdeaa3" include("polynomials.jl")
 end
 
 #================

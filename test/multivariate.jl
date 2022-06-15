@@ -31,4 +31,8 @@ end
     @test rleft ≤ 1e-5 && rright ≤ 1e-5
     # Note: DynamicPolynomials automatically expands p, and evaluation using
     # interval arithmetic gives a worse left bound than the factored expression.
+
+    x = enclose(p, dom, SumOfSquaresEnclosure(backend=SDPA.Optimizer))
+    @test isapprox(inf(x), 0.0; atol=1e-3)
+    @test isapprox(sup(x), 670.612; atol=1e-3)
 end
