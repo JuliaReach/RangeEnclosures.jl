@@ -3,7 +3,7 @@ Methods using Interval Arithmetic
 =================================#
 
 function _enclose(::NaturalEnclosure, f::Function, dom::Interval_or_IntervalBox; kwargs...)
-    return f(dom...)
+    return f(dom)
 end
 
 function _enclose(::MeanValueEnclosure, f::Function, dom::Interval;
@@ -12,6 +12,6 @@ function _enclose(::MeanValueEnclosure, f::Function, dom::Interval;
 end
 
 function _enclose(::MeanValueEnclosure, f::Function, dom::IntervalBox;
-                  df=t->ForwardDiff.gradient(w->f(w...), t.v))
-    return f(mid.(dom)...) + dot(df(dom), dom - mid.(dom))
+                  df=t->ForwardDiff.gradient(f, t.v))
+    return f(mid.(dom)) + dot(df(dom), dom - mid.(dom))
 end
