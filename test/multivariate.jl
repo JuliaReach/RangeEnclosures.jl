@@ -33,6 +33,6 @@ end
     # interval arithmetic gives a worse left bound than the factored expression.
 
     x = enclose(p, dom, SumOfSquaresEnclosure(backend=SDPA.Optimizer))
-    @test inf(x) ≈ 0.0 atol = 1e-3
-    @test sup(x) ≈ 670.612 atol = 1e-3
+    @test isapprox(inf(x), 0.0; atol=1e-3)
+    @test isapprox(sup(x), 670.612; atol=1e-3)
 end
