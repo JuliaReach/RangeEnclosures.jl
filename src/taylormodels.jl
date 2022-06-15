@@ -39,7 +39,7 @@ function _enclose_TaylorModels(f::Function, dom::IntervalBox{N}, order::Int) whe
     x0 = mid(dom)
     set_variables(Float64, "x", order=2order, numvars=N)
     x = [TaylorModelN(i, order, IntervalBox(x0), dom) for i=1:N]
-    return evaluate(f(x...), dom - x0)
+    return evaluate(f(x), dom - x0)
 end
 
 # normalized multivariate
@@ -52,5 +52,5 @@ function _enclose_TaylorModels_norm(f::Function, dom::IntervalBox{N}, order::Int
     x = [TaylorModelN(i, order, IntervalBox(x0), dom) for i=1:N]
     xnorm = [normalize_taylor(xi.pol, dom - x0, true) for xi in x]
     xnormTM = [TaylorModelN(xi_norm, 0..0, zBoxN, sBoxN) for xi_norm in xnorm]
-    return evaluate(f(xnormTM...), sBoxN)
+    return evaluate(f(xnormTM), sBoxN)
 end

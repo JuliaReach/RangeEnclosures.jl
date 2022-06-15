@@ -2,7 +2,7 @@ using .MultivariatePolynomials
 
 function enclose(p::AbstractPolynomialLike, dom::Interval_or_IntervalBox,
                  solver::AbstractEnclosureAlgorithm=NaturalEnclosure(); kwargs...)
-    f(x...) = p(variables(p) => x)
+    f(x) = p(x...)
     return _enclose(solver, f, dom; kwargs...)
 end
 

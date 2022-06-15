@@ -6,7 +6,7 @@
 end
 
 @inline function enclose(f::Function, X::IntervalBox, ba::BranchAndBoundEnclosure;
-                         df=t->ForwardDiff.gradient(w->f(w...), t.v))
+                         df=t->ForwardDiff.gradient(f, t.v))
     return _branch_bound(ba, f, X, df)
 end
 
@@ -18,7 +18,7 @@ function _branch_bound(ba::BranchAndBoundEnclosure, f::Function, X::Interval_or_
     range_extrema, flag = _monotonicity_check(f, X, dfX)
     flag && return hull(range_extrema, initial)
 
-    fX = f(X...)  # TODO: allow user to choose how to evaluate this (mean value, natural enclosure)
+    fX = f(X)  # TODO: allow user to choose how to evaluate this (mean value, natural enclosure)
     # if tolerance or maximum number of iteration is met, return current enclosure
     if diam(fX) <= ba.tol || cnt == ba.maxdepth
         return hull(fX, initial)
@@ -55,5 +55,5 @@ function _monotonicity_check(f::Function, X::IntervalBox{N}, ∇fX::AbstractVect
         end
     end
 
-    return hull(f(low...), f(high...)), true
+    return hull(f(low), f(high)), true
 end

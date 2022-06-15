@@ -1,6 +1,6 @@
 @testset "Multivariate functions" begin
     # himmilbeau from Daisy benchmarks
-    f(x1, x2, x3) = -x1*x2 - 2*x2*x3 - x1 - x3
+    f(x) = -x[1] * x[2] - 2 * x[2] * x[3] - x[1] - x[3]
     dom = Interval(-4.5, -0.3) × Interval(0.4, 0.9) × Interval(3.8, 7.8)
     xref = Interval(-20.786552979420335, -0.540012836551535) # MOSEK deg 6
     for solver in available_solvers
@@ -11,7 +11,7 @@
 end
 
 @testset "Multivariate example from the Quickstart Guide" begin
-    g(x, y) = (x + 2y - 7)^2 + (2x + y - 5)^2
+    g(x) = (x[1] + 2x[2] - 7)^2 + (2x[1] + x[2] - 5)^2
     dom = IntervalBox(-10..10, 2)
 
     x = enclose(g, dom, NaturalEnclosure())
