@@ -1,74 +1,29 @@
 # RangeEnclosures.jl
 
 [![Build Status](https://github.com/JuliaReach/RangeEnclosures.jl/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/JuliaReach/RangeEnclosures.jl/actions/workflows/ci.yml?query=branch%3Amaster)
-[![Docs latest](https://img.shields.io/badge/docs-latest-blue.svg)](http://juliareach.github.io/RangeEnclosures.jl/latest/)
-[![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/JuliaReach/RangeEnclosures.jl/blob/master/LICENSE.md)
+<!--[![Docs latest](https://img.shields.io/badge/docs-stable-blue.svg)](http://juliareach.github.io/RangeEnclosures.jl/latest/)-->
+[![Docs dev](https://img.shields.io/badge/docs-dev-blue.svg)](http://juliareach.github.io/RangeEnclosures.jl/dev/)
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](LICENSE)
 [![Code coverage](http://codecov.io/github/JuliaReach/RangeEnclosures.jl/coverage.svg?branch=master)](https://codecov.io/github/JuliaReach/RangeEnclosures.jl?branch=master)
 [![Join the chat at https://gitter.im/JuliaReach/Lobby](https://badges.gitter.im/JuliaReach/Lobby.svg)](https://gitter.im/JuliaReach/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-A [Julia](http://julialang.org) package to compute range enclosures of
-real-valued functions.
+A [Julia](http://julialang.org) package to bound the range of real-valued functions.
 
 ## :warning: NOTE: This library is currently a work-in-progress
 
-## Resources
-
-- [Manual](http://juliareach.github.io/RangeEnclosures.jl/latest/)
-- [Contributing](https://juliareach.github.io/RangeEnclosures.jl/latest/about/#Contributing-1)
-- [Release notes of tagged versions](https://github.com/JuliaReach/RangeEnclosures.jl/releases)
-- [Release notes of the development version](https://github.com/JuliaReach/RangeEnclosures.jl/wiki/Release-log-tracker)
-
 ## Installing
 
-This package requires Julia v1.0 or later.
-Refer to the [official documentation](https://julialang.org/downloads) on how to
-install and run Julia on your system.
-
-Depending on your needs, choose an appropriate command from the following list
-and enter it in Julia's REPL.
-To activate the `pkg` mode, type `]` (and to leave it, type `<backspace>`).
-
-#### [Install the latest release version](https://julialang.github.io/Pkg.jl/v1/managing-packages/#Adding-registered-packages-1)
+From the Julia REPL type
 
 ```julia
-pkg> add RangeEnclosures
-```
-
-#### Install the latest development version
-
-```julia
-pkg> add RangeEnclosures#master
-```
-
-#### [Clone the package for development](https://julialang.github.io/Pkg.jl/v1/managing-packages/#Developing-packages-1)
-
-```julia
-pkg> dev RangeEnclosures
+julia> using Pkg; Pkg.add(url="https://github.com/JuliaReach/RangeEnclosures.jl.git")
 ```
 
 ## Quickstart
 
 An *enclosure* of the [range](https://en.wikipedia.org/wiki/Range_(mathematics)) of a function `f : dom ⊂ R^n -> R` is an interval
-that contains the global minimum and maximum of `f` over its domain `dom`. `RangeEnclosures` can be used to find such bounds
-using different methods, as in:
-
-```julia
-julia> using RangeEnclosures
-
-julia> enclose(x -> -x^3/6 + 5x, 1 .. 4)  # using the default solver
-[-5.66667, 19.8334]
-```
-It is guaranteed that the global minimum (resp. global maximum) of `f(x) = -x^3/6 + 5x` on the interval `[1, 4]` is greater or equal than `-5.66667` (resp. smaller or equal than `19.8334`). Although interval arithmetic is very fast, the bounds obtained are not necessarily tight. Hence, it is often desired to employ different numerical approaches, available through different *solvers*.
-
-`RangeEnclosures` exports the function `enclose` accepting a real-valued function `f`, either univariate or multivariate, over a hyperrectangular (i.e. box-shaped) domain. Without extra arguments, `enclose` uses the default solver (`IntervalArithmetic`) as in the above computation, although other solvers are available through extra arguments to `enclose`. The available solvers are: `:IntervalArithmetic`, `:IntervalOptimisation`, `:TaylorModels`, `:AffineArithmetic` (optional) and `:SumOfSquares` (only for polynomials).
-
-This is a "meta" package in the sense that `enclose` calls one of the available solvers to do the optimization;
-see the [documentation](http://juliareach.github.io/RangeEnclosures.jl/latest/)
-or the examples below for the available options. The inputs to `enclose` are standard Julia functions and the domains are intervals
-(resp. products of intervals): these are given as `Interval` (resp. `IntervalBox`)
-types, both defined in `IntervalArithmetic`.
-
-With the running example, using Taylor models substitution of order 4 gives:
+that contains the global minimum and maximum of `f` over its domain `dom`. `RangeEnclosures` offers an API to easily bound the range of
+`f` with different algorithms. Here is a quick example (check the [docs](http://juliareach.github.io/RangeEnclosures.jl/latest/) for more).
 
 ```julia
 julia> f(x) = -x^3/6 + 5x
@@ -76,49 +31,35 @@ julia> f(x) = -x^3/6 + 5x
 julia> dom = 1 .. 4
 [1, 4]
 
-julia> enclose(f, dom, :TaylorModels, order=4)
-[4.27083, 12.7084]
+julia> enclose(f, dom, BranchAndBoundEnclosure())
+[4.83333, 10.5709]
 ```
-We can get tight bounds using interval (global) optimization,
 
-```julia
-julia> enclose(f, dom, :IntervalOptimisation)
-[4.83299, 10.5448]
-```
-or polynomial optimization ([semidefinite programming](https://en.wikipedia.org/wiki/Semidefinite_programming)), by changing the solver:
-```julia
-julia> enclose(f, dom, :SumOfSquares)
-[4.83333, 10.541]
-```
-In the last calculation, the default semidefinite programming (SDP) solver `SDPA` is used,
-but you can pass in any other SDP solver accepted by `JuMP`. For instance, if you
-have `MosekTools` (and a Mosek license) installed, and want the maximum
-degree of the relaxation to be `4`, do:
+## Contributing
 
-```julia
-julia> using MosekTools
+If you encounter bugs, want to suggest new features or have questions, feel free to [open an issue](https://github.com/JuliaReach/RangeEnclosures.jl/issues/new). You can also chat with the package developers on [gitter](https://gitter.im/JuliaReach/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) or in the `#reachability" stream on [julia zulip](https://julialang.zulipchat.com/). Pull requests implementing new features or fixing bugs are also welcome. Make sure to check out the [contribution guidelines](https://juliareach.github.io/RangeEnclosures.jl/dev/about/#Contributing-1).
 
-julia> enclose(f, dom, :SumOfSquares, order=4, backend=MosekTools.Mosek.Optimizer, QUIET=true)
-[4.83333, 10.541]
-```
-(the optional `QUIET` argument is used to turn off the verbose mode).
+## Authors
 
-Multivariate functions are handled similarly:
+- [Luca Ferranti](https://github.com/lucaferranti)
+- [Marcelo Forets](https://github.com/mforets)
+- [Christian Schilling](https://github.com/schillic)
 
-```julia
-julia> g(x, y) = (x + 2y - 7)^2 + (2x + y - 5)^2;
+## Acknowledgements
 
-julia> dom = IntervalBox(-10..10, 2)
-[-10, 10] × [-10, 10]
+Huge thanks to all the [contributors](https://github.com/JuliaReach/RangeEnclosures.jl/graphs/contributors).
 
-julia> enclose(g, dom, :IntervalArithmetic)
-[0, 2594]
+During Summer 2022, this project was financially supported by Google through the Google Summer of Code programme.
+During Sumemr 2019, this project was financially supported by Julia throught the Julia Season of Contributions programme.
 
-julia> enclose(g, dom, :SumOfSquares, order=5, backend=MosekTools.Mosek.Optimizer, QUIET=true)
-[9.30098e-07, 2594]
-```
-The result returned by interval arithmetic substitution in this example is actually tight.
+In addition, we are grateful to the following persons for enlightening discussions
+during the preparation of this package:
 
+- [Luis Benet](https://github.com/lbenet)
+- [Benoît Legat](https://github.com/blegat/)
+- [David P. Sanders](https://github.com/dpsanders/)
+
+<!--
 ## Acknowledgements
 
 If you use `RangeEnclosures.jl`, consider acknowledging or citing the Julia package
@@ -132,3 +73,4 @@ during the preparation of this package:
 - [Luis Benet](https://github.com/lbenet)
 - [Benoît Legat](https://github.com/blegat/)
 - [David P. Sanders](https://github.com/dpsanders/)
+-->
