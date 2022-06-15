@@ -37,6 +37,15 @@ julia> enclose(x -> 1 - x^4 + x^5, 0..1, NaturalEnclosure())
 struct NaturalEnclosure <: AbstractDirectRangeAlgorithm end
 
 """
+    MeanValueEnclosure
+
+Data type to bound the range of `f` over `X` using the mean value form, that is the range
+is bounded by the expression ``f(Xc) + f'(X) * (X - Xc)``, where `Xc` is the midpoint of `X`
+and `f'` is the derivative of `f` (gradient in the multivariate case).
+"""
+struct MeanValueEnclosure <: AbstractDirectRangeAlgorithm end
+
+"""
     MooreSkelboeEnclosure{T} <: AbstractIterativeRangeAlgorithm
 
 Data type to bound the range of `f` over `X` using the Moore-Skelboe algorithm, which
