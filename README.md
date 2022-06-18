@@ -21,9 +21,9 @@ julia> using Pkg; Pkg.add(url="https://github.com/JuliaReach/RangeEnclosures.jl.
 
 ## Quickstart
 
-An *enclosure* of the [range](https://en.wikipedia.org/wiki/Range_(mathematics)) of a function `f : dom ⊂ R^n -> R` is an interval
-that contains the global minimum and maximum of `f` over its domain `dom`. `RangeEnclosures` offers an API to easily bound the range of
-`f` with different algorithms. Here is a quick example (check the [docs](http://juliareach.github.io/RangeEnclosures.jl/latest/) for more).
+An *enclosure* of the [range](https://en.wikipedia.org/wiki/Range_(mathematics)) of a function $f : D \subset \mathbb{R}^n \to \mathbb{R}$ is an interval
+that contains the global minimum and maximum of $f$ over its domain $D$. `RangeEnclosures` offers an API to easily bound the range of
+$f$ with different algorithms. Here is a quick example:
 
 ```julia
 julia> f(x) = -x^3/6 + 5x
@@ -35,9 +35,11 @@ julia> enclose(f, dom, BranchAndBoundEnclosure())
 [4.83333, 10.5709]
 ```
 
+We plan to add more examples to the [docs](http://juliareach.github.io/RangeEnclosures.jl/latest/); in the meantime, you can check the [test](https://github.com/JuliaReach/RangeEnclosures.jl/tree/master/test) folder for further examples. 
+
 ## Contributing
 
-If you encounter bugs, want to suggest new features or have questions, feel free to [open an issue](https://github.com/JuliaReach/RangeEnclosures.jl/issues/new). You can also chat with the package developers on [gitter](https://gitter.im/JuliaReach/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) or in the `#reachability" stream on [julia zulip](https://julialang.zulipchat.com/). Pull requests implementing new features or fixing bugs are also welcome. Make sure to check out the [contribution guidelines](https://juliareach.github.io/RangeEnclosures.jl/dev/about/#Contributing-1).
+If you encounter bugs, want to suggest new features or have questions, feel free to [open an issue](https://github.com/JuliaReach/RangeEnclosures.jl/issues/new). You can also chat with the package developers on [gitter](https://gitter.im/JuliaReach/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) or in the `#reachability-analysis` stream on [julia zulip](https://julialang.zulipchat.com/). Pull requests implementing new features or fixing bugs are also welcome. Make sure to check out the [contribution guidelines](https://juliareach.github.io/RangeEnclosures.jl/dev/about/#Contributing-1).
 
 ## Authors
 
@@ -50,7 +52,7 @@ If you encounter bugs, want to suggest new features or have questions, feel free
 Huge thanks to all the [contributors](https://github.com/JuliaReach/RangeEnclosures.jl/graphs/contributors).
 
 During Summer 2022, this project was financially supported by Google through the Google Summer of Code programme.
-During Sumemr 2019, this project was financially supported by Julia throught the Julia Season of Contributions programme.
+During Summer 2019, this project was financially supported by Julia through the Julia Season of Contributions programme.
 
 In addition, we are grateful to the following persons for enlightening discussions
 during the preparation of this package:
