@@ -9,8 +9,6 @@
 
 A [Julia](http://julialang.org) package to bound the range of real-valued functions.
 
-## :warning: NOTE: This library is currently a work-in-progress
-
 ## Installing
 
 From the Julia REPL type
