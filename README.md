@@ -14,7 +14,7 @@ A [Julia](http://julialang.org) package to bound the range of real-valued functi
 From the Julia REPL type
 
 ```julia
-julia> using Pkg; Pkg.add(url="https://github.com/JuliaReach/RangeEnclosures.jl.git")
+julia> using Pkg; Pkg.add("RangeEnclosures")
 ```
 
 ## Quickstart
@@ -59,18 +59,5 @@ during the preparation of this package:
 - [Benoît Legat](https://github.com/blegat/)
 - [David P. Sanders](https://github.com/dpsanders/)
 
-<!--
-## Acknowledgements
-
 If you use `RangeEnclosures.jl`, consider acknowledging or citing the Julia package
 that implements the specific solver that you are using.
-
-This package was completed during Aadesh Deshmuhk's [Julia Seasons of Contributions
-(JSOC)](https://julialang.org/soc/ideas-page) 2019. 
-In addition, we are grateful to the following persons for enlightening discussions
-during the preparation of this package:
-
-- [Luis Benet](https://github.com/lbenet)
-- [Benoît Legat](https://github.com/blegat/)
-- [David P. Sanders](https://github.com/dpsanders/)
--->
