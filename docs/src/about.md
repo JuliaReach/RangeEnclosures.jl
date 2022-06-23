@@ -92,7 +92,7 @@ $ julia --color=yes docs/make.jl
 Huge thanks to all the [contributors](https://github.com/JuliaReach/RangeEnclosures.jl/graphs/contributors).
 
 During Summer 2022, this project was financially supported by Google through the Google Summer of Code programme.
-During Sumemr 2019, this project was financially supported by Julia throught the Julia Season of Contributions programme.
+During Summer 2019, this project was financially supported by Julia through the Julia Season of Contributions programme.
 
 In addition, we are grateful to the following persons for enlightening discussions
 during the preparation of this package:
