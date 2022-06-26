@@ -1,11 +1,7 @@
-# #======================================
-# Methods using semidefinite programming
-# ======================================#
 using .SumOfSquares
 
-function _enclose(sose::SumOfSquaresEnclosure, p::AbstractPolynomialLike, dom::Interval_or_IntervalBox;
-                  kwargs...)
-
+function _enclose_sos(sose::SumOfSquaresEnclosure, p::AbstractPolynomialLike, dom::Interval_or_IntervalBox;
+                      kwargs...)
     x = variables(p)
 
     B = reduce(intersect, @set inf(domi) <= xi && xi <= sup(domi) for (xi, domi) in zip(x, dom))

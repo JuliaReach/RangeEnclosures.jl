@@ -1,6 +1,6 @@
-#=================================
-Methods using Interval Arithmetic
-=================================#
+# =================================
+# Methods using interval arithmetic
+# =================================
 
 function _enclose(::NaturalEnclosure, f::Function, dom::Interval_or_IntervalBox; kwargs...)
     return f(dom)

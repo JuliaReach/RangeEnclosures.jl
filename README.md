@@ -1,7 +1,6 @@
 # RangeEnclosures.jl
 
 [![Build Status](https://github.com/JuliaReach/RangeEnclosures.jl/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/JuliaReach/RangeEnclosures.jl/actions/workflows/ci.yml?query=branch%3Amaster)
-<!--[![Docs latest](https://img.shields.io/badge/docs-stable-blue.svg)](http://juliareach.github.io/RangeEnclosures.jl/latest/)-->
 [![Docs dev](https://img.shields.io/badge/docs-dev-blue.svg)](http://juliareach.github.io/RangeEnclosures.jl/dev/)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](LICENSE)
 [![Code coverage](http://codecov.io/github/JuliaReach/RangeEnclosures.jl/coverage.svg?branch=master)](https://codecov.io/github/JuliaReach/RangeEnclosures.jl?branch=master)
@@ -19,9 +18,11 @@ julia> using Pkg; Pkg.add("RangeEnclosures")
 
 ## Quickstart
 
-An *enclosure* of the [range](https://en.wikipedia.org/wiki/Range_(mathematics)) of a function $f : D \subset \mathbb{R}^n \to \mathbb{R}$ is an interval
-that contains the global minimum and maximum of $f$ over its domain $D$. `RangeEnclosures` offers an API to easily bound the range of
-$f$ with different algorithms. Here is a quick example:
+An *enclosure* of the [range](https://en.wikipedia.org/wiki/Range_(mathematics)
+of a function $f : D \subset \mathbb{R}^n \to \mathbb{R}$ is an interval that
+contains the global minimum and maximum of $f$ over its domain $D$.
+`RangeEnclosures` offers an API to easily bound the range of $f$ with different
+algorithms. Here is a quick example:
 
 ```julia
 julia> f(x) = -x^3/6 + 5x
@@ -33,11 +34,35 @@ julia> enclose(f, dom, BranchAndBoundEnclosure())
 [4.83333, 10.5709]
 ```
 
-We plan to add more examples to the [docs](http://juliareach.github.io/RangeEnclosures.jl/latest/); in the meantime, you can check the [test](https://github.com/JuliaReach/RangeEnclosures.jl/tree/master/test) folder for further examples. 
+![Example](https://github.com/JuliaReach/RangeEnclosures.jl/blob/master/docs/src/assets//readme_example.png?raw=true)
+
+<!--code to generate plot
+using RangeEnclosures, Plots
+f(x) = -x^3/6 + 5x
+dom = 1 .. 4
+b = enclose(f, dom, BranchAndBoundEnclosure())
+plot(xlab="x", leg=:right)
+plot!(x -> sup(b), 1, 4, c=:red, s=:dash, lw=2, lab="upper bound")
+plot!(f, 1, 4, c=:blue, lw=2, lab="f(x)")
+plot!(x -> inf(b), c=:orange, s=:dash, lw=2, lab="lower bound")
+savefig("readme_example")
+-->
+
+We plan to add more examples to the
+[docs](http://juliareach.github.io/RangeEnclosures.jl/latest/). In the meantime,
+check the [test](https://github.com/JuliaReach/RangeEnclosures.jl/tree/master/test)
+folder for further examples.
 
 ## Contributing
 
-If you encounter bugs, want to suggest new features or have questions, feel free to [open an issue](https://github.com/JuliaReach/RangeEnclosures.jl/issues/new). You can also chat with the package developers on [gitter](https://gitter.im/JuliaReach/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) or in the `#reachability-analysis` stream on [julia zulip](https://julialang.zulipchat.com/). Pull requests implementing new features or fixing bugs are also welcome. Make sure to check out the [contribution guidelines](https://juliareach.github.io/RangeEnclosures.jl/dev/about/#Contributing-1).
+If you encounter bugs, want to suggest new features or have questions, feel free
+to [open an issue](https://github.com/JuliaReach/RangeEnclosures.jl/issues/new).
+You can also chat with the package developers on
+[Gitter](https://gitter.im/JuliaReach/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+or in the `#reachability-analysis` stream on
+[Zulip](https://julialang.zulipchat.com/). Pull requests implementing new
+features or fixing bugs are also welcome. Make sure to check out the
+[contribution guidelines](https://juliareach.github.io/RangeEnclosures.jl/dev/about/#Contributing-1).
 
 ## Authors
 
@@ -45,12 +70,14 @@ If you encounter bugs, want to suggest new features or have questions, feel free
 - [Marcelo Forets](https://github.com/mforets)
 - [Christian Schilling](https://github.com/schillic)
 
-## Acknowledgements
+## Acknowledgments
 
 Huge thanks to all the [contributors](https://github.com/JuliaReach/RangeEnclosures.jl/graphs/contributors).
 
-During Summer 2022, this project was financially supported by Google through the Google Summer of Code programme.
-During Summer 2019, this project was financially supported by Julia through the Julia Season of Contributions programme.
+During Summer 2022, this project was financially supported by Google through the
+Google Summer of Code program.
+During Summer 2019, this project was financially supported by Julia through the
+Julia Season of Contributions program.
 
 In addition, we are grateful to the following persons for enlightening discussions
 during the preparation of this package:

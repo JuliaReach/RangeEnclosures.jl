@@ -1,10 +1,10 @@
-# univariate
-
+# univariate case
 @inline function enclose(f::Function, X::Interval, ba::BranchAndBoundEnclosure;
                          df=Base.Fix1(ForwardDiff.derivative, f))
     return _branch_bound(ba, f, X, df)
 end
 
+# multivariate case
 @inline function enclose(f::Function, X::IntervalBox, ba::BranchAndBoundEnclosure;
                          df=t->ForwardDiff.gradient(f, t.v))
     return _branch_bound(ba, f, X, df)

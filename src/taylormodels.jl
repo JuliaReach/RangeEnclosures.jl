@@ -1,14 +1,10 @@
-#=================================
-Methods using Taylor Models
-=================================#
-using .TaylorModels
-
-@inline zeroBox(N) = IntervalBox(0..0, N)
-@inline symBox(N) = IntervalBox(-1..1, N)
-
+# ===========================
+# Methods using Taylor models
+# ===========================
 
 function _enclose(tme::TaylorModelsEnclosure, f::Function, dom::Interval_or_IntervalBox;
                   kwargs...)
+    require(:TaylorModels; fun_name="enclose")
 
     if tme.normalize
         R = _enclose_TaylorModels_norm(f, dom, tme.order)
@@ -17,6 +13,13 @@ function _enclose(tme::TaylorModelsEnclosure, f::Function, dom::Interval_or_Inte
     end
     return R
 end
+
+function load_taylormodels()
+return quote
+using .TaylorModels
+
+@inline zeroBox(N) = IntervalBox(0..0, N)
+@inline symBox(N) = IntervalBox(-1..1, N)
 
 # univariate
 function _enclose_TaylorModels(f::Function, dom::Interval, order::Int)
@@ -54,3 +57,6 @@ function _enclose_TaylorModels_norm(f::Function, dom::IntervalBox{N}, order::Int
     xnormTM = [TaylorModelN(xi_norm, 0..0, zBoxN, sBoxN) for xi_norm in xnorm]
     return evaluate(f(xnormTM), sBoxN)
 end
+
+end  # quote
+end  # load_taylormodels()
