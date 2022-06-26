@@ -45,6 +45,8 @@ and `f'` is the derivative of `f` (gradient in the multivariate case).
 """
 struct MeanValueEnclosure <: AbstractDirectRangeAlgorithm end
 
+_default_vector_MSE = nothing
+
 """
     MooreSkelboeEnclosure{T} <: AbstractIterativeRangeAlgorithm
 
@@ -60,7 +62,7 @@ See [`IntervalOptimisation.jl`](https://github.com/JuliaIntervals/IntervalOptimi
 
 ### Notes
 
-To use this algorithm, you need to import `IntervalOptimisation.jl`
+To use this algorithm, you need to load `IntervalOptimisation.jl`.
 
 ### Examples
 
@@ -74,7 +76,7 @@ julia> enclose(x -> 1 - x^4 + x^5, 0..1, MooreSkelboeEnclosure(; tol=1e-2))
 [0.900812, 1.0326]
 """
 Base.@kwdef struct MooreSkelboeEnclosure{T} <: AbstractIterativeRangeAlgorithm
-    structure::T = HeapedVector
+    structure::T = _default_vector_MSE
     tol::Float64 = 1e-3
 end
 
@@ -90,6 +92,10 @@ See [`TaylorModels.jl`](https://github.com/JuliaIntervals/TaylorModels.jl) for m
                  an enclosure of `f` over `dom`
 - `normalize` -- (default: `true`) if `true`, normalize the Taylor model
                  on the unit symmetric box around the origin
+
+### Notes
+
+To use this solver, you need to load `TaylorModels.jl` and a backend.
 
 ### Examples
 
@@ -122,17 +128,22 @@ See [`SumOfSquares.jl`](https://github.com/jump-dev/SumOfSquares.jl) for more de
 
 ### Notes
 
-To use this solver, you need to import `SumOfSquares.jl` and a backend.
+To use this solver, you need to load `SumOfSquares.jl` and a backend.
+
 Since the optimization problem is solved numerically and not with interval arithmetic, the
 result of this algorithm is not rigorous.
 
-```julia
-julia> using SumOfSquares, SDPA
+### Examples
 
-julia> backend = SDPA.Optimizer
+```jldoctest
+julia> using SumOfSquares, SDPA, DynamicPolynomials
 
-julia> enclose(x -> -x^3/6 + 5x, 1..4, SumOfSquaresEnclosure(; backend=backend))
-[4.8333, 10.541]
+julia> backend = SDPA.Optimizer;
+
+julia> @polyvar x;
+
+julia> enclose(-x^3/6 + 5x, 1..4, SumOfSquaresEnclosure(; backend=backend))
+[4.83333, 10.541]
 ```
 """
 Base.@kwdef struct SumOfSquaresEnclosure{T} <: AbstractIterativeRangeAlgorithm

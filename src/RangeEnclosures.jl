@@ -5,29 +5,38 @@ using Requires, Reexport
 @reexport using IntervalArithmetic
 const Interval_or_IntervalBox = Union{Interval, IntervalBox}
 
-
+include("util.jl")
 include("algorithms.jl")
-include("intervals.jl")
+include("intervalarithmetic.jl")
 include("branchandbound.jl")
+include("taylormodels.jl")
+include("sdp_header.jl")
+include("intervaloptimisation.jl")
 
-#================
-Optional methods
-=================#
+# ================
+# Optional methods
+# ================
+
 function __init__()
     @require SumOfSquares = "4b9e565b-77fc-50a5-a571-1244f986bda1" include("sdp.jl")
-    @require TaylorModels = "314ce334-5f6e-57ae-acf6-00b6e903104a" include("taylormodels.jl")
-    @require IntervalOptimisation = "c7c68f13-a4a2-5b9a-b424-07d005f8d9d2" include("intervaloptimisation.jl")
+    @require TaylorModels = "314ce334-5f6e-57ae-acf6-00b6e903104a" eval(load_taylormodels())
+    @require IntervalOptimisation = "c7c68f13-a4a2-5b9a-b424-07d005f8d9d2" eval(load_intervaloptimization())
     @require MultivariatePolynomials = "102ac46a-7ee4-5c85-9060-abc95bfdeaa3" include("polynomials.jl")
 end
 
-#================
-API
-=================#
+# ===
+# API
+# ===
+
 include("enclose.jl")
 
-export enclose, relative_precision,
-  MeanValueEnclosure, NaturalEnclosure, MooreSkelboeEnclosure, SumOfSquaresEnclosure,
-  TaylorModelsEnclosure, BranchAndBoundEnclosure,
-  AbstractEnclosureAlgorithm, AbstractDirectRangeAlgorithm, AbstractIterativeRangeAlgorithm
+export enclose,
+       relative_precision,
+       NaturalEnclosure,
+       MeanValueEnclosure,
+       MooreSkelboeEnclosure,
+       SumOfSquaresEnclosure,
+       TaylorModelsEnclosure,
+       BranchAndBoundEnclosure
 
-end # module
+end  # module
