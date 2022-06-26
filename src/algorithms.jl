@@ -74,6 +74,7 @@ julia> enclose(x -> 1 - x^4 + x^5, 0..1, MooreSkelboeEnclosure()) # default para
 
 julia> enclose(x -> 1 - x^4 + x^5, 0..1, MooreSkelboeEnclosure(; tol=1e-2))
 [0.900812, 1.0326]
+```
 """
 Base.@kwdef struct MooreSkelboeEnclosure{T} <: AbstractIterativeRangeAlgorithm
     structure::T = _default_vector_MSE
@@ -105,7 +106,6 @@ julia> enclose(x -> 1 - x^4 + x^5, 0..1, TaylorModelsEnclosure()) # default para
 
 julia> enclose(x -> 1 - x^4 + x^5, 0..1, TaylorModelsEnclosure(; order=4))
 [0.78125, 1.125]
-
 ```
 """
 Base.@kwdef struct TaylorModelsEnclosure <: AbstractDirectRangeAlgorithm
@@ -179,6 +179,7 @@ julia> enclose(x -> -x^3/6 + 5x, 1..4, BranchAndBoundEnclosure())
 
 julia> enclose(x -> -x^3/6 + 5x, 1..4, BranchAndBoundEnclosure(tol=1e-2); df=x->-x^2/2+5)
 [4.83333, 10.5709]
+```
 """
 Base.@kwdef struct BranchAndBoundEnclosure <: AbstractIterativeRangeAlgorithm
     maxdepth = 10
