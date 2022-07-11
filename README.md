@@ -18,7 +18,7 @@ julia> using Pkg; Pkg.add("RangeEnclosures")
 
 ## Quickstart
 
-An *enclosure* of the [range](https://en.wikipedia.org/wiki/Range_(mathematics)
+An *enclosure* of the [range](https://en.wikipedia.org/wiki/Range_of_a_function)
 of a function $f : D \subset \mathbb{R}^n \to \mathbb{R}$ is an interval that
 contains the global minimum and maximum of $f$ over its domain $D$.
 `RangeEnclosures` offers an API to easily bound the range of $f$ with different
