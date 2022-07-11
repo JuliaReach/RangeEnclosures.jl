@@ -72,19 +72,14 @@ features or fixing bugs are also welcome. Make sure to check out the
 
 ## Acknowledgments
 
-Huge thanks to all the [contributors](https://github.com/JuliaReach/RangeEnclosures.jl/graphs/contributors).
+Huge thanks to all the [contributors](https://github.com/JuliaReach/RangeEnclosures.jl/graphs/contributors). 
+In addition, we are grateful to [Luis Benet](https://github.com/lbenet), [Benoît Legat](https://github.com/blegat/) and [David P. Sanders](https://github.com/dpsanders/) for enlightening discussions
+during the preparation of this package.
 
 During Summer 2022, this project was financially supported by Google through the
 Google Summer of Code program.
 During Summer 2019, this project was financially supported by Julia through the
 Julia Season of Contributions program.
-
-In addition, we are grateful to the following persons for enlightening discussions
-during the preparation of this package:
-
-- [Luis Benet](https://github.com/lbenet)
-- [Benoît Legat](https://github.com/blegat/)
-- [David P. Sanders](https://github.com/dpsanders/)
 
 If you use `RangeEnclosures.jl`, consider acknowledging or citing the Julia package
 that implements the specific solver that you are using.
