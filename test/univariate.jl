@@ -7,7 +7,7 @@
     for solver in available_solvers
         x = enclose(f, dom, solver)
         rleft, rright = relative_precision(x, xref)
-        if solver isa TaylorModelsEnclosure
+        if solver isa TaylorModelsEnclosure || solver isa AffineArithmeticEnclosure
             # for this example, TaylorModels cannot tightly approximate the lhs
             @test rleft ≤ 30 && rright ≤ 1e-10
         elseif solver isa SumOfSquaresEnclosure

@@ -15,6 +15,7 @@ CurrentModule = RangeEnclosures
 AbstractEnclosureAlgorithm
 AbstractDirectRangeAlgorithm
 AbstractIterativeRangeAlgorithm
+AffineArithmeticEnclosure
 BranchAndBoundEnclosure
 NaturalEnclosure
 MeanValueEnclosure
