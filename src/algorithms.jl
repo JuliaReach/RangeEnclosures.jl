@@ -45,6 +45,20 @@ and `f'` is the derivative of `f` (gradient in the multivariate case).
 """
 struct MeanValueEnclosure <: AbstractDirectRangeAlgorithm end
 
+
+"""
+    AffineArithmeticEnclosure <: AbstractDirectRangeAlgorithm
+
+Data type to bound the range of `f` over `X` using affine arithmetic.
+See [`AffineArithmetic.jl`](https://github.com/JuliaIntervals/AffineArithmetic.jl) for more details.
+
+### Notes
+
+To use this algorithm, you need to load `AffineArithmetic.jl`. Note also that `AffineArithmetic.jl`
+currently supports only arithmetic operations.
+"""
+struct AffineArithmeticEnclosure <: AbstractDirectRangeAlgorithm end
+
 _default_vector_MSE = nothing
 
 """
