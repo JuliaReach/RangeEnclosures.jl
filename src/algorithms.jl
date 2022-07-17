@@ -54,7 +54,7 @@ See [`AffineArithmetic.jl`](https://github.com/JuliaIntervals/AffineArithmetic.j
 
 ### Notes
 
-To use this algorithm, you need to load `AffineArithmetic.jl`, note also that `AffineArithmetic.jl`
+To use this algorithm, you need to load `AffineArithmetic.jl`. Note also that `AffineArithmetic.jl`
 currently supports only arithmetic operations.
 """
 struct AffineArithmeticEnclosure <: AbstractDirectRangeAlgorithm end
