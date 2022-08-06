@@ -2,10 +2,14 @@ module RangeEnclosures
 
 using Requires, Reexport
 @reexport using ForwardDiff
+
 @reexport using IntervalArithmetic
 const Interval_or_IntervalBox = Union{Interval, IntervalBox}
 
-include("util.jl")
+import ReachabilityBase.Require: require
+require(package; fun_name::String="", explanation::String="") =
+    require(@__MODULE__, package; fun_name=fun_name, explanation=explanation)
+
 include("algorithms.jl")
 include("intervalarithmetic.jl")
 include("branchandbound.jl")
