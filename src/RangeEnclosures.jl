@@ -6,9 +6,7 @@ using Requires, Reexport
 @reexport using IntervalArithmetic
 const Interval_or_IntervalBox = Union{Interval, IntervalBox}
 
-import ReachabilityBase.Require: require
-require(package; fun_name::String="", explanation::String="") =
-    require(@__MODULE__, package; fun_name=fun_name, explanation=explanation)
+using ReachabilityBase.Require
 
 include("algorithms.jl")
 include("intervalarithmetic.jl")
