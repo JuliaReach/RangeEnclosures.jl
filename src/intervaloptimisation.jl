@@ -4,7 +4,7 @@
 
 function _enclose(mse::MooreSkelboeEnclosure, f::Function, dom::Interval_or_IntervalBox;
                   kwargs...)
-    require(:IntervalOptimisation; fun_name="enclose")
+    require(@__MODULE__, :IntervalOptimisation; fun_name="enclose")
 
     global_min, _ = minimise(f, dom, structure=mse.structure, tol=mse.tol)
     global_max, _ = maximise(f, dom, structure=mse.structure, tol=mse.tol)

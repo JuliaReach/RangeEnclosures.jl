@@ -4,7 +4,7 @@
 
 function _enclose(tme::TaylorModelsEnclosure, f::Function, dom::Interval_or_IntervalBox;
                   kwargs...)
-    require(:TaylorModels; fun_name="enclose")
+    require(@__MODULE__, :TaylorModels; fun_name="enclose")
 
     if tme.normalize
         R = _enclose_TaylorModels_norm(f, dom, tme.order)
