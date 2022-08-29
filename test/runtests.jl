@@ -7,3 +7,7 @@ available_solvers = (NaturalEnclosure(), TaylorModelsEnclosure(), AffineArithmet
 
 include("univariate.jl")
 include("multivariate.jl")
+
+using Documenter
+include("../docs/init.jl")
+@time @testset "doctests" begin doctest(RangeEnclosures) end
