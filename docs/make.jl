@@ -1,6 +1,6 @@
-using Documenter, RangeEnclosures, IntervalOptimisation, SumOfSquares, SDPA, TaylorModels
+using Documenter, RangeEnclosures
 
-DocMeta.setdocmeta!(RangeEnclosures, :DocTestSetup, :(using RangeEnclosures); recursive=true)
+include("init.jl")
 
 makedocs(
     sitename = "RangeEnclosures.jl",
@@ -8,7 +8,7 @@ makedocs(
     format = Documenter.HTML(
         prettyurls = get(ENV, "CI", nothing) == "true",
         assets = ["assets/aligned.css"]),
-    doctest = true,
+    doctest = false,
     strict = true,
     pages = [
         "Home" => "index.md",

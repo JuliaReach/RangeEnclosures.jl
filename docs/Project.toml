@@ -1,8 +1,2 @@
 [deps]
-AffineArithmetic = "2e89c364-fad6-56cb-99bd-ebadcd2cf8d2"
 Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
-DynamicPolynomials = "7c1d4256-1411-5781-91ec-d7bc3513ac07"
-IntervalOptimisation = "c7c68f13-a4a2-5b9a-b424-07d005f8d9d2"
-SDPA = "b9a10b5b-afa4-512f-a053-bb3d8080febc"
-SumOfSquares = "4b9e565b-77fc-50a5-a571-1244f986bda1"
-TaylorModels = "314ce334-5f6e-57ae-acf6-00b6e903104a"
