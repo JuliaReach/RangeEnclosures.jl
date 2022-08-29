@@ -4,7 +4,7 @@ This tutorial will teach you how to use RangeEnclosures.jl. First, we will give 
 
 ## Setup
 
-Assuming you have [installed Julia](), you can install the package from the Julia REPL with the following lines.
+Assuming you have [installed Julia](https://julialang.org/downloads/), you can install the package from the Julia REPL with the following lines.
 
 ```julia
 using Pkg
@@ -54,7 +54,7 @@ X = -10..10
 Y = enclose(f, X)
 ```
 
-Generally, using natural enclosures leads to unpleasantly large overestimates, this is due to phenomena like [wrapping effect]() and [dependency problem](). To overcome this, you probably want to use some other methods in your application. The next example bounds the range using the [`BranchAndBoundEnclosure`](@ref) algorithm.
+Generally, using natural enclosures leads to unpleasantly large overestimates, this is generally due to the [dependency problem](https://en.wikipedia.org/wiki/Interval_arithmetic#Dependency_problem). To overcome this, you probably want to use some other methods in your application. The next example bounds the range using the [`BranchAndBoundEnclosure`](@ref) algorithm.
 
 ```@example tutorial
 Ybb = enclose(f, X, BranchAndBoundEnclosure())
