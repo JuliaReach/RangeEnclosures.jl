@@ -67,10 +67,7 @@ using Plots
 plot(IntervalBox(X, Y), label="natural enclosure")
 plot!(IntervalBox(X, Ybb), label="branch and bound")
 plot!(f, -10, 10, lw=2, c=:black, label="f")
-savefig("ex1.png") # hide
 ```
-
-![](ex1.png)
 
 ### Tuning parameters
 
@@ -151,7 +148,4 @@ f(x, y) = h([x, y])
 surface(x, y, [sup(Yh) for _ in x, _ in y], α=0.4, legend=:none, size=(500, 500))
 surface!(x, y, [inf(Yh) for _ in x, _ in y], α=0.4)
 surface!(x, y, f.(x', y), zlims=(-4, 4))
-savefig("ex2.png") # hide
 ```
-
-![](ex2.png)
