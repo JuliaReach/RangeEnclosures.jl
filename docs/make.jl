@@ -12,6 +12,7 @@ makedocs(
     strict = true,
     pages = [
         "Home" => "index.md",
+        "Tutorial" => "tutorial.md",
         "Library" => Any[
             "Types" => "lib/types.md",
             "Methods" => "lib/methods.md"],
