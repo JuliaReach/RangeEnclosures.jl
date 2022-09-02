@@ -8,9 +8,9 @@ real-valued functions.
 - Computation of lower and upper bounds of real-valued functions, either
   univariate or multivariate, over hyperrectangular (i.e. box shaped) domains.
 - The following solvers are available:
-  - `IntervalArithmetic` from [IntervalArithmetic.jl](https://github.com/JuliaIntervals/IntervalArithmetic.jl/)
+  - `IntervalArithmetic` from [IntervalArithmetic.jl](https://github.com/JuliaIntervals/IntervalArithmetic.jl)
   - `IntervalOptimisation` from [IntervalOptimisation.jl](https://github.com/JuliaIntervals/IntervalOptimisation.jl)
-  - `TaylorModels` from [TaylorModels.jl/](https://github.com/JuliaIntervals/TaylorModels.jl/)
+  - `TaylorModels` from [TaylorModels.jl](https://github.com/JuliaIntervals/TaylorModels.jl)
   - `SumOfSquares` from [SumOfSquares.jl](https://github.com/JuliaOpt/SumOfSquares.jl)
 - The following optional solvers are available:
   - `AffineArithmetic` from [AffineArithmetic.jl](https://github.com/JuliaIntervals/AffineArithmetic.jl)
