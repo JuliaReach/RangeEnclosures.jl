@@ -89,14 +89,29 @@ $ julia --color=yes docs/make.jl
 
 ## Credits
 
-Huge thanks to all the [contributors](https://github.com/JuliaReach/RangeEnclosures.jl/graphs/contributors).
+### Core developers
 
-During Summer 2022, this project was financially supported by Google through the Google Summer of Code programme.
-During Summer 2019, this project was financially supported by Julia through the Julia Season of Contributions programme.
+The `RangeEnclosures.jl` library is maintained by (in alphabetic order):
 
-In addition, we are grateful to the following persons for enlightening discussions
-during the preparation of this package:
+- [Luca Ferranti](https://github.com/lucaferranti), University of Vasaa
+- [Marcelo Forets](http://github.com/mforets), Universidad de la República
+- [Christian Schilling](https://www.christianschilling.net/), Aalborg University
+
+### Contributors
+
+Huge thanks to all the
+[contributors](https://github.com/JuliaReach/RangeEnclosures.jl/graphs/contributors).
+
+### Acknowledgments
+
+We are grateful to the following persons for enlightening discussions during the
+preparation of this package:
 
 - [Luis Benet](https://github.com/lbenet)
 - [Benoît Legat](https://github.com/blegat/)
 - [David P. Sanders](https://github.com/dpsanders/)
+
+During Summer 2022, this project was financially supported by Google through the
+Google Summer of Code program.
+During Summer 2019, this project was financially supported by Julia through the
+Julia Season of Contributions program.
