@@ -7,13 +7,15 @@ real-valued functions.
 
 - Computation of lower and upper bounds of real-valued functions, either
   univariate or multivariate, over hyperrectangular (i.e. box shaped) domains.
-- The following solvers are available:
-  - `IntervalArithmetic` from [IntervalArithmetic.jl](https://github.com/JuliaIntervals/IntervalArithmetic.jl)
-  - `IntervalOptimisation` from [IntervalOptimisation.jl](https://github.com/JuliaIntervals/IntervalOptimisation.jl)
-  - `TaylorModels` from [TaylorModels.jl](https://github.com/JuliaIntervals/TaylorModels.jl)
-  - `SumOfSquares` from [SumOfSquares.jl](https://github.com/JuliaOpt/SumOfSquares.jl)
-- The following optional solvers are available:
-  - `AffineArithmetic` from [AffineArithmetic.jl](https://github.com/JuliaIntervals/AffineArithmetic.jl)
+- The following solvers are always available (using the package [IntervalArithmetic.jl](https://github.com/JuliaIntervals/IntervalArithmetic.jl)):
+  - `NaturalEnclosure`
+  - `MeanValueEnclosure`
+  - `BranchAndBoundEnclosure`
+- The following solvers are available upon loading other packages:
+  - `MooreSkelboeEnclosure`, which requires [IntervalOptimisation.jl](https://github.com/JuliaIntervals/IntervalOptimisation.jl)
+  - `TaylorModelsEnclosure`, which requires [TaylorModels.jl](https://github.com/JuliaIntervals/TaylorModels.jl)
+  - `SumOfSquaresEnclosure`, which requires [SumOfSquares.jl](https://github.com/JuliaOpt/SumOfSquares.jl)
+  - `AffineArithmeticEnclosure`, which requires [AffineArithmetic.jl](https://github.com/JuliaIntervals/AffineArithmetic.jl)
 
 ## Quickstart
 

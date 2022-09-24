@@ -22,17 +22,17 @@ using RangeEnclosures
 RangeEnclosures is used to bound the range of a given function `f`. The main function provided by this package is [`enclose`](@ref), and its basic usage is the following.
 
 ```julia
-enclose(f, X, algorithm; kwargs...)
+enclose(f, D, solver; kwargs...)
 ```
 
 where
 
 - `f` is the function whose range we want to bound,
-- `X` is the domain over which we want to compute the range,
-- `algorithm` is the algorithm used to compute the range (which is optional; if not specified, the package will default to using interval arithmetic), and
-- `kwargs...` are possible keyword arguments used by the algorithm.
+- `D` is the domain over which we want to compute the range,
+- `solver` is the solver used to compute the range (which is optional; if not specified, the package will default to the `NaturalEnclosure` solver), and
+- `kwargs...` are possible keyword arguments used by the solver.
 
-The algorithms can be divided into two families: *direct methods*, which compute the range enclosure over the whole domain, and *iterative methods*, which recursively split the domain into smaller subdomains to get a more accurate estimate. A detailed list of available algorithms can be found [here](lib/types.md).
+The solvers can be divided into two families: *direct solvers*, which compute the range enclosure over the whole domain, and *iterative solvers*, which recursively split the domain into smaller subdomains to get a more accurate estimate. A detailed list of available solvers can be found [here](lib/types.md).
 
 ## Usage Examples
 
@@ -44,72 +44,74 @@ Suppose we want to compute the range of the function
 f(x) = -\sum_{k=1}^5kx\sin\left(\frac{k(x-3)}{3}\right)
 ```
 
-over the domain ``X = [-10, 10]``.
+over the domain ``D = [-10, 10]``.
 
-If we call `enclose` without specifying the algorithm, it will evaluate ``f(X)`` using plain interval arithmetic (this is called *natural enclosure*), as the following example shows.
+If we call `enclose` without specifying the solver, it will evaluate ``f(D)`` using plain interval arithmetic (this is called *natural enclosure*), as the following example shows.
 
 ```@example tutorial
 f(x) = -sum(k*x*sin(k*(x-3)/3) for k in 1:5)
-X = -10..10
-Y = enclose(f, X)
+D = -10..10
+R = enclose(f, D)
 ```
 
-Generally, using natural enclosures leads to unpleasantly large overestimates, which is due to the [dependency problem](https://en.wikipedia.org/wiki/Interval_arithmetic#Dependency_problem). To overcome this, you may want to use some other methods in your application. The next example bounds the range using the [`BranchAndBoundEnclosure`](@ref) algorithm.
+Generally, using natural enclosures leads to unpleasantly large overestimates, which is due to the [dependency problem](https://en.wikipedia.org/wiki/Interval_arithmetic#Dependency_problem). To overcome this, you may want to use some other solvers in your application. The next example bounds the range using the [`BranchAndBoundEnclosure`](@ref) solver.
 
 ```@example tutorial
-Ybb = enclose(f, X, BranchAndBoundEnclosure())
+Rbb = enclose(f, D, BranchAndBoundEnclosure())
 ```
 
 As you can see, the result is much tighter now, while still being rigorous! The results can be visualized using `Plots.jl`.
 
 ```@example tutorial
 using Plots
-plot(IntervalBox(X, Y), label="natural enclosure")
-plot!(IntervalBox(X, Ybb), label="branch and bound")
+plot(xlabel="x", ylabel="f(x)", legendfontsize=12, tickfontsize=12,
+     xguidefont=font(15, "Times"), yguidefont=font(15, "Times"))
+plot!(IntervalBox(D, R), label="natural enclosure")
+plot!(IntervalBox(D, Rbb), label="branch and bound", alpha=1)
 plot!(f, -10, 10, lw=2, c=:black, label="f")
 ```
 
 ### Tuning parameters
 
-Some algorithms have parameters that can be tuned. For example, looking at the [`BranchAndBoundEnclosure`](@ref) documentation, we can see that it has two parameters, `tol` and `maxdepth`.
-If you want to use different values from the default ones, you can pass the parameters as keyword arguments to the algorithm constructor. For example, you can limit the depth of the search tree to `6` the following way:
+Some solvers have parameters that can be tuned. For example, looking at the [`BranchAndBoundEnclosure`](@ref) documentation, we can see that it has two parameters, `tol` and `maxdepth`.
+If you want to use different values from the default ones, you can pass the parameters as keyword arguments to the solver constructor. For example, you can limit the depth of the search tree to `6` the following way:
 
 ```@example tutorial
-enclose(f, X, BranchAndBoundEnclosure(; maxdepth=6))
+enclose(f, D, BranchAndBoundEnclosure(maxdepth=6))
 ```
 
-Generally, tuning parameters can be a good idea to achieve the desired accuracy-tradeoff in your application.
+Generally, tuning parameters can be a good idea to achieve the desired accuracy tradeoff in your application.
 
-### Combining different methods
+### Combining different solvers
 
-Sometimes there is no strictly "best" algorithm, as one algorithm might give a tighter estimate of the range upper bound and another algorithm might give a tighter estimate on the lower bound. In this case, the results can
-be combined by taking the intersection. For example, let us consider the function ``g(x) = x^2 - 2x + 1``, which we want to evaluate over the domain ``X_g = [0, 4]``. Let us first try using plain interval arithmetic
+Sometimes there is no strictly "best" solver, as one solver might give a tighter estimate of the range's upper bound and another solver might give a tighter estimate on the lower bound. In this case, the results can
+be combined by taking the intersection. For example, let us consider the function ``g(x) = x^2 - 2x + 1``, which we want to bound over the domain ``D_g = [0, 4]``. Let us first use plain interval arithmetic:
 
 ```@example tutorial
 g(x) = x^2 - 2*x + 1
-Xg = 0..4
-enclose(g, Xg, NaturalEnclosure()) # this is equivalent to enclose(g, Xg)
+Dg = 0..4
+enclose(g, Dg, NaturalEnclosure()) # this is equivalent to enclose(g, Dg)
 ```
 
-Now let us bound the range using [`MeanValueEnclosure`](@ref), which uses the mean-value form of the function.
+Now let us bound the range using the [`MeanValueEnclosure`](@ref) solver, which uses the mean-value form of the function:
 
 ```@example tutorial
-enclose(g, Xg, MeanValueEnclosure())
+enclose(g, Dg, MeanValueEnclosure())
 ```
 
-As you can see, there is no clear winner and a better enclosure could be obtained by taking the intersection of the two results. This can be easily done in one command by passing a vector of methods to `enclose`:
+As you can see, there is no clear winner and a better enclosure could be obtained by taking the intersection of the two results. This can be easily done in one command by passing a vector of solvers to `enclose`:
 
 ```@example tutorial
-enclose(g, Xg, [NaturalEnclosure(), MeanValueEnclosure()])
+enclose(g, Dg, [NaturalEnclosure(), MeanValueEnclosure()])
 ```
 
-### Using algorithms from external libraries
+### Using solvers based on external libraries
 
-Some of the available algorithms are implemented in external libraries. To keep the start-up time of RangeEnclosures.jl reasonable, routines from external packages
-are not imported by default. If you want to use those, you need to also import the required package. For example, suppose you want to bound the previous function using the Moore-Skelboe algorithm. Trying the following will fail:
+Some of the available solvers are implemented in external libraries. To keep the start-up time of RangeEnclosures.jl low, these libraries
+are not imported by default. To use more solvers, these libraries need to be manually loaded. For example, suppose we want to bound the previous function using the Moore-Skelboe algorithm. Trying the following will fail:
 
 ```julia
-enclose(f, X, MooreSkelboeEnclosure())
+enclose(f, D, MooreSkelboeEnclosure())
 ```
 
 ```
@@ -117,27 +119,27 @@ ERROR: AssertionError: package 'IntervalOptimisation' not loaded (it is required
 ...
 ```
 
-This is because the algorithm is implemented in [`IntervalOptimisation.jl`](https://github.com/juliaintervals/intervaloptimisation.jl) and to use it you need to load it first (note that you need to have it installed before loading it). Let us fix our example.
+This is because the algorithm is implemented in [`IntervalOptimisation.jl`](https://github.com/JuliaIntervals/IntervalOptimisation.jl) and to use it you need to load that package first (note that you need to have it installed before loading it). Let us fix our example.
 
 ```@example tutorial
 using IntervalOptimisation
-enclose(f, X, MooreSkelboeEnclosure())
+enclose(f, D, MooreSkelboeEnclosure())
 ```
 
 ### Bounding multivariate functions
 
-While our previous examples were in one dimension, the techniques generalize to multivariate functions ``\mathbb{R}^n\rightarrow\mathbb{R}``, the only difference is that the domain, instead of being an interval, should be an `IntervalBox`. For example, if we want to bound the function
+While our previous examples were in one dimension, the techniques generalize to multivariate functions ``\mathbb{R}^n\rightarrow\mathbb{R}``, the only difference is that the domain, instead of being an interval, should be an `IntervalBox`. For example, consider the function
 
 ```math
 h(x_1, x_2) = \sin(x_1) - \cos(x_2) - \sin(x_1)\cos(x_1)
 ```
 
-over the domain ``X_h = [-5, 5] \times [-5, 5]``. This can be done as follows.
+over the domain ``D_h = [-5, 5] \times [-5, 5]``. An enclosure can be computed as follows.
 
 ```@example tutorial
 h(x) = sin(x[1]) - cos(x[2]) - sin(x[1]) * cos(x[1])
-Xh = IntervalBox(-5..5, 2)  # this represents the box [-5, 5] × [-5, 5]
-Yh = enclose(h, Xh, BranchAndBoundEnclosure())
+Dh = IntervalBox(-5..5, -5..5)
+Rh = enclose(h, Dh, BranchAndBoundEnclosure())
 ```
 
 We can visualize the result with the following script.
@@ -145,7 +147,9 @@ We can visualize the result with the following script.
 ```@example tutorial
 x = y = -5:0.1:5
 f(x, y) = h([x, y])
-surface(x, y, [sup(Yh) for _ in x, _ in y], α=0.4, legend=:none, size=(500, 500))
-surface!(x, y, [inf(Yh) for _ in x, _ in y], α=0.4)
+plot(legend=:none, size=(800, 800), xlabel="x", ylabel="y", zlabel="h(x,y)",
+     tickfontsize=18, guidefont=font(22, "Times"), zticks=[-2, 0, 2])
+surface!(x, y, [sup(Rh) for _ in x, _ in y], α=0.4)
+surface!(x, y, [inf(Rh) for _ in x, _ in y], α=0.4)
 surface!(x, y, f.(x', y), zlims=(-4, 4))
 ```
