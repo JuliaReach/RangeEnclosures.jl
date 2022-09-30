@@ -1,0 +1,25 @@
+title: "RangeEnclosures.jl: A framework to bound function ranges"
+keywords:
+  - range enclosure
+  - rigorous computing
+  - reachability analysis
+  - interval methods
+authors:
+  - name: Luca Ferranti
+    orcid: 0000-0001-5588-0920
+    affiliation: 1
+  - name: Marcelo Forets
+    orcid: 0000-0002-9831-7801
+    affiliation: 2
+  - name: Christian Schilling
+    orcid: 0000-0003-3658-1065
+    affiliation: 3
+affiliations:
+  - name: University of Vaasa, Finland
+    index: 1
+  - name: Universidad de la Rep\'{u}blica, Uruguay
+    index: 2
+  - name: Aalborg University, Denmark
+    index: 3
+date: 30 September 2022
+bibliography: ref.bib
