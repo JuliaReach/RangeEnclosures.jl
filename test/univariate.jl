@@ -10,9 +10,6 @@
         if solver isa TaylorModelsEnclosure || solver isa AffineArithmeticEnclosure
             # for this example, TaylorModels cannot tightly approximate the lhs
             @test rleft ≤ 30 && rright ≤ 1e-10
-        elseif solver isa SumOfSquaresEnclosure
-            # solver returns negative -1.06259e-06
-            @test rleft ≥ -1e-5 && rright ≤ 1e-5
         elseif solver isa MeanValueEnclosure
             @test rleft ≤ 94 && rright ≤ 39
         else
