@@ -2,8 +2,13 @@ using IntervalOptimisation, TaylorModels, Test, RangeEnclosures, SumOfSquares, S
 
 using DynamicPolynomials: @polyvar
 
-available_solvers = (NaturalEnclosure(), TaylorModelsEnclosure(), AffineArithmeticEnclosure(),
-                     BranchAndBoundEnclosure(), MooreSkelboeEnclosure())
+available_solvers = (NaturalEnclosure(),
+                     MeanValueEnclosure(),
+                     AffineArithmeticEnclosure(),
+                     MooreSkelboeEnclosure(),
+                     TaylorModelsEnclosure(),
+                     BranchAndBoundEnclosure(),
+                    )
 
 include("univariate.jl")
 include("multivariate.jl")

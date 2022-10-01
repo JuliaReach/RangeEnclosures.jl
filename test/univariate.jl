@@ -13,13 +13,15 @@
         elseif solver isa SumOfSquaresEnclosure
             # solver returns negative -1.06259e-06
             @test rleft ≥ -1e-5 && rright ≤ 1e-5
+        elseif solver isa MeanValueEnclosure
+            @test rleft ≤ 94 && rright ≤ 39
         else
             @test rleft ≤ 1e-5 && rright ≤ 1e-5
         end
     end
 end
 
-@testset "Univariate example the Quickstart Guide" begin
+@testset "Univariate example from the Quickstart Guide" begin
     f(x) = -x^3/6 + 5x
     dom = Interval(1, 4)
 

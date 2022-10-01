@@ -6,7 +6,11 @@
     for solver in available_solvers
         x = enclose(f, dom, solver)
         rleft, rright = relative_precision(x, xref)
-        @test rleft ≤ 5 && rright ≤ 16
+        if solver isa MeanValueEnclosure
+            @test rleft ≤ 10 && rright ≤ 23.6
+        else
+            @test rleft ≤ 5 && rright ≤ 16
+        end
     end
 end
 
