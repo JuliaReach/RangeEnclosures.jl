@@ -54,3 +54,12 @@ end
     rleft, rright = relative_precision(x, xref)
     @test rleft ≤ 1e-5 && rright ≤ 1e-5
 end
+
+@testset "Taylor-model solver without normalization" begin
+    f(x) = x^2 - 5x
+    dom = Interval(-1, 1)
+    x = enclose(f, dom, TaylorModelsEnclosure(normalize=false))
+    xref = Interval(-4, 6)
+    rleft, rright = relative_precision(x, xref)
+    @test rleft ≈ 10 && rright ≈ 0
+end

@@ -36,3 +36,12 @@ end
     @test isapprox(inf(x), 0.0; atol=1e-3)
     @test isapprox(sup(x), 670.612; atol=1e-3)
 end
+
+@testset "Taylor-model solver without normalization" begin
+    f(x) = x[1]^2 - 5x[1]
+    dom = IntervalBox(-1..1, 0..0)
+    x = enclose(f, dom, TaylorModelsEnclosure(normalize=false))
+    xref = Interval(-4, 6)
+    rleft, rright = relative_precision(x, xref)
+    @test rleft ≈ 10 && rright ≈ 0
+end
