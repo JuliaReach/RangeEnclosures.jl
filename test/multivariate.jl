@@ -6,7 +6,11 @@
     for solver in available_solvers
         x = enclose(f, dom, solver)
         rleft, rright = relative_precision(x, xref)
-        @test rleft ≤ 5 && rright ≤ 16
+        if solver isa MeanValueEnclosure
+            @test rleft ≤ 10 && rright ≤ 23.6
+        else
+            @test rleft ≤ 5 && rright ≤ 16
+        end
     end
 end
 
@@ -44,4 +48,13 @@ end
     xref = Interval(-4, 6)
     rleft, rright = relative_precision(x, xref)
     @test rleft ≈ 10 && rright ≈ 0
+end
+
+@testset "Test branch-and-bound solver" begin
+    f = x -> (1/3)x[1]^3 + (x[1]-0.5)^2
+    dom = IntervalBox(-4.0..4.0, 0..0)
+    xref = Interval(-1.0833333333333321, 33.58333333333333)
+    x = enclose(f, dom, BranchAndBoundEnclosure())
+    rleft, rright = relative_precision(x, xref)
+    @test rleft ≈ 0 && 2.04e-14 ≤ rright ≤ 2.05e-14
 end

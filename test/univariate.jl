@@ -7,19 +7,20 @@
     for solver in available_solvers
         x = enclose(f, dom, solver)
         rleft, rright = relative_precision(x, xref)
-        if solver isa TaylorModelsEnclosure || solver isa AffineArithmeticEnclosure
+        if solver isa TaylorModelsEnclosure
             # for this example, TaylorModels cannot tightly approximate the lhs
             @test rleft ≤ 30 && rright ≤ 1e-10
-        elseif solver isa SumOfSquaresEnclosure
-            # solver returns negative -1.06259e-06
-            @test rleft ≥ -1e-5 && rright ≤ 1e-5
+        elseif solver isa AffineArithmeticEnclosure
+            @test rleft ≤ 22 && rright ≤ 1e-10
+        elseif solver isa MeanValueEnclosure
+            @test rleft ≤ 94 && rright ≤ 39
         else
             @test rleft ≤ 1e-5 && rright ≤ 1e-5
         end
     end
 end
 
-@testset "Univariate example the Quickstart Guide" begin
+@testset "Univariate example from the Quickstart Guide" begin
     f(x) = -x^3/6 + 5x
     dom = Interval(1, 4)
 
@@ -62,4 +63,13 @@ end
     xref = Interval(-4, 6)
     rleft, rright = relative_precision(x, xref)
     @test rleft ≈ 10 && rright ≈ 0
+end
+
+@testset "Test branch-and-bound solver" begin
+    f = x -> (1/3)x^3 + (x-0.5)^2
+    dom = Interval(-4.0, 4.0)
+    xref = Interval(-1.0833333333333321, 33.58333333333333)
+    x = enclose(f, dom, BranchAndBoundEnclosure())
+    rleft, rright = relative_precision(x, xref)
+    @test rleft ≈ 0 && 2.04e-14 ≤ rright ≤ 2.05e-14
 end
