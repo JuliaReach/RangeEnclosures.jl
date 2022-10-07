@@ -55,3 +55,12 @@ end
     rleft, rright = relative_precision(x, xref)
     @test rleft ≤ 1e-5 && rright ≤ 1e-5
 end
+
+@testset "Test branch-and-bound solver" begin
+    f = x -> (1/3)x^3 + (x-0.5)^2
+    dom = Interval(-4.0, 4.0)
+    xref = Interval(-1.0833333333333321, 33.58333333333333)
+    x = enclose(f, dom, BranchAndBoundEnclosure())
+    rleft, rright = relative_precision(x, xref)
+    @test rleft ≈ 0 && 2.04e-14 ≤ rright ≤ 2.05e-14
+end

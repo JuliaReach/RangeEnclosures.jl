@@ -40,3 +40,12 @@ end
     @test isapprox(inf(x), 0.0; atol=1e-3)
     @test isapprox(sup(x), 670.612; atol=1e-3)
 end
+
+@testset "Test branch-and-bound solver" begin
+    f = x -> (1/3)x[1]^3 + (x[1]-0.5)^2
+    dom = IntervalBox(-4.0..4.0, 0..0)
+    xref = Interval(-1.0833333333333321, 33.58333333333333)
+    x = enclose(f, dom, BranchAndBoundEnclosure())
+    rleft, rright = relative_precision(x, xref)
+    @test rleft ≈ 0 && 2.04e-14 ≤ rright ≤ 2.05e-14
+end
