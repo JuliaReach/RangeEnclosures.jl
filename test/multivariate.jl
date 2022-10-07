@@ -41,6 +41,15 @@ end
     @test isapprox(sup(x), 670.612; atol=1e-3)
 end
 
+@testset "Taylor-model solver without normalization" begin
+    f(x) = x[1]^2 - 5x[1]
+    dom = IntervalBox(-1..1, 0..0)
+    x = enclose(f, dom, TaylorModelsEnclosure(normalize=false))
+    xref = Interval(-4, 6)
+    rleft, rright = relative_precision(x, xref)
+    @test rleft ≈ 10 && rright ≈ 0
+end
+
 @testset "Test branch-and-bound solver" begin
     f = x -> (1/3)x[1]^3 + (x[1]-0.5)^2
     dom = IntervalBox(-4.0..4.0, 0..0)
