@@ -42,7 +42,7 @@ In this section we give a quick overview of the API to bound function ranges. Th
 \subsection{The enclose API}
 
 The \RE API works through the function \texttt{enclose}.
-The basic usage is \texttt{enclose(f, D, solver; kwargs...)}, where \texttt{f} is the function whose range we want to bound, \texttt{D} is the domain over which we want to compute the range, \texttt{solver} is the solver used to compute the range (if no solver is specified, the package will default to the \texttt{NaturalEnclosure} solver), and \texttt{kwargs} are possible keyword arguments used by the solver.
+The basic usage is via \texttt{enclose(f, D, solver; kwargs...)}, where \texttt{f} is the function whose range we want to bound, \texttt{D} is the domain over which we want to compute the range, \texttt{solver} is the solver used to compute the range (if no solver is specified, the package will default to the \texttt{NaturalEnclosure} solver), and \texttt{kwargs} are possible keyword arguments used by the solver.
 
 \begin{figure}[tb]
     \centering
