@@ -98,7 +98,7 @@ julia> enclose(g, Dg, [NaturalEnclosure(),
 
 \paragraph*{Using solvers based on external libraries}
 
-Some of the available solvers are implemented in external libraries. To keep the start-up time of \pkg{\RE}\ low, these libraries are not imported by default. To use the corresponding solver, the library needs to be manually loaded. For instance, the Moore-Skelboe algorithm is available upon loading the package \pkgl{https://github.com/JuliaIntervals/IntervalOptimisation.jl}{Intervaloptimisation}.
+Some of the available solvers are implemented in external libraries. To keep the start-up time of \emph{\RE}\ low, these libraries are not imported by default. To use the corresponding solver, the library needs to be manually loaded. For instance, the Moore-Skelboe algorithm is available upon loading the package \pkgl{https://github.com/JuliaIntervals/IntervalOptimisation.jl}{Intervaloptimisation}.
 
 \begin{lstlisting}[language=Julia]
 julia> import IntervalOptimisation
@@ -128,7 +128,7 @@ julia> enclose(h, Dh, BranchAndBoundEnclosure())
 
 
 \section{Future Applications}
-We envision applying the package to the domain of reachability analysis~\cite{althoff2021set, althoff2018implementation}. \pkg{\RE}\ currently only supports functions with univariate range. To represent multivariate ranges as convex and non-convex sets, we plan to use \pkgl{https://github.com/JuliaReach/LazySets.jl}{LazySets}~\cite{ForetsS21}.
+We envision applying the package to the domain of reachability analysis~\cite{althoff2021set, althoff2018implementation}. \emph{\RE}\ currently only supports functions with univariate range. To represent multivariate ranges as convex and non-convex sets, we plan to use \pkgl{https://github.com/JuliaReach/LazySets.jl}{LazySets}~\cite{ForetsS21}.
 
 \section*{Acknowledgments}
 
