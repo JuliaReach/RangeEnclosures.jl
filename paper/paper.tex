@@ -1,14 +1,12 @@
 \documentclass{juliacon}
 \setcounter{page}{1}
 
-\usepackage{xspace}
-
 \begin{document}
 
-\newcommand{\R}{\ensuremath{\mathbb{R}}\xspace}
-\newcommand{\RE}{\emph{RangeEnclosures}\xspace}
-\newcommand{\pkgl}[2]{\href{#1}{\pkg{#2}}\xspace}
-\newcommand{\pkg}[1]{\texttt{#1.jl}\xspace}
+\newcommand{\R}{\ensuremath{\mathbb{R}}}
+\newcommand{\RE}{RangeEnclosures}
+\newcommand{\pkgl}[2]{\href{#1}{\pkg{#2}}}
+\newcommand{\pkg}[1]{\texttt{#1.jl}}
 
 \input{header}
 
@@ -16,7 +14,7 @@
 
 \begin{abstract}
 Computing the range of a function is needed in several application domains. During the past decades, several algorithms to compute or approximate the range have been developed, each with its own merits and limitations.
-Motivated by this, we introduce \pkg{RangeEnclosures}, a unified framework to bound the range of univariate and multivariate functions. In addition to its own algorithms, the package allows to easily integrate third-party algorithms, offering a unified interface that can be used across different domains and allows to easily benchmark different approaches.
+Motivated by this, we introduce \pkg{\RE}, a unified framework to bound the range of univariate and multivariate functions. In addition to its own algorithms, the package allows to easily integrate third-party algorithms, offering a unified interface that can be used across different domains and allows to easily benchmark different approaches.
 \end{abstract}
 
 
@@ -30,18 +28,18 @@ reason, different algorithms have been developed over the past decades~\cite{de2
 
 \smallskip
 
-We present \pkgl{https://github.com/JuliaReach/RangeEnclosures.jl}{RangeEnclosures}, a Julia~\cite{BezansonEKS17} package offering a unified framework to bound the range of univariate and multivariate functions. The package comes with built-in solvers but also seamlessly integrates solvers defined in third-party libraries. This allows to easily compare different approaches.
+We present \pkgl{https://github.com/JuliaReach/RangeEnclosures.jl}{\RE}, a Julia~\cite{BezansonEKS17} package offering a unified framework to bound the range of univariate and multivariate functions. The package comes with built-in solvers but also seamlessly integrates solvers defined in third-party libraries. This allows to easily compare different approaches.
 
 
 
-\section{A tour through RangeEnclosures}
+\section{A tour through \RE}
 
 In this section we give a quick overview of the API to bound function ranges. The package offers several solvers for this purpose, such as natural (interval) enclosure, mean-value form~\cite{moore2009introduction}, Moore-Skelboe algorithm~\cite{hansen2003global}, and Taylor models~\cite{benet2019taylormodels}, or polynomial optimization~\cite{legat2017sos}. The full list of implemented solvers can be found in the package documentation\footnote{\url{https://juliareach.github.io/RangeEnclosures.jl/}}.
 
 
 \subsection{The enclose API}
 
-The \RE API works through the function \texttt{enclose}.
+The \emph{\RE} API works through the function \texttt{enclose}.
 The basic usage is via \texttt{enclose(f, D, solver; kwargs...)}, where \texttt{f} is the function whose range we want to bound, \texttt{D} is the domain over which we want to compute the range, \texttt{solver} is the solver used to compute the range (if no solver is specified, the package will default to the \texttt{NaturalEnclosure} solver), and \texttt{kwargs} are possible keyword arguments used by the solver.
 
 \begin{figure}[tb]
@@ -51,7 +49,7 @@ The basic usage is via \texttt{enclose(f, D, solver; kwargs...)}, where \texttt{
     \label{fig:enclosure_2D}
 \end{figure}
 
-In \RE, the \texttt{solver} is an instance of a struct that must be a subtype of \texttt{AbstractEnclosureAlgorithm}.
+In \emph{\RE}, the \texttt{solver} is an instance of a struct that must be a subtype of \texttt{AbstractEnclosureAlgorithm}.
 If a user wants to add a new solver, they just have to add a new struct, say, \texttt{MyEnclosure} and implement the method \texttt{\_enclose}, which is automatically called by \texttt{enclose}.
 %
 \begin{lstlisting}[language=Julia]
@@ -100,7 +98,7 @@ julia> enclose(g, Dg, [NaturalEnclosure(),
 
 \paragraph*{Using solvers based on external libraries}
 
-Some of the available solvers are implemented in external libraries. To keep the start-up time of \pkg{RangeEnclosures} low, these libraries are not imported by default. To use the corresponding solver, the library needs to be manually loaded. For instance, the Moore-Skelboe algorithm is available upon loading the package \pkgl{https://github.com/JuliaIntervals/IntervalOptimisation.jl}{Intervaloptimisation}.
+Some of the available solvers are implemented in external libraries. To keep the start-up time of \pkg{\RE}\ low, these libraries are not imported by default. To use the corresponding solver, the library needs to be manually loaded. For instance, the Moore-Skelboe algorithm is available upon loading the package \pkgl{https://github.com/JuliaIntervals/IntervalOptimisation.jl}{Intervaloptimisation}.
 
 \begin{lstlisting}[language=Julia]
 julia> import IntervalOptimisation
@@ -130,7 +128,7 @@ julia> enclose(h, Dh, BranchAndBoundEnclosure())
 
 
 \section{Future Applications}
-We envision applying the package to the domain of reachability analysis~\cite{althoff2021set, althoff2018implementation}. \pkg{RangeEnclosures} currently only supports functions with univariate range. To represent multivariate ranges as convex and non-convex sets, we plan to use \pkgl{https://github.com/JuliaReach/LazySets.jl}{LazySets}~\cite{ForetsS21}.
+We envision applying the package to the domain of reachability analysis~\cite{althoff2021set, althoff2018implementation}. \pkg{\RE}\ currently only supports functions with univariate range. To represent multivariate ranges as convex and non-convex sets, we plan to use \pkgl{https://github.com/JuliaReach/LazySets.jl}{LazySets}~\cite{ForetsS21}.
 
 \section*{Acknowledgments}
 
