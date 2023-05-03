@@ -10,24 +10,9 @@ Reexport = "189a3867-3050-52da-a836-e630ba90ab69"
 Requires = "ae029012-a4dd-5104-9daa-d747884805df"
 
 [compat]
-AffineArithmetic = "0.2"
 ForwardDiff = "0.10"
 IntervalArithmetic = "0.15, 0.16, 0.17, 0.18, 0.19, 0.20"
-IntervalOptimisation = "0.4.1"
 ReachabilityBase = "0.1.1"
 Reexport = "0.2, 1"
 Requires = "0.5, 1"
-SumOfSquares = "0.3.6, 0.4, 0.5, 0.6"
-TaylorModels = "0.3, 0.4, 0.5"
 julia = "1.6"
-
-[extras]
-AffineArithmetic = "2e89c364-fad6-56cb-99bd-ebadcd2cf8d2"
-IntervalOptimisation = "c7c68f13-a4a2-5b9a-b424-07d005f8d9d2"
-MultivariatePolynomials = "102ac46a-7ee4-5c85-9060-abc95bfdeaa3"
-SumOfSquares = "4b9e565b-77fc-50a5-a571-1244f986bda1"
-TaylorModels = "314ce334-5f6e-57ae-acf6-00b6e903104a"
-Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
-
-[targets]
-test = ["Test", "IntervalOptimisation", "SumOfSquares", "TaylorModels"]
