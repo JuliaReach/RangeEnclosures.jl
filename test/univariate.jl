@@ -1,6 +1,6 @@
 @testset "Univariate functions" begin
     # bspline0 from Daisy benchmarks
-    f = x -> (1 - x)^3 / 6.0
+    f(x) = (1 - x)^3 / 6.0
     dom = Interval(-4.5, -0.3)
     xref = Interval(0.36616666666666675, 27.729166666666668)
 
@@ -66,7 +66,7 @@ end
 end
 
 @testset "Test branch-and-bound solver" begin
-    f = x -> (1/3)x^3 + (x-0.5)^2
+    f(x) = (1/3)x^3 + (x-0.5)^2
     dom = Interval(-4.0, 4.0)
     xref = Interval(-1.0833333333333321, 33.58333333333333)
     x = enclose(f, dom, BranchAndBoundEnclosure())

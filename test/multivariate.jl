@@ -51,7 +51,7 @@ end
 end
 
 @testset "Test branch-and-bound solver" begin
-    f = x -> (1/3)x[1]^3 + (x[1]-0.5)^2
+    f(x) = (1/3)x[1]^3 + (x[1]-0.5)^2
     dom = IntervalBox(-4.0..4.0, 0..0)
     xref = Interval(-1.0833333333333321, 33.58333333333333)
     x = enclose(f, dom, BranchAndBoundEnclosure())
