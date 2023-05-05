@@ -45,7 +45,7 @@ end
 
 function enclose(f::Function, dom::Interval_or_IntervalBox,
                  method::Vector; kwargs...)
-   return mapreduce(ξ -> _enclose(ξ, f, dom; kwargs...), ∩, method)
+    return mapreduce(ξ -> _enclose(ξ, f, dom; kwargs...), ∩, method)
 end
 
 """
@@ -95,7 +95,7 @@ function relative_precision(x::Interval, xref::Interval)
 
     Δref = xref⁺ - xref⁻
     @assert Δref != zero(Δref) "the width of the reference interval is $Δref, but " *
-    "it should have a non-zero width"
+                               "it should have a non-zero width"
 
     rel⁻ = -(x⁻ - xref⁻) / Δref * 100
     rel⁺ = (x⁺ - xref⁺) / Δref * 100

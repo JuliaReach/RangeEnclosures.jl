@@ -4,7 +4,7 @@ using Requires, Reexport
 @reexport using ForwardDiff
 
 @reexport using IntervalArithmetic
-const Interval_or_IntervalBox = Union{Interval, IntervalBox}
+const Interval_or_IntervalBox = Union{Interval,IntervalBox}
 
 using ReachabilityBase.Require
 

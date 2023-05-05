@@ -45,7 +45,6 @@ and `f'` is the derivative of `f` (gradient in the multivariate case).
 """
 struct MeanValueEnclosure <: AbstractDirectRangeAlgorithm end
 
-
 """
     AffineArithmeticEnclosure <: AbstractDirectRangeAlgorithm
 
@@ -126,7 +125,6 @@ Base.@kwdef struct TaylorModelsEnclosure <: AbstractDirectRangeAlgorithm
     order::Int = 10
     normalize::Bool = true
 end
-
 
 """
     SumOfSquaresEnclosure{T} <: AbstractIterativeRangeAlgorithm

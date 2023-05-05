@@ -3,11 +3,9 @@ Methods using Affine Arithmetic
 =================================#
 
 function load_affinearithmetic()
-return quote
-
-using .AffineArithmetic: Aff
-
-end  # quote
+    return quote
+        using .AffineArithmetic: Aff
+    end  # quote
 end  # load_affinearithmetic()
 
 # univariate
