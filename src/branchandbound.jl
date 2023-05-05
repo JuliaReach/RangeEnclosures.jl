@@ -6,14 +6,13 @@ end
 
 # multivariate case
 @inline function enclose(f::Function, X::IntervalBox, ba::BranchAndBoundEnclosure;
-                         df=t->ForwardDiff.gradient(f, t.v))
+                         df=t -> ForwardDiff.gradient(f, t.v))
     return _branch_bound(ba, f, X, df)
 end
 
 function _branch_bound(ba::BranchAndBoundEnclosure, f::Function, X::Interval_or_IntervalBox, df;
                        initial=emptyinterval(first(X)),
                        cnt=1)
-
     dfX = df(X)
     range_extrema, flag = _monotonicity_check(f, X, dfX)
     flag && return hull(range_extrema, initial)
@@ -25,8 +24,8 @@ function _branch_bound(ba::BranchAndBoundEnclosure, f::Function, X::Interval_or_
     end
 
     X1, X2 = bisect(X)
-    y1 = _branch_bound(ba, f, X1, df; initial=initial, cnt=cnt+1)
-    return _branch_bound(ba, f, X2, df; initial=y1, cnt=cnt+1)
+    y1 = _branch_bound(ba, f, X1, df; initial=initial, cnt=cnt + 1)
+    return _branch_bound(ba, f, X2, df; initial=y1, cnt=cnt + 1)
 end
 
 function _monotonicity_check(f::Function, X::Interval, dfX::Interval)
