@@ -18,10 +18,10 @@ e = Interval(-10.0, 8.0)
 f = Interval(1.0, 2.0)
 
 # Dictionary to hold the vector of relative precision intervals for each benchmark
-RELPREC = Dict{String, Any}()
+RELPREC = Dict{String,Any}()
 
 # Dictionaries to store data and reference values
-DAISY = Dict{String, Any}()
+DAISY = Dict{String,Any}()
 
 # load functions
 include("univariate.jl")
@@ -40,13 +40,34 @@ for name in keys(DAISY)
         RESULTS[name]["order $ord"] = BenchmarkGroup()
         RELPREC[name]["order $ord"] = Dict()
 
-        RESULTS[name]["order $ord"]["Taylor Model subs."] = @benchmarkable enclose($func, $dom, :TaylorModels, order=$ord, normalize=false)
-        RELPREC[name]["order $ord"]["Taylor Model subs."] = relative_precision(enclose(func, dom, :TaylorModels, order=ord, normalize=false), ref)
+        RESULTS[name]["order $ord"]["Taylor Model subs."] = @benchmarkable enclose($func, $dom,
+                                                                                   :TaylorModels,
+                                                                                   order=$ord,
+                                                                                   normalize=false)
+        RELPREC[name]["order $ord"]["Taylor Model subs."] = relative_precision(enclose(func, dom,
+                                                                                       :TaylorModels;
+                                                                                       order=ord,
+                                                                                       normalize=false),
+                                                                               ref)
 
-        RESULTS[name]["order $ord"]["Normalized Taylor Model subs."] = @benchmarkable enclose($func, $dom, :TaylorModels, order=$ord, normalize=true)
-        RELPREC[name]["order $ord"]["Normalized Taylor Model subs."] = relative_precision(enclose(func, dom, :TaylorModels, order=ord, normalize=true), ref)
+        RESULTS[name]["order $ord"]["Normalized Taylor Model subs."] = @benchmarkable enclose($func,
+                                                                                              $dom,
+                                                                                              :TaylorModels,
+                                                                                              order=$ord,
+                                                                                              normalize=true)
+        RELPREC[name]["order $ord"]["Normalized Taylor Model subs."] = relative_precision(enclose(func,
+                                                                                                  dom,
+                                                                                                  :TaylorModels;
+                                                                                                  order=ord,
+                                                                                                  normalize=true),
+                                                                                          ref)
 
-        RESULTS[name]["order $ord"]["Interval Arithmetic subs."] = @benchmarkable enclose($func, $dom, :IntervalArithmetic)
-        RELPREC[name]["order $ord"]["Interval Arithmetic subs."] = relative_precision(enclose(func, dom, :IntervalArithmetic), ref)
+        RESULTS[name]["order $ord"]["Interval Arithmetic subs."] = @benchmarkable enclose($func,
+                                                                                          $dom,
+                                                                                          :IntervalArithmetic)
+        RELPREC[name]["order $ord"]["Interval Arithmetic subs."] = relative_precision(enclose(func,
+                                                                                              dom,
+                                                                                              :IntervalArithmetic),
+                                                                                      ref)
     end
 end
