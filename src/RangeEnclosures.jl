@@ -1,11 +1,9 @@
 module RangeEnclosures
 
-using Requires, Reexport
-@reexport using ForwardDiff
-
-@reexport using IntervalArithmetic
+using Requires
+using ForwardDiff
+using IntervalArithmetic
 const Interval_or_IntervalBox = Union{Interval,IntervalBox}
-
 using ReachabilityBase.Require
 
 include("algorithms.jl")
@@ -43,5 +41,9 @@ export enclose,
        SumOfSquaresEnclosure,
        TaylorModelsEnclosure,
        BranchAndBoundEnclosure
+
+# standard ways from IntervalArithmetic to create intervals
+export interval, ..,
+       IntervalBox
 
 end  # module
