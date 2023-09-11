@@ -23,14 +23,14 @@ function load_taylormodels()
 
         # univariate
         function _enclose_TaylorModels(f::Function, dom::Interval, order::Int)
-            x0 = Interval(mid(dom))
+            x0 = interval(mid(dom))
             x = TaylorModel1(order, x0, dom)
             return evaluate(f(x - x0), dom)
         end
 
         # normalized univariate
         function _enclose_TaylorModels_norm(f::Function, dom::Interval, order::Int)
-            x0 = Interval(mid(dom))
+            x0 = interval(mid(dom))
             x = TaylorModel1(order, x0, dom)
             xnorm = normalize_taylor(x.pol, dom - x0, true)
             xnormTM = TaylorModel1(xnorm, 0 .. 0, 0 .. 0, -1 .. 1)

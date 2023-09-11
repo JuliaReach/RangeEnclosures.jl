@@ -27,5 +27,5 @@ function _enclose_sos(sose::SumOfSquaresEnclosure, p::AbstractPolynomialLike,
     optimize!(model)
     lower_bound = objective_value(model)
 
-    return Interval(lower_bound, upper_bound)
+    return interval(lower_bound, upper_bound)
 end

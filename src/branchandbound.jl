@@ -30,8 +30,8 @@ end
 
 function _monotonicity_check(f::Function, X::Interval, dfX::Interval)
     if inf(dfX) >= 0 || sup(dfX) <= 0  # monotone function, evaluate at extrema
-        lo = Interval(X.lo)
-        hi = Interval(X.hi)
+        lo = interval(X.lo)
+        hi = interval(X.hi)
         return hull(f(lo), f(hi)), true
     end
 
