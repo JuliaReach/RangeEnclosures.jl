@@ -43,6 +43,15 @@ export enclose,
        BranchAndBoundEnclosure
 
 # standard ways from IntervalArithmetic to create intervals
+@static if VERSION >= v"1.9"
+    vIA = pkgversion(IntervalArithmetic)
+else
+    using PkgVersion
+    vIA = PkgVersion.Version(IntervalArithmetic)
+end
+if vIA >= v"0.22"
+    using IntervalArithmetic.Symbols: (..)
+end
 export interval, ..,
        IntervalBox
 
