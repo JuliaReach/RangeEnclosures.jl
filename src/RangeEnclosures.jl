@@ -13,6 +13,7 @@ include("taylormodels.jl")
 include("affine.jl")
 include("sdp_header.jl")
 include("intervaloptimisation.jl")
+include("plot.jl")
 
 # ================
 # Optional methods
