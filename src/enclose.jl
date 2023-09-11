@@ -8,7 +8,7 @@ domain.
 
 - `f`      -- function or `AbstractPolynomialLike` object
 - `dom`    -- hyperrectangular domain, either a unidimensional  `Interval` or
-              a multidimensional `IntervalBox`
+              a multidimensional vector of `Interval`s
 - `solver` -- (optional, default: `NaturalEnclosure()`) choose one among the
               available solvers; you can get a list of available solvers with
               `subtypes(AbstractEnclosureAlgorithm)`
@@ -38,12 +38,12 @@ julia> enclose(x -> 1 - x^4 + x^5, 0..1, [TaylorModelsEnclosure(), NaturalEnclos
 
 ```
 """
-function enclose(f::Function, dom::Interval_or_IntervalBox,
+function enclose(f::Function, dom::Interval_or_IntervalVector,
                  solver::AbstractEnclosureAlgorithm=NaturalEnclosure(); kwargs...)
     return _enclose(solver, f, dom; kwargs...)
 end
 
-function enclose(f::Function, dom::Interval_or_IntervalBox,
+function enclose(f::Function, dom::Interval_or_IntervalVector,
                  method::Vector; kwargs...)
     return mapreduce(ξ -> _enclose(ξ, f, dom; kwargs...), ∩, method)
 end

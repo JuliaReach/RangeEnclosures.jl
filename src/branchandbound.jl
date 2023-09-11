@@ -5,12 +5,12 @@
 end
 
 # multivariate case
-@inline function enclose(f::Function, X::IntervalBox, ba::BranchAndBoundEnclosure;
-                         df=t -> ForwardDiff.gradient(f, t.v))
+@inline function enclose(f::Function, X::AbstractVector{<:Interval}, ba::BranchAndBoundEnclosure;
+                         df=t -> ForwardDiff.gradient(f, t))
     return _branch_bound(ba, f, X, df)
 end
 
-function _branch_bound(ba::BranchAndBoundEnclosure, f::Function, X::Interval_or_IntervalBox, df;
+function _branch_bound(ba::BranchAndBoundEnclosure, f::Function, X::Interval_or_IntervalVector, df;
                        initial=emptyinterval(first(X)),
                        cnt=1)
     dfX = df(X)
@@ -38,7 +38,9 @@ function _monotonicity_check(f::Function, X::Interval, dfX::Interval)
     return zero(eltype(dfX)), false
 end
 
-function _monotonicity_check(f::Function, X::IntervalBox{N}, ∇fX::AbstractVector) where {N}
+function _monotonicity_check(f::Function, X::AbstractVector{<:Interval},
+                             ∇fX::AbstractVector)
+    N = length(X)
     low = zeros(eltype(X), N)
     high = zeros(eltype(X), N)
 

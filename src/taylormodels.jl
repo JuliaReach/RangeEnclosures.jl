@@ -2,7 +2,7 @@
 # Methods using Taylor models
 # ===========================
 
-function _enclose(tme::TaylorModelsEnclosure, f::Function, dom::Interval_or_IntervalBox;
+function _enclose(tme::TaylorModelsEnclosure, f::Function, dom::Interval_or_IntervalVector;
                   kwargs...)
     require(@__MODULE__, :TaylorModels; fun_name="enclose")
 
@@ -38,22 +38,27 @@ function load_taylormodels()
         end
 
         # multivariate
-        function _enclose_TaylorModels(f::Function, dom::IntervalBox{N}, order::Int) where {N}
-            x0 = mid(dom)
+        function _enclose_TaylorModels(f::Function, dom::AbstractVector{<:Interval}, order::Int)
+            domIB = IntervalBox(dom)
+            x0 = mid(domIB)
+            N = length(dom)
             set_variables(Float64, "x"; order=2order, numvars=N)
-            x = [TaylorModelN(i, order, IntervalBox(x0), dom) for i in 1:N]
-            return evaluate(f(x), dom - x0)
+            x = [TaylorModelN(i, order, IntervalBox(x0), domIB) for i in 1:N]
+            return evaluate(f(x), domIB .- x0)
         end
 
         # normalized multivariate
-        function _enclose_TaylorModels_norm(f::Function, dom::IntervalBox{N}, order::Int) where {N}
-            x0 = mid(dom)
+        function _enclose_TaylorModels_norm(f::Function, dom::AbstractVector{<:Interval},
+                                            order::Int)
+            domIB = IntervalBox(dom)
+            x0 = mid(domIB)
+            N = length(dom)
             set_variables(Float64, "x"; order=2order, numvars=N)
 
             zBoxN = zeroBox(N)
             sBoxN = symBox(N)
-            x = [TaylorModelN(i, order, IntervalBox(x0), dom) for i in 1:N]
-            xnorm = [normalize_taylor(xi.pol, dom - x0, true) for xi in x]
+            x = [TaylorModelN(i, order, IntervalBox(x0), domIB) for i in 1:N]
+            xnorm = [normalize_taylor(xi.pol, domIB - x0, true) for xi in x]
             xnormTM = [TaylorModelN(xi_norm, 0 .. 0, zBoxN, sBoxN) for xi_norm in xnorm]
             return evaluate(f(xnormTM), sBoxN)
         end

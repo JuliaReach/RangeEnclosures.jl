@@ -1,7 +1,7 @@
 using .SumOfSquares
 
 function _enclose_sos(sose::SumOfSquaresEnclosure, p::AbstractPolynomialLike,
-                      dom::Interval_or_IntervalBox;
+                      dom::Interval_or_IntervalVector;
                       kwargs...)
     x = variables(p)
 

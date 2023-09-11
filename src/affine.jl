@@ -17,9 +17,11 @@ function _enclose(::AffineArithmeticEnclosure, f::Function, dom::Interval)
 end
 
 # multivariate
-function _enclose(::AffineArithmeticEnclosure, f::Function, dom::IntervalBox{N}) where {N}
+function _enclose(::AffineArithmeticEnclosure, f::Function,
+                  dom::AbstractVector{<:Interval})
     require(@__MODULE__, :AffineArithmetic; fun_name="enclose")
 
+    N = length(dom)
     x = [Aff(dom[i], N, i) for i in 1:N]
     return interval(f(x))
 end

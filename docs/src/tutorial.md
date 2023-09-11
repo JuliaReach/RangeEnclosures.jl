@@ -66,8 +66,8 @@ As you can see, the result is much tighter now, while still being rigorous! The 
 using Plots
 plot(xlabel="x", ylabel="f(x)", legendfontsize=12, tickfontsize=12,
      xguidefont=font(15, "Times"), yguidefont=font(15, "Times"))
-plot!(IntervalBox(D, R), label="natural enclosure")
-plot!(IntervalBox(D, Rbb), label="branch and bound", alpha=1)
+plot!([D, R], label="natural enclosure")
+plot!([D, Rbb], label="branch and bound", alpha=1)
 plot!(f, -10, 10, lw=2, c=:black, label="f")
 ```
 
@@ -128,7 +128,7 @@ enclose(f, D, MooreSkelboeEnclosure())
 
 ### Bounding multivariate functions
 
-While our previous examples were in one dimension, the techniques generalize to multivariate functions ``\mathbb{R}^n\rightarrow\mathbb{R}``, the only difference is that the domain, instead of being an interval, should be an `IntervalBox`. For example, consider the function
+While our previous examples were in one dimension, the techniques generalize to multivariate functions ``\mathbb{R}^n\rightarrow\mathbb{R}``, the only difference is that the domain, instead of being an interval, should be an `AbstractVector` of `Interval`s. For example, consider the function
 
 ```math
 h(x_1, x_2) = \sin(x_1) - \cos(x_2) - \sin(x_1)\cos(x_1)
@@ -138,7 +138,7 @@ over the domain ``D_h = [-5, 5] \times [-5, 5]``. An enclosure can be computed a
 
 ```@example tutorial
 h(x) = sin(x[1]) - cos(x[2]) - sin(x[1]) * cos(x[1])
-Dh = IntervalBox(-5..5, -5..5)
+Dh = [-5..5, -5..5]
 Rh = enclose(h, Dh, BranchAndBoundEnclosure())
 ```
 

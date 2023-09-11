@@ -3,7 +3,7 @@ module RangeEnclosures
 using Requires
 using ForwardDiff
 using IntervalArithmetic
-const Interval_or_IntervalBox = Union{Interval,IntervalBox}
+const Interval_or_IntervalVector = Union{Interval,AbstractVector{<:Interval}}
 using ReachabilityBase.Require
 
 include("algorithms.jl")
@@ -43,7 +43,6 @@ export enclose,
        BranchAndBoundEnclosure
 
 # standard ways from IntervalArithmetic to create intervals
-export interval, ..,
-       IntervalBox
+export interval, ..
 
 end  # module

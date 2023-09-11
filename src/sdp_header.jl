@@ -2,7 +2,7 @@
 # Methods using semidefinite programming
 # ======================================
 
-function _enclose(sose::SumOfSquaresEnclosure, p, dom::Interval_or_IntervalBox;
+function _enclose(sose::SumOfSquaresEnclosure, p, dom::Interval_or_IntervalVector;
                   kwargs...)
     require(@__MODULE__, :SumOfSquares; fun_name="enclose")
 
