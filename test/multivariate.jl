@@ -1,8 +1,8 @@
 @testset "Multivariate functions" begin
     # himmilbeau from Daisy benchmarks
     f(x) = -x[1] * x[2] - 2 * x[2] * x[3] - x[1] - x[3]
-    dom = Interval(-4.5, -0.3) × Interval(0.4, 0.9) × Interval(3.8, 7.8)
-    xref = Interval(-20.786552979420335, -0.540012836551535) # MOSEK deg 6
+    dom = interval(-4.5, -0.3) × interval(0.4, 0.9) × interval(3.8, 7.8)
+    xref = interval(-20.786552979420335, -0.540012836551535) # MOSEK deg 6
     for solver in available_solvers
         x = enclose(f, dom, solver)
         rleft, rright = relative_precision(x, xref)
@@ -19,7 +19,7 @@ end
     dom = IntervalBox(-10 .. 10, 2)
 
     x = enclose(g, dom, NaturalEnclosure())
-    xref = Interval(0, 2594)
+    xref = interval(0, 2594)
     rleft, rright = relative_precision(x, xref)
     @test rleft ≤ 1e-5 && rright ≤ 1e-5
 end
@@ -30,7 +30,7 @@ end
     dom = IntervalBox(-10 .. 10, 2)
 
     x = enclose(p, dom)
-    xref = Interval(-1446, 2594)
+    xref = interval(-1446, 2594)
     rleft, rright = relative_precision(x, xref)
     @test rleft ≤ 1e-5 && rright ≤ 1e-5
     # Note: DynamicPolynomials automatically expands p, and evaluation using
@@ -54,7 +54,7 @@ end
     f(x) = x[1]^2 - 5x[1]
     dom = IntervalBox(-1 .. 1, 0 .. 0)
     x = enclose(f, dom, TaylorModelsEnclosure(; normalize=false))
-    xref = Interval(-4, 6)
+    xref = interval(-4, 6)
     rleft, rright = relative_precision(x, xref)
     @test rleft ≈ 10 && rright ≈ 0
 end
@@ -62,7 +62,7 @@ end
 @testset "Test branch-and-bound solver" begin
     f(x) = (1 / 3)x[1]^3 + (x[1] - 0.5)^2
     dom = IntervalBox(-4.0 .. 4.0, 0 .. 0)
-    xref = Interval(-1.0833333333333321, 33.58333333333333)
+    xref = interval(-1.0833333333333321, 33.58333333333333)
     x = enclose(f, dom, BranchAndBoundEnclosure())
     rleft, rright = relative_precision(x, xref)
     @test rleft ≈ 0 && 2.04e-14 ≤ rright ≤ 2.05e-14
