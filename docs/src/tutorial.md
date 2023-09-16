@@ -152,7 +152,7 @@ x = y = -5:0.1:5
 f(x, y) = h([x, y])
 plot(legend=:none, size=(800, 800), xlabel="x", ylabel="y", zlabel="h(x,y)",
      tickfontsize=18, guidefont=font(22, "Times"), zticks=[-2, 0, 2])
-surface!(x, y, [sup(Rh) for _ in x, _ in y], α=0.4)
 surface!(x, y, [inf(Rh) for _ in x, _ in y], α=0.4)
 surface!(x, y, f.(x', y), zlims=(-4, 4))
+surface!(x, y, [sup(Rh) for _ in x, _ in y], α=0.4)
 ```
