@@ -10,7 +10,7 @@ Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [compat]
 AffineArithmetic = "0.2"
-Documenter = "0.27"
+Documenter = "0.27, 1"
 DynamicPolynomials = "0.3 - 0.5"
 IntervalOptimisation = "0.4.1"
 SDPA = "0.2 - 0.5"
