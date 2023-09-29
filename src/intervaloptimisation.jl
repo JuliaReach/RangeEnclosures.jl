@@ -2,8 +2,7 @@
 # Methods using interval optimization
 # ===================================
 
-function _enclose(mse::MooreSkelboeEnclosure, f::Function, dom::Interval_or_IntervalBox;
-                  kwargs...)
+function enclose(f::Function, dom::Interval_or_IntervalBox, mse::MooreSkelboeEnclosure; kwargs...)
     require(@__MODULE__, :IntervalOptimisation; fun_name="enclose")
 
     global_min, _ = minimise(f, dom; structure=mse.structure, tol=mse.tol)

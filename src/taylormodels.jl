@@ -2,8 +2,7 @@
 # Methods using Taylor models
 # ===========================
 
-function _enclose(tme::TaylorModelsEnclosure, f::Function, dom::Interval_or_IntervalBox;
-                  kwargs...)
+function enclose(f::Function, dom::Interval_or_IntervalBox, tme::TaylorModelsEnclosure; kwargs...)
     require(@__MODULE__, :TaylorModels; fun_name="enclose")
 
     if tme.normalize
