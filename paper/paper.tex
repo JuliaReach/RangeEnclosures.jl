@@ -23,8 +23,8 @@ Motivated by this, we introduce \pkg{\RE}, a unified framework to bound the rang
 
 Given a function $f: \mathcal{D} \to \R$ over a domain $\mathcal{D}\subseteq\R$, the \emph{range} (or image) is the set $\mathcal{R}=\{y\in\R \mid \exists x\in\mathcal{D}: f(x)=y\}$. In practical applications, we are interested in determining the \textit{interval range} of $f$, i.e., the smallest interval containing $\mathcal{R}$. Unfortunately, computing the interval range of a multivariate function is NP-hard~\cite{kreinovich2002range}.
 
-For this reason, we practically seek an \textit{enclosure} $\mathcal{E}\supseteq\mathcal{R}$ of the interval range. A standard method to obtain an enclosure is to evaluate the function with interval arithmetic~\cite{moore2009introduction}, which however often produces a wide overestimation due to issues such as the dependency problem and the wrapping effect. For this 
-reason, different algorithms have been developed over the past decades~\cite{de2004affine,hansen2003global}, but each comes with its own strengths and weaknesses. This is visualized in Fig.~\ref{fig:enclosure_2D}, where the enclosure obtained with plain interval arithmetic (natural enclosure) is compared to the result of a branch-and-bound algorithm. In general, when choosing an algorithm to compute a function enclosure, a trade-off between accuracy and computational efficiency has to be made.
+For this reason, we practically seek an \textit{enclosure} $\mathcal{E}\supseteq\mathcal{R}$ of the interval range. A standard method to obtain an enclosure is to evaluate the function with interval arithmetic~\cite{moore2009introduction}, which however often produces a wide overestimation due to issues such as the dependency problem \cite{de2004affine} and the wrapping effect \cite{neumaier1993wrapping}. For this 
+reason, different algorithms have been developed over the past decades~\cite{de2004affine,hansen2003global}, but each comes with its own strengths and weaknesses. This is visualized in Fig.~\ref{fig:enclosure_2D}, where the enclosure obtained with plain interval arithmetic, called \emph{natural enclosure}, is compared to the result of a branch-and-bound algorithm. In general, when choosing an algorithm to compute a function enclosure, a trade-off between accuracy and computational efficiency has to be made.
 
 \smallskip
 
@@ -34,7 +34,7 @@ We present \pkgl{https://github.com/JuliaReach/RangeEnclosures.jl}{\RE}, a Julia
 
 \section{A tour through \RE}
 
-In this section we give a quick overview of the API to bound function ranges. The package offers several solvers for this purpose, such as natural (interval) enclosure, mean-value form~\cite{moore2009introduction}, Moore-Skelboe algorithm~\cite{hansen2003global}, and Taylor models~\cite{benet2019taylormodels}, or polynomial optimization~\cite{legat2017sos}. The full list of implemented solvers can be found in the package documentation\footnote{\url{https://juliareach.github.io/RangeEnclosures.jl/}}.
+In this section we give a quick overview of the API to bound function ranges. The package offers several solvers for this purpose, such as natural (interval) enclosure, mean-value form~\cite{moore2009introduction}, Moore-Skelboe algorithm~\cite{hansen2003global}, and Taylor models~\cite{benet2019taylormodels}, or polynomial optimization~\cite{weisser2019polynomial}. The full list of implemented solvers can be found in the package documentation\footnote{\url{https://juliareach.github.io/RangeEnclosures.jl/}}.
 
 
 \subsection{The enclose API}
@@ -98,7 +98,7 @@ julia> enclose(g, Dg, [NaturalEnclosure(),
 
 \paragraph*{Using solvers based on external libraries}
 
-Some of the available solvers are implemented in external libraries. To keep the start-up time of \emph{\RE}\ low, these libraries are not imported by default. To use the corresponding solver, the library needs to be manually loaded. For instance, the Moore-Skelboe algorithm is available upon loading the package \pkgl{https://github.com/JuliaIntervals/IntervalOptimisation.jl}{Intervaloptimisation}.
+Some of the available solvers are implemented in external libraries. To keep the start-up time of \emph{\RE}\ low, these libraries are not imported by default. To use the corresponding solver, the library needs to be manually loaded. For instance, the Moore-Skelboe algorithm is available upon loading the package \pkgl{https://github.com/JuliaIntervals/IntervalOptimisation.jl}{IntervalOptimisation}.
 
 \begin{lstlisting}[language=Julia]
 julia> import IntervalOptimisation
