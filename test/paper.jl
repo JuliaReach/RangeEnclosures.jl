@@ -3,8 +3,7 @@
 struct MyEnclosure end
 
 @testset "The enclose API" begin
-    import RangeEnclosures: enclose
-    function enclose(f::Function,
+    function RangeEnclosures.enclose(f::Function,
                      dom::Union{Interval,IntervalBox},
                      solver::MyEnclosure; kwargs...)
         return 1 .. 2
