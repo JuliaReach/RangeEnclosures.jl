@@ -50,12 +50,19 @@ The basic usage is via \texttt{enclose(f, D, solver; kwargs...)}, where \texttt{
 \end{figure}
 
 In \emph{\RE}, the \texttt{solver} is an instance of a struct that must be a subtype of \texttt{AbstractEnclosureAlgorithm}.
-If a user wants to add a new solver, they just have to add a new struct, say, \texttt{MyEnclosure} and implement the method \texttt{\_enclose}, which is automatically called by \texttt{enclose}.
+If a user wants to add a new solver, they just have to add a new struct, say, \texttt{MyEnclosure} and extend the method \texttt{enclose}, as the following code snippet demonstrates.
 %
+\vspace*{-3mm}
 \begin{lstlisting}[language=Julia]
-_enclose(solver::MyEnclosure, f::Function,
-         D::Union{Interval, IntervalBox}; kwargs...)
+import RangeEnclosures: enclose
+import IntervalArithmetic: Interval
+function enclose(f::Function,
+                 dom::Union{Interval,IntervalBox},
+                 solver::MyEnclosure; kwargs...)
+    # solver-specific implementation
+end
 \end{lstlisting}
+\vspace*{-2mm}
 
 Note that \texttt{D} can be of type \texttt{Interval} for univariate ($n = 1$) functions or of type \texttt{IntervalBox} for multivariate ($n > 1$) functions.
 

@@ -18,6 +18,7 @@ available_solvers = (NaturalEnclosure(),
 
 include("univariate.jl")
 include("multivariate.jl")
+include("paper.jl")
 
 @static if !Sys.iswindows()  # broken due to SDPA
     using Documenter

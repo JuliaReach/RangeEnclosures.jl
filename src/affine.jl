@@ -9,7 +9,7 @@ function load_affinearithmetic()
 end  # load_affinearithmetic()
 
 # univariate
-function _enclose(::AffineArithmeticEnclosure, f::Function, dom::Interval)
+function enclose(f::Function, dom::Interval, ::AffineArithmeticEnclosure)
     require(@__MODULE__, :AffineArithmetic; fun_name="enclose")
 
     x = Aff(dom, 1, 1)
@@ -17,7 +17,7 @@ function _enclose(::AffineArithmeticEnclosure, f::Function, dom::Interval)
 end
 
 # multivariate
-function _enclose(::AffineArithmeticEnclosure, f::Function, dom::IntervalBox{N}) where {N}
+function enclose(f::Function, dom::IntervalBox{N}, ::AffineArithmeticEnclosure) where {N}
     require(@__MODULE__, :AffineArithmetic; fun_name="enclose")
 
     x = [Aff(dom[i], N, i) for i in 1:N]

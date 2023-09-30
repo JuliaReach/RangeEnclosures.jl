@@ -11,7 +11,6 @@ include("intervalarithmetic.jl")
 include("branchandbound.jl")
 include("taylormodels.jl")
 include("affine.jl")
-include("sdp_header.jl")
 include("intervaloptimisation.jl")
 
 # ================
