@@ -53,9 +53,10 @@ In \emph{\RE}, the \texttt{solver} is an instance of a struct that must be a sub
 If a user wants to add a new solver, they just have to add a new struct, say, \texttt{MyEnclosure} and extend the method \texttt{enclose}, as the following code snippet demonstrates.
 %
 \begin{lstlisting}[language=Julia]
-function enclose(f::Function, dom::Union{Interval,IntervalBox},
+function enclose(f::Function,
+                 dom::Union{Interval,IntervalBox},
                  solver::MyEnclosure; kwargs...)
-    # Write your algorithm here.
+    # solver-specific implementation
 end
 \end{lstlisting}
 
