@@ -12,6 +12,6 @@ function enclose(f::Function, dom::Interval, ::MeanValueEnclosure;
 end
 
 function enclose(f::Function, dom::IntervalBox, ::MeanValueEnclosure;
-                  df=t -> ForwardDiff.gradient(f, t.v))
+                 df=t -> ForwardDiff.gradient(f, t.v))
     return f(mid.(dom)) + dot(df(dom), dom - mid.(dom))
 end
