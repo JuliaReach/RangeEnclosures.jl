@@ -69,7 +69,10 @@ plot(xlabel="x", ylabel="f(x)", legendfontsize=12, tickfontsize=12,
 plot!(IntervalBox(D, R), label="natural enclosure")
 plot!(IntervalBox(D, Rbb), label="branch and bound", alpha=1)
 plot!(f, -10, 10, lw=2, c=:black, label="f")
+savefig("tutorial-2d.png"); nothing # hide
 ```
+
+![](tutorial-2d.png)
 
 ### Tuning parameters
 
@@ -155,4 +158,7 @@ plot(legend=:none, size=(800, 800), xlabel="x", ylabel="y", zlabel="h(x,y)",
 surface!(x, y, [inf(Rh) for _ in x, _ in y], α=0.4)
 surface!(x, y, f.(x', y), zlims=(-4, 4))
 surface!(x, y, [sup(Rh) for _ in x, _ in y], α=0.4)
+savefig("tutorial-3d.png"); nothing # hide
 ```
+
+![](tutorial-3d.png)
