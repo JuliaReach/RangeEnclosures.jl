@@ -46,7 +46,7 @@ function _monotonicity_check(f::Function, X::IntervalBox{N}, ∇fX::AbstractVect
         if inf(di) >= 0  #  increasing
             high[i] = interval(sup(X[i]))
             low[i] = interval(inf(X[i]))
-        elseif sup(di) <=0  # decreasing
+        elseif sup(di) <= 0  # decreasing
             high[i] = interval(inf(X[i]))
             low[i] = interval(sup(X[i]))
         else
