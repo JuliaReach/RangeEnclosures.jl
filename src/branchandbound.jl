@@ -1,16 +1,16 @@
 # univariate case
-@inline function enclose(f::Function, X::Interval, ba::BranchAndBoundEnclosure;
+@inline function enclose(f::Function, X::Interval, bab::BranchAndBoundEnclosure;
                          df=Base.Fix1(ForwardDiff.derivative, f))
-    return _branch_bound(ba, f, X, df)
+    return _branch_bound(bab, f, X, df)
 end
 
 # multivariate case
-@inline function enclose(f::Function, X::IntervalBox, ba::BranchAndBoundEnclosure;
+@inline function enclose(f::Function, X::IntervalBox, bab::BranchAndBoundEnclosure;
                          df=t -> ForwardDiff.gradient(f, t.v))
-    return _branch_bound(ba, f, X, df)
+    return _branch_bound(bab, f, X, df)
 end
 
-function _branch_bound(ba::BranchAndBoundEnclosure, f::Function, X::Interval_or_IntervalBox, df;
+function _branch_bound(bab::BranchAndBoundEnclosure, f::Function, X::Interval_or_IntervalBox, df;
                        initial=emptyinterval(first(X)),
                        cnt=1)
     dfX = df(X)
@@ -19,13 +19,13 @@ function _branch_bound(ba::BranchAndBoundEnclosure, f::Function, X::Interval_or_
 
     fX = f(X)  # TODO: allow user to choose how to evaluate this (mean value, natural enclosure)
     # if tolerance or maximum number of iteration is met, return current enclosure
-    if diam(fX) <= ba.tol || cnt == ba.maxdepth
+    if diam(fX) <= bab.tol || cnt == bab.maxdepth
         return hull(fX, initial)
     end
 
     X1, X2 = bisect(X)
-    y1 = _branch_bound(ba, f, X1, df; initial=initial, cnt=cnt + 1)
-    return _branch_bound(ba, f, X2, df; initial=y1, cnt=cnt + 1)
+    y1 = _branch_bound(bab, f, X1, df; initial=initial, cnt=cnt + 1)
+    return _branch_bound(bab, f, X2, df; initial=y1, cnt=cnt + 1)
 end
 
 function _monotonicity_check(f::Function, X::Interval, dfX::Interval)
