@@ -55,7 +55,7 @@ If a user wants to add a new solver, they just have to add a new struct, say, \t
 \vspace*{-3mm}
 \begin{lstlisting}[language=Julia]
 import RangeEnclosures: enclose
-import IntervalArithmetic: Interval
+using IntervalArithmetic: Interval
 function enclose(f::Function,
                  D::Union{Interval,IntervalBox},
                  solver::MyEnclosure; kwargs...)
