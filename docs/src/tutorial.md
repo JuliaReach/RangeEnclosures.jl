@@ -162,3 +162,24 @@ savefig("tutorial-3d.png"); nothing # hide
 ```
 
 ![](tutorial-3d.png)
+
+## Adding a new enclosure algorithm
+
+To add a new enclosure algorithm, or *solver*, just add a corresponding struct (let us call it `MyEnclosure`) and extend the method `enclose`, as the following code snippet demonstrates.
+
+```@example
+using RangeEnclosures
+import RangeEnclosures: enclose
+using IntervalArithmetic: Interval
+
+struct MyEnclosure end
+
+function enclose(f::Function,
+                 D::Union{Interval,IntervalBox},
+                 solver::MyEnclosure; kwargs...)
+    # solver-specific implementation
+end
+nothing  # hide
+```
+
+Note that the domain `D` can be of type `Interval` for univariate (``n = 1``) functions or of type `IntervalBox` for multivariate (``n > 1``) functions.
