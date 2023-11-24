@@ -57,7 +57,7 @@ If a user wants to add a new solver, they just have to add a new struct, say, \t
 import RangeEnclosures: enclose
 import IntervalArithmetic: Interval
 function enclose(f::Function,
-                 dom::Union{Interval,IntervalBox},
+                 D::Union{Interval,IntervalBox},
                  solver::MyEnclosure; kwargs...)
     # solver-specific implementation
 end
