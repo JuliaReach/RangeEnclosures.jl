@@ -50,8 +50,8 @@ end
     rleft, rright = relative_precision(x, xref)
     @test rleft ≤ 1e-5 && rright ≤ 1e-5
 
-    if Sys.iswindows()
-        # SDPA is broken on Windows
+    if Sys.iswindows() || VERSION >= v"1.10"
+        # SDPA is broken on Windows or v1.10
         @test_broken begin
             x = enclose(p, dom, SumOfSquaresEnclosure(; backend=SDPA.Optimizer))
             xref = interval(4.8333, 10.541)
