@@ -36,8 +36,8 @@ end
     # Note: DynamicPolynomials automatically expands p, and evaluation using
     # interval arithmetic gives a worse left bound than the factored expression.
 
-    if Sys.iswindows()
-        # SDPA is broken on Windows
+    if Sys.iswindows() || VERSION >= v"1.10"
+        # SDPA is broken on Windows or v1.10
         @test_broken begin
             x = enclose(p, dom, SumOfSquaresEnclosure(; backend=SDPA.Optimizer))
             isapprox(inf(x), 0.0; atol=1e-3)

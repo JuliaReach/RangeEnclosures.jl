@@ -1,7 +1,8 @@
 using Test, RangeEnclosures
 using AffineArithmetic, IntervalOptimisation, TaylorModels, SumOfSquares
 
-@static if Sys.iswindows()
+@static if Sys.iswindows() || VERSION >= v"1.10"
+    # SDPA is broken on Windows or v1.10
     @test_broken using SDPA
 else
     using SDPA

@@ -126,6 +126,7 @@ Base.@kwdef struct TaylorModelsEnclosure <: AbstractDirectRangeAlgorithm
     normalize::Bool = true
 end
 
+# TODO turn example below into doctest when SDPA works again
 """
     SumOfSquaresEnclosure{T} <: AbstractIterativeRangeAlgorithm
 
@@ -147,7 +148,7 @@ result of this algorithm is not rigorous.
 
 ### Examples
 
-```jldoctest
+```example
 julia> using SumOfSquares, SDPA, DynamicPolynomials
 
 julia> backend = SDPA.Optimizer;
