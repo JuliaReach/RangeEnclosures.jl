@@ -13,7 +13,7 @@ end
 
 function load_intervaloptimization()
     return quote
-        using .IntervalOptimisation
+        using .IntervalOptimisation: HeapedVector, minimise, maximise
 
         _default_vector_MSE = HeapedVector
     end  # quote

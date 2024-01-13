@@ -1,4 +1,4 @@
-using .MultivariatePolynomials
+using .MultivariatePolynomials: AbstractPolynomialLike, variables
 
 function enclose(p::AbstractPolynomialLike, dom::Interval_or_IntervalBox,
                  solver::AbstractEnclosureAlgorithm=NaturalEnclosure(); kwargs...)
