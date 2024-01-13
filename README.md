@@ -1,8 +1,8 @@
 # RangeEnclosures.jl
 
-| **Documentation** | **Status** | **Community** | **License** |
-|:-----------------:|:----------:|:-------------:|:-----------:|
-| [![docs-dev][dev-img]][dev-url] | [![CI][ci-img]][ci-url] [![codecov][cov-img]][cov-url] | [![zulip][chat-img]][chat-url] | [![license][lic-img]][lic-url] |
+| **Documentation** | **Status** | **Community** |**Version-specific Citation** | **License** |
+|:-----------------:|:----------:|:-------------:|:----------------------------:|:-----------:|
+| [![docs-dev][dev-img]][dev-url] | [![CI][ci-img]][ci-url] [![codecov][cov-img]][cov-url] | [![zulip][chat-img]][chat-url] | [![zenodo][doi-img]][doi-url] | [![license][lic-img]][lic-url] |
 
 [dev-img]: https://img.shields.io/badge/docs-latest-blue.svg
 [dev-url]: https://juliareach.github.io/RangeEnclosures.jl/dev/
@@ -12,6 +12,8 @@
 [cov-url]: https://app.codecov.io/github/JuliaReach/RangeEnclosures.jl
 [chat-img]: https://img.shields.io/badge/zulip-join_chat-brightgreen.svg
 [chat-url]: https://julialang.zulipchat.com/#narrow/stream/278609-juliareach
+[doi-img]: https://zenodo.org/badge/196427971.svg
+[doi-url]: https://zenodo.org/badge/latestdoi/196427971
 [lic-img]: https://img.shields.io/github/license/mashape/apistatus.svg
 [lic-url]: https://github.com/JuliaReach/RangeEnclosures.jl/blob/master/LICENSE
 
