@@ -2,8 +2,10 @@
 
 | **Documentation** | **Status** | **Community** |**Version-specific Citation** | **License** |
 |:-----------------:|:----------:|:-------------:|:----------------------------:|:-----------:|
-| [![docs-dev][dev-img]][dev-url] | [![CI][ci-img]][ci-url] [![codecov][cov-img]][cov-url] | [![zulip][chat-img]][chat-url] | [![zenodo][doi-img]][doi-url] | [![license][lic-img]][lic-url] |
+| [![paper][paper-img]][paper-url] [![docs-dev][dev-img]][dev-url] | [![CI][ci-img]][ci-url] [![codecov][cov-img]][cov-url] | [![zulip][chat-img]][chat-url] | [![zenodo][doi-img]][doi-url] | [![license][lic-img]][lic-url] |
 
+[paper-img]: https://proceedings.juliacon.org/papers/10.21105/jcon.00122/status.svg
+[paper-url]: https://doi.org/10.21105/jcon.00122
 [dev-img]: https://img.shields.io/badge/docs-latest-blue.svg
 [dev-url]: https://juliareach.github.io/RangeEnclosures.jl/dev/
 [ci-img]: https://github.com/JuliaReach/RangeEnclosures.jl/workflows/CI/badge.svg
@@ -17,7 +19,11 @@
 [lic-img]: https://img.shields.io/github/license/mashape/apistatus.svg
 [lic-url]: https://github.com/JuliaReach/RangeEnclosures.jl/blob/master/LICENSE
 
-A [Julia](http://julialang.org) package to bound the range of real-valued functions.
+A [Julia](http://julialang.org) package to bound the range of real-valued functions. The following article showcases the basic functionality, highlighting some of the key design choices:
+
+> Luca Ferranti, Marcelo Forets, and Christian Schilling. *RangeEnclosures.jl: A framework to bound function ranges* [Proceedings of the JuliaCon Conferences](https://doi.org/10.21105/jcon.00122) (2024).
+
+See [below](#-how-to-cite) for how to cite it.
 
 ## Installing
 
