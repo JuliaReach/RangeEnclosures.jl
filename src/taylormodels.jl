@@ -15,7 +15,7 @@ end
 
 function load_taylormodels()
     return quote
-        using .TaylorModels
+        using .TaylorModels: TaylorModel1, TaylorModelN, normalize_taylor, set_variables, evaluate
 
         @inline zeroBox(N) = IntervalBox(0 .. 0, N)
         @inline symBox(N) = IntervalBox(-1 .. 1, N)
