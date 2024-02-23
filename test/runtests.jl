@@ -28,3 +28,5 @@ include("paper.jl")
         doctest(RangeEnclosures)
     end
 end
+
+include("Aqua.jl")
