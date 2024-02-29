@@ -9,7 +9,7 @@
 [dev-img]: https://img.shields.io/badge/docs-latest-blue.svg
 [dev-url]: https://juliareach.github.io/RangeEnclosures.jl/dev/
 [ci-img]: https://github.com/JuliaReach/RangeEnclosures.jl/workflows/CI/badge.svg
-[ci-url]: https://github.com/JuliaReach/RangeEnclosures.jl/actions/workflows/ci.yml
+[ci-url]: https://github.com/JuliaReach/RangeEnclosures.jl/actions/workflows/test-master.yml
 [cov-img]: https://codecov.io/github/JuliaReach/RangeEnclosures.jl/coverage.svg
 [cov-url]: https://app.codecov.io/github/JuliaReach/RangeEnclosures.jl
 [aqua-img]: https://raw.githubusercontent.com/JuliaTesting/Aqua.jl/master/badge.svg
@@ -112,7 +112,7 @@ If you use this package in your work, please cite it using the metadata [here](C
 
 ## Acknowledgments
 
-Huge thanks to all the [contributors](https://github.com/JuliaReach/RangeEnclosures.jl/graphs/contributors). 
+Huge thanks to all the [contributors](https://github.com/JuliaReach/RangeEnclosures.jl/graphs/contributors).
 In addition, we are grateful to [Luis Benet](https://github.com/lbenet), [Benoît Legat](https://github.com/blegat/) and [David P. Sanders](https://github.com/dpsanders/) for enlightening discussions
 during the preparation of this package.
 
