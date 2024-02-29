@@ -1,8 +1,8 @@
 # RangeEnclosures.jl
 
 | **Introduction & Documentation** | **Status** | **Community** |**Version-specific Citation** | **License** |
-|:-----------------:|:----------:|:-------------:|:----------------------------:|:-----------:|
-| [![paper][paper-img]][paper-url] [![docs-dev][dev-img]][dev-url] | [![CI][ci-img]][ci-url] [![codecov][cov-img]][cov-url] | [![zulip][chat-img]][chat-url] | [![zenodo][doi-img]][doi-url] | [![license][lic-img]][lic-url] |
+|:--------------------------------:|:----------:|:-------------:|:----------------------------:|:-----------:|
+| [![paper][paper-img]][paper-url] [![docs-dev][dev-img]][dev-url] | [![CI][ci-img]][ci-url] [![aqua][aqua-img]][aqua-url] [![codecov][cov-img]][cov-url] | [![zulip][chat-img]][chat-url] | [![zenodo][doi-img]][doi-url] | [![license][lic-img]][lic-url] |
 
 [paper-img]: https://proceedings.juliacon.org/papers/10.21105/jcon.00122/status.svg
 [paper-url]: https://doi.org/10.21105/jcon.00122
@@ -12,6 +12,8 @@
 [ci-url]: https://github.com/JuliaReach/RangeEnclosures.jl/actions/workflows/ci.yml
 [cov-img]: https://codecov.io/github/JuliaReach/RangeEnclosures.jl/coverage.svg
 [cov-url]: https://app.codecov.io/github/JuliaReach/RangeEnclosures.jl
+[aqua-img]: https://raw.githubusercontent.com/JuliaTesting/Aqua.jl/master/badge.svg
+[aqua-url]: https://github.com/JuliaTesting/Aqua.jl
 [chat-img]: https://img.shields.io/badge/zulip-join_chat-brightgreen.svg
 [chat-url]: https://julialang.zulipchat.com/#narrow/stream/278609-juliareach
 [doi-img]: https://zenodo.org/badge/196427971.svg
