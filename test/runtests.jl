@@ -24,7 +24,7 @@ include("paper.jl")
 @static if !Sys.iswindows()  # broken due to SDPA
     using Documenter
     include("../docs/init.jl")
-    @time @testset "doctests" begin
+    @testset "doctests" begin
         doctest(RangeEnclosures)
     end
 end
