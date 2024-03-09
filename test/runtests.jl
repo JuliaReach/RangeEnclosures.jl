@@ -1,8 +1,7 @@
 using Test, RangeEnclosures
 using AffineArithmetic, IntervalOptimisation, TaylorModels, SumOfSquares
 
-@static if Sys.iswindows() || VERSION >= v"1.10"
-    # SDPA is broken on Windows or v1.10
+@static if Sys.iswindows()  # SDPA is broken on Windows
     @test_broken using SDPA
 else
     using SDPA
@@ -21,7 +20,7 @@ include("univariate.jl")
 include("multivariate.jl")
 include("paper.jl")
 
-@static if !Sys.iswindows()  # broken due to SDPA
+@static if !Sys.iswindows()  # SDPA is broken on Windows
     using Documenter
     include("../docs/init.jl")
     @testset "doctests" begin
