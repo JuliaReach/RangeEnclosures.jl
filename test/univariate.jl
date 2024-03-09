@@ -50,19 +50,10 @@ end
     rleft, rright = relative_precision(x, xref)
     @test rleft ≤ 1e-5 && rright ≤ 1e-5
 
-    if Sys.iswindows()  # SDPA is broken on Windows
-        @test_broken begin
-            x = enclose(p, dom, SumOfSquaresEnclosure(; backend=SDPA.Optimizer))
-            xref = interval(4.8333, 10.541)
-            rleft, rright = relative_precision(x, xref)
-            rleft ≤ 1e-5 && rright ≤ 1e-5
-        end
-    else
-        x = enclose(p, dom, SumOfSquaresEnclosure(; backend=SDPA.Optimizer))
-        xref = interval(4.8333, 10.541)
-        rleft, rright = relative_precision(x, xref)
-        @test rleft ≤ 1e-5 && rright ≤ 1e-5
-    end
+    x = enclose(p, dom, SumOfSquaresEnclosure(; backend=SDPA.Optimizer))
+    xref = interval(4.8333, 10.541)
+    rleft, rright = relative_precision(x, xref)
+    @test rleft ≤ 1e-5 && rright ≤ 1e-5
 end
 
 @testset "Taylor-model solver without normalization" begin
