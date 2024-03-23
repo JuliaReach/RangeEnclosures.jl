@@ -39,12 +39,12 @@ julia> enclose(x -> 1 - x^4 + x^5, 0..1, [TaylorModelsEnclosure(), NaturalEnclos
 ```
 """
 function enclose(f::Function, dom::Interval_or_IntervalBox; kwargs...)
-    return enclose(f, dom, NaturalEnclosure(); kwargs...)
+    return _wrap_output(enclose(f, dom, NaturalEnclosure(); kwargs...))
 end
 
 function enclose(f::Function, dom::Interval_or_IntervalBox,
                  method::Vector; kwargs...)
-    return mapreduce(ξ -> enclose(f, dom, ξ; kwargs...), ∩, method)
+    return _wrap_output(mapreduce(ξ -> enclose(f, dom, ξ; kwargs...), ∩, method))
 end
 
 """
