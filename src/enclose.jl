@@ -39,7 +39,7 @@ julia> enclose(x -> 1 - x^4 + x^5, 0..1, [TaylorModelsEnclosure(), NaturalEnclos
 ```
 """
 function enclose(f::Function, dom::Interval_or_IntervalBox; kwargs...)
-    return enclose(f, dom, NaturalEnclosure())
+    return enclose(f, dom, NaturalEnclosure(); kwargs...)
 end
 
 function enclose(f::Function, dom::Interval_or_IntervalBox,
