@@ -5,7 +5,7 @@
 # univariate and multivariate cases
 function enclose(f::Function, dom::Interval_or_IntervalVector_or_IntervalBox, ::NaturalEnclosure;
                  kwargs...)
-    return f(dom)
+    return _wrap_output(f(dom))
 end
 
 # univariate case
