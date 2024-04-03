@@ -2,13 +2,13 @@
 # Methods using Taylor models
 # ===========================
 
-function enclose(f::Function, dom::Interval_or_IntervalBox, tme::TaylorModelsEnclosure; kwargs...)
+function enclose(f::Function, dom::Interval_or_IntervalBox, tm::TaylorModelsEnclosure; kwargs...)
     require(@__MODULE__, :TaylorModels; fun_name="enclose")
 
-    if tme.normalize
-        R = _enclose_TaylorModels_norm(f, dom, tme.order)
+    if tm.normalize
+        R = _enclose_TaylorModels_norm(f, dom, tm.order)
     else
-        R = _enclose_TaylorModels(f, dom, tme.order)
+        R = _enclose_TaylorModels(f, dom, tm.order)
     end
     return R
 end
