@@ -25,7 +25,7 @@ A [Julia](http://julialang.org) package to bound the range of real-valued functi
 
 > Luca Ferranti, Marcelo Forets, and Christian Schilling. *RangeEnclosures.jl: A framework to bound function ranges* [Proceedings of the JuliaCon Conferences](https://doi.org/10.21105/jcon.00122) (2024).
 
-See [below](#-how-to-cite) for how to cite it.
+See [below](#how-to-cite) for how to cite it.
 
 ## Installing
 
