@@ -64,15 +64,14 @@ As you can see, the result is much tighter now, while still being rigorous! The 
 
 ```@example tutorial
 using Plots
-plot(xlabel="x", ylabel="f(x)", legendfontsize=12, tickfontsize=12,
-     xguidefont=font(15, "Times"), yguidefont=font(15, "Times"))
-plot!(IntervalBox(D, R), label="natural enclosure")
-plot!(IntervalBox(D, Rbb), label="branch and bound", alpha=1)
-plot!(f, -10, 10, lw=2, c=:black, label="f")
-savefig("tutorial-2d.png"); nothing # hide
+fig = plot(xlabel="x", ylabel="f(x)", legendfontsize=12, tickfontsize=12,
+           xguidefont=font(15, "Times"), yguidefont=font(15, "Times"))
+plot!(fig, IntervalBox(D, R), label="natural enclosure")
+plot!(fig, IntervalBox(D, Rbb), label="branch and bound", alpha=1)
+plot!(fig, f, -10, 10, lw=2, c=:black, label="f")
+import DisplayAs  #hide
+DisplayAs.Text(DisplayAs.PNG(fig))  #hide
 ```
-
-![](tutorial-2d.png)
 
 ### Tuning parameters
 
@@ -153,16 +152,13 @@ using IntervalArithmetic
 
 x = y = -5:0.1:5
 f(x, y) = h([x, y])
-plot(legend=:none, size=(800, 800), xlabel="x", ylabel="y", zlabel="h(x,y)",
-     tickfontsize=18, guidefont=font(22, "Times"), zticks=[-2, 0, 2])
-surface!(x, y, [inf(Rh) for _ in x, _ in y], α=0.4)
-surface!(x, y, f.(x', y), zlims=(-4, 4))
-surface!(x, y, [sup(Rh) for _ in x, _ in y], α=0.4)
-savefig("tutorial-3d.png"); nothing # hide
+fig = plot(legend=:none, size=(800, 800), xlabel="x", ylabel="y", zlabel="h(x,y)",
+           tickfontsize=18, guidefont=font(22, "Times"), zticks=[-2, 0, 2])
+surface!(fig, x, y, [inf(Rh) for _ in x, _ in y], α=0.4)
+surface!(fig, x, y, f.(x', y), zlims=(-4, 4))
+surface!(fig, x, y, [sup(Rh) for _ in x, _ in y], α=0.4)
+DisplayAs.Text(DisplayAs.PNG(fig))  #hide
 ```
-
-![](tutorial-3d.png)
-
 ## Adding a new enclosure algorithm
 
 To add a new enclosure algorithm, or *solver*, just add a corresponding struct (let us call it `MyEnclosure`) and extend the method `enclose`, as the following code snippet demonstrates.
