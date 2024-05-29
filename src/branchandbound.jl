@@ -19,7 +19,7 @@ function _branch_bound(bab::BranchAndBoundEnclosure, f::Function, X::Interval_or
 
     fX = f(X)  # TODO: allow user to choose how to evaluate this (mean value, natural enclosure)
     # if tolerance or maximum number of iteration is met, return current enclosure
-    if diam(fX) <= bab.tol || cnt == bab.maxdepth
+    if diam(fX) <= min(bab.atol, bab.rtol * minimum(fX)) || cnt == bab.maxdepth
         return hull(fX, initial)
     end
 
