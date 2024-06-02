@@ -1,8 +1,8 @@
 # RangeEnclosures.jl
 
-| **Introduction & Documentation** | **Status** | **Community** |**Version-specific Citation** | **License** |
+| **Introduction & Documentation** | **Status** | **Community** |**Version-Specific Citation** | **License** |
 |:--------------------------------:|:----------:|:-------------:|:----------------------------:|:-----------:|
-| [![paper][paper-img]][paper-url] [![docs-dev][dev-img]][dev-url] | [![CI][ci-img]][ci-url] [![codecov][cov-img]][cov-url] [![aqua][aqua-img]][aqua-url] | [![zulip][chat-img]][chat-url] | [![zenodo][doi-img]][doi-url] | [![license][lic-img]][lic-url] |
+| [![DOI][paper-img]][paper-url] [![docs-dev][dev-img]][dev-url] | [![CI][ci-img]][ci-url] [![codecov][cov-img]][cov-url] [![PkgEval][pkgeval-img]][pkgeval-url] [![aqua][aqua-img]][aqua-url] | [![zulip][chat-img]][chat-url] [![JuliaHub][juliahub-img]][juliahub-url] | [![DOI][doi-img]][doi-url] | [![license][lic-img]][lic-url] |
 
 [paper-img]: https://proceedings.juliacon.org/papers/10.21105/jcon.00122/status.svg
 [paper-url]: https://doi.org/10.21105/jcon.00122
@@ -12,10 +12,14 @@
 [ci-url]: https://github.com/JuliaReach/RangeEnclosures.jl/actions/workflows/test-master.yml
 [cov-img]: https://codecov.io/github/JuliaReach/RangeEnclosures.jl/coverage.svg
 [cov-url]: https://app.codecov.io/github/JuliaReach/RangeEnclosures.jl
+[pkgeval-img]: https://juliaci.github.io/NanosoldierReports/pkgeval_badges/R/RangeEnclosures.svg
+[pkgeval-url]: https://juliaci.github.io/NanosoldierReports/pkgeval_badges/R/RangeEnclosures.html
 [aqua-img]: https://raw.githubusercontent.com/JuliaTesting/Aqua.jl/master/badge.svg
 [aqua-url]: https://github.com/JuliaTesting/Aqua.jl
 [chat-img]: https://img.shields.io/badge/zulip-join_chat-brightgreen.svg
 [chat-url]: https://julialang.zulipchat.com/#narrow/stream/278609-juliareach
+[juliahub-img]: https://juliahub.com/docs/General/RangeEnclosuresadd JuliaHub and PkgEval badges/stable/version.svg
+[juliahub-url]: https://juliahub.com/ui/Packages/General/RangeEnclosures
 [doi-img]: https://zenodo.org/badge/196427971.svg
 [doi-url]: https://zenodo.org/badge/latestdoi/196427971
 [lic-img]: https://img.shields.io/github/license/mashape/apistatus.svg
