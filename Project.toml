@@ -1,6 +1,6 @@
 name = "RangeEnclosures"
 uuid = "1b4d18b6-9e5d-11e9-236c-f792b01831f8"
-version = "0.2.4"
+version = "0.2.5"
 
 [deps]
 ForwardDiff = "f6369f11-7733-5829-9624-2563aa707210"
