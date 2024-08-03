@@ -3,7 +3,7 @@
 # =================================
 
 function enclose(f::Function, dom::Interval_or_IntervalBox, ::NaturalEnclosure; kwargs...)
-    return f(dom)
+    return _wrap_output(f(dom))
 end
 
 function enclose(f::Function, dom::Interval, ::MeanValueEnclosure;

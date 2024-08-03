@@ -10,7 +10,7 @@ function enclose(f::Function, dom::Interval_or_IntervalBox, tm::TaylorModelsEncl
     else
         R = _enclose_TaylorModels(f, dom, tm.order)
     end
-    return R
+    return _wrap_output(R)
 end
 
 function load_taylormodels()
@@ -20,11 +20,19 @@ function load_taylormodels()
         @inline zeroBox(N) = IntervalBox(0 .. 0, N)
         @inline symBox(N) = IntervalBox(-1 .. 1, N)
 
+        function _evaluate(tm::NTuple{N}, dom) where {N}
+            return evaluate.(tm, Ref(dom))
+        end
+
+        function _evaluate(tm, dom)
+            return evaluate(tm, dom)
+        end
+
         # univariate
         function _enclose_TaylorModels(f::Function, dom::Interval, order::Int)
             x0 = interval(mid(dom))
             x = TaylorModel1(order, x0, dom)
-            return evaluate(f(x - x0), dom)
+            return _evaluate(f(x - x0), dom)
         end
 
         # normalized univariate
@@ -33,7 +41,7 @@ function load_taylormodels()
             x = TaylorModel1(order, x0, dom)
             xnorm = normalize_taylor(x.pol, dom - x0, true)
             xnormTM = TaylorModel1(xnorm, 0 .. 0, 0 .. 0, -1 .. 1)
-            return evaluate(f(xnormTM), -1 .. 1)
+            return _evaluate(f(xnormTM), -1 .. 1)
         end
 
         # multivariate
@@ -41,7 +49,7 @@ function load_taylormodels()
             x0 = mid(dom)
             set_variables(Float64, "x"; order=2order, numvars=N)
             x = [TaylorModelN(i, order, IntervalBox(x0), dom) for i in 1:N]
-            return evaluate(f(x), dom - x0)
+            return _evaluate(f(x), dom - x0)
         end
 
         # normalized multivariate
@@ -54,7 +62,7 @@ function load_taylormodels()
             x = [TaylorModelN(i, order, IntervalBox(x0), dom) for i in 1:N]
             xnorm = [normalize_taylor(xi.pol, dom - x0, true) for xi in x]
             xnormTM = [TaylorModelN(xi_norm, 0 .. 0, zBoxN, sBoxN) for xi_norm in xnorm]
-            return evaluate(f(xnormTM), sBoxN)
+            return _evaluate(f(xnormTM), sBoxN)
         end
     end  # quote
 end  # load_taylormodels()
