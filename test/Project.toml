@@ -11,7 +11,7 @@ Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [compat]
 AffineArithmetic = "0.2"
-Aqua = "0.8"
+Aqua = "0.8.9"
 Documenter = "0.27, 1"
 # DynamicPolynomials v0.6 leads to conflict with PolyJuMP, which requires IntervalArithmetic v0.22
 DynamicPolynomials = "0.3 - 0.5, =0.5"
