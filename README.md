@@ -18,8 +18,8 @@
 [aqua-url]: https://github.com/JuliaTesting/Aqua.jl
 [chat-img]: https://img.shields.io/badge/zulip-join_chat-brightgreen.svg
 [chat-url]: https://julialang.zulipchat.com/#narrow/stream/278609-juliareach
-[juliahub-img]: https://juliahub.com/docs/General/RangeEnclosures/0.2.2/version.svg
-[juliahub-url]: https://juliahub.com/ui/Packages/General/RangeEnclosures/0.2.2
+[juliahub-img]: https://juliahub.com/docs/General/RangeEnclosures/stable/version.svg
+[juliahub-url]: https://juliahub.com/ui/Packages/General/RangeEnclosures
 [doi-img]: https://zenodo.org/badge/196427971.svg
 [doi-url]: https://zenodo.org/badge/latestdoi/196427971
 [lic-img]: https://img.shields.io/github/license/mashape/apistatus.svg
