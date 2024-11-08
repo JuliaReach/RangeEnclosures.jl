@@ -16,6 +16,6 @@ Documenter = "0.27, 1"
 # DynamicPolynomials v0.6 leads to conflict with PolyJuMP, which requires IntervalArithmetic v0.22
 DynamicPolynomials = "0.3 - 0.5, =0.5"
 IntervalOptimisation = "0.4.1"
-SDPA = "0.2 - 0.5"
+SDPA = "0.2 - 0.6"
 SumOfSquares = "0.3.6 - 0.7"
 TaylorModels = "0.3 - 0.7"
