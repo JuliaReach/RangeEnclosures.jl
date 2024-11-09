@@ -43,6 +43,10 @@ jobs:
         uses: julia-actions/cache@v2
       - name: Build package
         uses: julia-actions/julia-buildpkg@v1
+      - name: Fix SDPA to v0.5 in Julia v1.6
+        run: |
+          julia --project=. -e 'import Pkg;
+            if VERSION < v"1.7" Pkg.add(name="SDPA", version="0.5"); Pkg.pin(name="SDPA", version="0.5") end;'
       - name: Run tests
         uses: julia-actions/julia-runtest@v1
       - name: Process coverage
