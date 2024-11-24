@@ -55,6 +55,15 @@ See [`AffineArithmetic.jl`](https://github.com/JuliaIntervals/AffineArithmetic.j
 
 To use this algorithm, you need to load `AffineArithmetic.jl`. Note also that `AffineArithmetic.jl`
 currently supports only arithmetic operations.
+
+### Examples
+
+```jldoctest
+julia> using AffineArithmetic
+
+julia> enclose(x -> 1 - x^4 + x^5, 0..1, AffineArithmeticEnclosure())
+[0.0625, 2]
+```
 """
 struct AffineArithmeticEnclosure <: AbstractDirectRangeAlgorithm end
 
@@ -114,6 +123,8 @@ To use this solver, you need to load `TaylorModels.jl` and a backend.
 ### Examples
 
 ```jldoctest
+julia> using TaylorModels
+
 julia> enclose(x -> 1 - x^4 + x^5, 0..1, TaylorModelsEnclosure()) # default parameters
 [0.8125, 1.09375]
 
