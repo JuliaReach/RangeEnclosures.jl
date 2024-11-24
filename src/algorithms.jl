@@ -165,7 +165,10 @@ julia> backend = SDPA.Optimizer;
 
 julia> @polyvar x;
 
-julia> enclose(-x^3/6 + 5x, 1..4, SumOfSquaresEnclosure(; backend=backend))
+julia> enclose(-x^3/6 + 5x, 1..4, SumOfSquaresEnclosure(; backend=backend)) # default parameters
+[4.83333, 10.541]
+
+julia> enclose(-x^3/6 + 5x, 1..4, SumOfSquaresEnclosure(; backend=backend, order=6))
 [4.83333, 10.541]
 ```
 """
@@ -200,8 +203,8 @@ but a custom value can be passed via the `df` keyword argument to [`enclose`](@r
 julia> enclose(x -> 1 - x^4 + x^5, 0..1, BranchAndBoundEnclosure()) # default parameters
 [0.913927, 1.00003]
 
-julia> enclose(x -> 1 - x^4 + x^5, 0..1, BranchAndBoundEnclosure(tol=1e-2); df=(x -> -4x^3 + 5x^4))
-[0.913927, 1.00091]
+julia> enclose(x -> 1 - x^4 + x^5, 0..1, BranchAndBoundEnclosure(tol=1e-2, maxdepth=7); df=(x -> -4x^3 + 5x^4))
+[0.881639, 1.00091]
 ```
 """
 Base.@kwdef struct BranchAndBoundEnclosure <: AbstractIterativeRangeAlgorithm
