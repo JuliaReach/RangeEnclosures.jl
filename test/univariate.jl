@@ -72,4 +72,8 @@ end
     x = enclose(f, dom, BranchAndBoundEnclosure())
     rleft, rright = relative_precision(x, xref)
     @test rleft ≈ 0 && 2.04e-14 ≤ rright ≤ 2.05e-14
+
+    x = enclose(f, dom, BranchAndBoundEnclosure(), df=nothing)
+    rleft, rright = relative_precision(x, xref)
+    @test rleft ≈ 0 && 2.04e-14 ≤ rright ≤ 2.05e-14
 end
