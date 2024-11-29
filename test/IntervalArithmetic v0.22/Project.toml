@@ -1,0 +1,17 @@
+[deps]
+Aqua = "4c88cf16-eb10-579e-8560-4a9242c79595"
+Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
+DynamicPolynomials = "7c1d4256-1411-5781-91ec-d7bc3513ac07"
+IntervalArithmetic = "d1acc4aa-44c8-5952-acd4-ba5d80a2a253"
+RangeEnclosures = "1b4d18b6-9e5d-11e9-236c-f792b01831f8"
+SDPA = "b9a10b5b-afa4-512f-a053-bb3d8080febc"
+SumOfSquares = "4b9e565b-77fc-50a5-a571-1244f986bda1"
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[compat]
+Aqua = "0.8.9"
+Documenter = "0.27, 1"
+DynamicPolynomials = "0.3 - 0.6"
+IntervalArithmetic = "0.22"
+SDPA = "0.2 - 0.6"
+SumOfSquares = "0.3.6 - 0.7"
