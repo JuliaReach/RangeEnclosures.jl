@@ -80,13 +80,7 @@ julia> relative_precision(x, xref)
 
 This function measures the relative precision of the result in a more informative
 way than taking the scalar overestimation because it evaluates the precision of
-the lower and the upper bounds separately (cf. Eq. (20) in [1]).
-
-[1] Althoff, Matthias, Dmitry Grebenyuk, and Niklas Kochdumper.
-   *Implementation of Taylor models in CORA 2018.*
-   Proc. of the 5th International Workshop on Applied Verification for
-   Continuous and Hybrid Systems. 2018.
-
+the lower and the upper bounds separately (cf. [AlthoffGK18; Eq. (20)](@citet)).
 """
 function relative_precision(x::Interval, xref::Interval)
     x⁻, x⁺ = inf(x), sup(x)
