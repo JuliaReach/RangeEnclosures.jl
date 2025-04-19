@@ -1,6 +1,7 @@
 using Documenter, RangeEnclosures, DocumenterCitations
+using IntervalOptimisation, SumOfSquares, SDPA, TaylorModels
 
-include("init.jl")
+DocMeta.setdocmeta!(RangeEnclosures, :DocTestSetup, :(using RangeEnclosures); recursive=true)
 
 bib = CitationBibliography(joinpath(@__DIR__, "src", "refs.bib"); style=:alpha)
 
@@ -8,7 +9,6 @@ makedocs(; sitename="RangeEnclosures.jl",
          modules=[RangeEnclosures],
          format=Documenter.HTML(; prettyurls=get(ENV, "CI", nothing) == "true",
                                 assets=["assets/aligned.css", "assets/citations.css"]),
-         doctest=false,
          plugins=[bib],
          pagesonly=true,
          pages=["Home" => "index.md",
