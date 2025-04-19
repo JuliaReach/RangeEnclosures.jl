@@ -196,6 +196,7 @@ the interval/interval box.
 The algorithm also looks at the sign of the derivative / gradient to see if the range can be
 computed directly. By default, the derivative / gradient is computed using `ForwardDiff.jl`,
 but a custom value can be passed via the `df` keyword argument to [`enclose`](@ref).
+Pass `df = nothing` to avoid computing any derivatives.
 
 ### Examples
 
