@@ -8,6 +8,7 @@ using IntervalArithmetic: Interval, IntervalBox, interval, inf, sup, mid,
 const Interval_or_IntervalBox = Union{Interval,IntervalBox}
 using ReachabilityBase.Require
 
+include("wrap_output.jl")
 include("algorithms.jl")
 include("intervalarithmetic.jl")
 include("branchandbound.jl")
@@ -20,7 +21,10 @@ include("intervaloptimisation.jl")
 # ================
 
 function __init__()
-    @require AffineArithmetic = "2e89c364-fad6-56cb-99bd-ebadcd2cf8d2" eval(load_affinearithmetic())
+    @require AffineArithmetic = "2e89c364-fad6-56cb-99bd-ebadcd2cf8d2" begin
+        eval(load_affinearithmetic())
+        eval(load_affinearithmetic_wrap_output())
+    end
     @require SumOfSquares = "4b9e565b-77fc-50a5-a571-1244f986bda1" include("sdp.jl")
     @require TaylorModels = "314ce334-5f6e-57ae-acf6-00b6e903104a" eval(load_taylormodels())
     @require IntervalOptimisation = "c7c68f13-a4a2-5b9a-b424-07d005f8d9d2" eval(load_intervaloptimization())
