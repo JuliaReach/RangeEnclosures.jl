@@ -3,10 +3,29 @@ module RangeEnclosures
 using Requires
 import ForwardDiff
 using LinearAlgebra: dot
-using IntervalArithmetic: Interval, IntervalBox, interval, inf, sup, mid,
-                          emptyinterval, hull, diam, bisect, (..)
-const Interval_or_IntervalBox = Union{Interval,IntervalBox}
+import IntervalArithmetic
+using IntervalArithmetic: Interval, interval, inf, sup, mid,
+                          emptyinterval, hull, diam, bisect
 using ReachabilityBase.Require
+
+# resolving IntervalArithmetic version problems
+import PkgVersion
+@static if VERSION >= v"1.9"
+    vIA = pkgversion(IntervalArithmetic)
+else
+    vIA = PkgVersion.Version(IntervalArithmetic)
+end
+@static if vIA < v"0.22"
+    using IntervalArithmetic: (..)
+else
+    .. = interval
+end
+@static if vIA < v"0.21.1"
+    using IntervalArithmetic: IntervalBox
+else
+    IntervalBox = AbstractVector{<:Interval}
+end
+const Interval_or_IntervalBox = Union{Interval,IntervalBox}
 
 include("algorithms.jl")
 include("intervalarithmetic.jl")
