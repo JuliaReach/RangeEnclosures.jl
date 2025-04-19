@@ -55,6 +55,15 @@ See [`AffineArithmetic.jl`](https://github.com/JuliaIntervals/AffineArithmetic.j
 
 To use this algorithm, you need to load `AffineArithmetic.jl`. Note also that `AffineArithmetic.jl`
 currently supports only arithmetic operations.
+
+### Examples
+
+```jldoctest
+julia> using AffineArithmetic
+
+julia> enclose(x -> 1 - x^4 + x^5, 0..1, AffineArithmeticEnclosure())
+[0.0625, 2]
+```
 """
 struct AffineArithmeticEnclosure <: AbstractDirectRangeAlgorithm end
 
@@ -114,6 +123,8 @@ To use this solver, you need to load `TaylorModels.jl` and a backend.
 ### Examples
 
 ```jldoctest
+julia> using TaylorModels
+
 julia> enclose(x -> 1 - x^4 + x^5, 0..1, TaylorModelsEnclosure()) # default parameters
 [0.8125, 1.09375]
 
@@ -154,7 +165,10 @@ julia> backend = SDPA.Optimizer;
 
 julia> @polyvar x;
 
-julia> enclose(-x^3/6 + 5x, 1..4, SumOfSquaresEnclosure(; backend=backend))
+julia> enclose(-x^3/6 + 5x, 1..4, SumOfSquaresEnclosure(; backend=backend)) # default parameters
+[4.83333, 10.541]
+
+julia> enclose(-x^3/6 + 5x, 1..4, SumOfSquaresEnclosure(; backend=backend, order=6))
 [4.83333, 10.541]
 ```
 """
@@ -186,11 +200,11 @@ but a custom value can be passed via the `df` keyword argument to [`enclose`](@r
 ### Examples
 
 ```jldoctest
-julia> enclose(x -> -x^3/6 + 5x, 1..4, BranchAndBoundEnclosure())
-[4.83333, 10.5709]
+julia> enclose(x -> 1 - x^4 + x^5, 0..1, BranchAndBoundEnclosure()) # default parameters
+[0.913927, 1.00003]
 
-julia> enclose(x -> -x^3/6 + 5x, 1..4, BranchAndBoundEnclosure(tol=1e-2); df=x->-x^2/2+5)
-[4.83333, 10.5709]
+julia> enclose(x -> 1 - x^4 + x^5, 0..1, BranchAndBoundEnclosure(tol=1e-2, maxdepth=7); df=(x -> -4x^3 + 5x^4))
+[0.881639, 1.00091]
 ```
 """
 Base.@kwdef struct BranchAndBoundEnclosure <: AbstractIterativeRangeAlgorithm
