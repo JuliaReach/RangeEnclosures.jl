@@ -7,9 +7,7 @@
 SUITE["Daisy"] = BenchmarkGroup()
 RESULTS = SUITE["Daisy"]
 
-# The following domains are used throughout the tests in Tables 3-5 in
-# [1] Althoff, M., Grebenyuk, D., & Kochdumper, N. (2018). Implementation of Taylor models in CORA 2018.
-#     In Proc. of the 5th International Workshop on Applied Verification for Continuous and Hybrid Systems.
+# The following domains are used throughout the tests in [AlthoffGK18; Tables 3-5](@citet).
 a = Interval(-4.5, -0.3)
 b = Interval(0.4, 0.9)
 c = Interval(3.8, 7.8)
