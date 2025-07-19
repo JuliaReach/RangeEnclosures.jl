@@ -10,24 +10,24 @@ struct MyEnclosure end
     end
 
     f(x) = x
-    @test enclose(f, interval(0, 1), MyEnclosure()) == interval(1, 2)
+    @test isequal_interval(enclose(f, interval(0, 1), MyEnclosure()), interval(1, 2))
 end
 
 @testset "How to use the package" begin
     f(x) = -sum(k * x * sin(k * (x - 3) / 3) for k in 1:5)
     D = interval(-10, 10)
-    @test enclose(f, D, NaturalEnclosure()) == interval(-150, 150)
+    @test isequal_interval(enclose(f, D, NaturalEnclosure()), interval(-150, 150))
     res = enclose(f, D, BranchAndBoundEnclosure())
-    @test res isa Interval && inf(res) ≈ -56.42311 && sup(res) ≈ 34.99878
+    @test res isa Interval && inf(res) ≈ -56.42400 && sup(res) ≈ 34.988386
 end
 
 @testset "Combining different solvers" begin
     g(x) = x^2 - 2 * x + 1
     Dg = interval(0, 4)
-    @test enclose(g, Dg, NaturalEnclosure()) == interval(-7, 17)
-    @test enclose(g, Dg, MeanValueEnclosure()) == interval(-11, 13)
+    @test isequal_interval(enclose(g, Dg, NaturalEnclosure()), interval(-7, 17))
+    @test isequal_interval(enclose(g, Dg, MeanValueEnclosure()), interval(-11, 13))
 
-    @test enclose(g, Dg, [NaturalEnclosure(), MeanValueEnclosure()]) == interval(-7, 13)
+    @test isequal_interval(enclose(g, Dg, [NaturalEnclosure(), MeanValueEnclosure()]), interval(-7, 13))
 end
 
 @testset "Using solvers based on external libraries" begin
@@ -41,5 +41,5 @@ end
     h(x) = sin(x[1]) - cos(x[2]) - sin(x[1]) * cos(x[1])
     Dh = IntervalBox(interval(-5, 5), interval(-5, 5))
     res = enclose(h, Dh, BranchAndBoundEnclosure())
-    @test res isa Interval && inf(res) ≈ -2.71067455 && sup(res) ≈ 2.7131246
+    @test res isa Interval && inf(res) ≈ -2.7114374 && sup(res) ≈ 2.7131246
 end

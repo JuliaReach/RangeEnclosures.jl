@@ -23,10 +23,10 @@ An interval enclosure of the range of `f` over `dom`.
 
 ```jldoctest enclose_examples
 julia> enclose(x -> 1 - x^4 + x^5, interval(0, 1)) # use default solver
-[0, 2]
+[0.0, 2.0]_com_NG
 
 julia> enclose(x -> 1 - x^4 + x^5, interval(0, 1), TaylorModelsEnclosure())
-[0.8125, 1.09375]
+[0.812499, 1.09376]_com_NG
 ```
 
 A vector of solvers can be passed in the `solver` options. Then, the result is
@@ -34,7 +34,7 @@ obtained by intersecting the range enclosure of each solver.
 
 ```jldoctest enclose_examples
 julia> enclose(x -> 1 - x^4 + x^5, interval(0, 1), [TaylorModelsEnclosure(), NaturalEnclosure()])
-[0.8125, 1.09375]
+[0.812499, 1.09376]_trv_NG
 
 ```
 """
@@ -43,7 +43,7 @@ function enclose(f::Function, dom::Interval_or_IntervalBox; kwargs...)
 end
 
 function enclose(f::Function, dom::Interval_or_IntervalBox, solvers::Vector; kwargs...)
-    return mapreduce(solver -> enclose(f, dom, solver; kwargs...), ∩, solvers)
+    return mapreduce(solver -> enclose(f, dom, solver; kwargs...), intersect_interval, solvers)
 end
 
 """
@@ -66,10 +66,10 @@ Left and right relative precision (in %) computed as
 
 ```jldoctest relative_precision
 julia> xref = interval(-1.2, 4.6)
-[-1.2, 4.6]
+[-1.20001, 4.60001]_com
 
 julia> x = interval(-1.25, 7.45)
-[-1.25, 7.45001]
+[-1.25001, 7.45001]_com
 
 julia> relative_precision(x, xref)
 (0.8620689655172422, 49.13793103448277)

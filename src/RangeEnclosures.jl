@@ -3,8 +3,9 @@ module RangeEnclosures
 using Requires
 import ForwardDiff
 using LinearAlgebra: dot
-using IntervalArithmetic: Interval, IntervalBox, interval, inf, sup, mid,
-                          emptyinterval, hull, diam, bisect, (..)
+using IntervalArithmetic: Interval, interval, inf, sup, mid,
+                          emptyinterval, hull, diam, bisect, intersect_interval
+using IntervalBoxes: IntervalBox
 const Interval_or_IntervalBox = Union{Interval,IntervalBox}
 using ReachabilityBase.Require
 

@@ -64,10 +64,20 @@ As you can see, the result is much tighter now, while still being rigorous! The 
 
 ```@example tutorial
 using Plots
+using RangeEnclosures: inf, sup
+
+function plot_box!(fig, box::IntervalBox{2}; label, alpha)
+    (x, y) = box
+    x = [inf(x), sup(x), sup(x), inf(x)]
+    y = [inf(y), inf(y), sup(y), sup(y)]
+    plot!(fig, x, y, seriesalpha=alpha, seriestype=:shape, label=label)
+    x, y
+end
+
 fig = plot(xlabel="x", ylabel="f(x)", legendfontsize=12, tickfontsize=12,
            xguidefont=font(15, "Times"), yguidefont=font(15, "Times"))
-plot!(fig, IntervalBox(D, R), label="natural enclosure")
-plot!(fig, IntervalBox(D, Rbb), label="branch and bound", alpha=1)
+plot_box!(fig, IntervalBox(D, R), label="natural enclosure", alpha=0.5)
+plot_box!(fig, IntervalBox(D, Rbb), label="branch and bound", alpha=1)
 plot!(fig, f, -10, 10, lw=2, c=:black, label="f")
 import DisplayAs  #hide
 DisplayAs.Text(DisplayAs.PNG(fig))  #hide
@@ -166,7 +176,7 @@ To add a new enclosure algorithm, or *solver*, just add a corresponding struct (
 ```@example
 using RangeEnclosures
 import RangeEnclosures: enclose
-using IntervalArithmetic: Interval
+using RangeEnclosures: Interval, IntervalBox
 
 struct MyEnclosure end
 
