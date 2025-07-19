@@ -1,7 +1,7 @@
 @testset "Multivariate functions" begin
     # himmilbeau from Daisy benchmarks
     f(x) = -x[1] * x[2] - 2 * x[2] * x[3] - x[1] - x[3]
-    dom = interval(-4.5, -0.3) × interval(0.4, 0.9) × interval(3.8, 7.8)
+    dom = IntervalBox(interval(-4.5, -0.3), interval(0.4, 0.9), interval(3.8, 7.8))
     xref = interval(-20.786552979420335, -0.540012836551535) # MOSEK deg 6
     for solver in available_solvers
         x = enclose(f, dom, solver)
