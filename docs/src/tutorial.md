@@ -50,7 +50,7 @@ If we call `enclose` without specifying the solver, it will evaluate ``f(D)`` us
 
 ```@example tutorial
 f(x) = -sum(k*x*sin(k*(x-3)/3) for k in 1:5)
-D = -10..10
+D = interval(-10, 10)
 R = enclose(f, D)
 ```
 
@@ -91,7 +91,7 @@ be combined by taking the intersection. For example, let us consider the functio
 
 ```@example tutorial
 g(x) = x^2 - 2*x + 1
-Dg = 0..4
+Dg = interval(0, 4)
 enclose(g, Dg, NaturalEnclosure()) # this is equivalent to enclose(g, Dg)
 ```
 
@@ -140,7 +140,7 @@ over the domain ``D_h = [-5, 5] \times [-5, 5]``. An enclosure can be computed a
 
 ```@example tutorial
 h(x) = sin(x[1]) - cos(x[2]) - sin(x[1]) * cos(x[1])
-Dh = IntervalBox(-5..5, -5..5)
+Dh = IntervalBox(interval(-5, 5), interval(-5, 5))
 Rh = enclose(h, Dh, BranchAndBoundEnclosure())
 ```
 
