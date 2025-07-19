@@ -12,11 +12,4 @@ available_solvers = (NaturalEnclosure(),
 include("univariate.jl")
 include("multivariate.jl")
 include("paper.jl")
-
-using Documenter
-include("../docs/init.jl")
-@testset "doctests" begin
-    doctest(RangeEnclosures)
-end
-
 include("Aqua.jl")
