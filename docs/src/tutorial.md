@@ -133,10 +133,10 @@ ERROR: AssertionError: package 'IntervalOptimisation' not loaded (it is required
 
 This is because the algorithm is implemented in [`IntervalOptimisation.jl`](https://github.com/JuliaIntervals/IntervalOptimisation.jl) and to use it you need to load that package first (note that you need to have it installed before loading it). Let us fix our example.
 
-```@example tutorial
-using IntervalOptimisation
-enclose(f, D, MooreSkelboeEnclosure())
-```
+# ```@example tutorial
+# using IntervalOptimisation
+# enclose(f, D, MooreSkelboeEnclosure())
+# ```
 
 ### Bounding multivariate functions
 

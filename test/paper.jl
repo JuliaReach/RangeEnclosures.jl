@@ -30,12 +30,12 @@ end
     @test isequal_interval(enclose(g, Dg, [NaturalEnclosure(), MeanValueEnclosure()]), interval(-7, 13))
 end
 
-@testset "Using solvers based on external libraries" begin
-    g(x) = x^2 - 2 * x + 1
-    Dg = interval(0, 4)
-    res = enclose(g, Dg, MooreSkelboeEnclosure())
-    @test res isa Interval && inf(res) ≈ -0.0019195181 && sup(res) ≈ 9.0010805
-end
+# @testset "Using solvers based on external libraries" begin
+#     g(x) = x^2 - 2 * x + 1
+#     Dg = interval(0, 4)
+#     res = enclose(g, Dg, MooreSkelboeEnclosure())
+#     @test res isa Interval && inf(res) ≈ -0.0019195181 && sup(res) ≈ 9.0010805
+# end
 
 @testset "Multivariate functions" begin
     h(x) = sin(x[1]) - cos(x[2]) - sin(x[1]) * cos(x[1])

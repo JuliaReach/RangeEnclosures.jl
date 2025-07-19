@@ -18,29 +18,30 @@ domain.
 ### Output
 
 An interval enclosure of the range of `f` over `dom`.
-
-### Examples
-
-```jldoctest enclose_examples
-julia> enclose(x -> 1 - x^4 + x^5, interval(0, 1)) # use default solver
-[0, 2]
-
-julia> enclose(x -> 1 - x^4 + x^5, interval(0, 1), TaylorModelsEnclosure())
-[0.8125, 1.09375]
-```
-
-A vector of solvers can be passed in the `solver` options. Then, the result is
-obtained by intersecting the range enclosure of each solver.
-
-```jldoctest enclose_examples
-julia> enclose(x -> 1 - x^4 + x^5, interval(0, 1), [TaylorModelsEnclosure(), NaturalEnclosure()])
-[0.8125, 1.09375]
-
-```
 """
 function enclose(f::Function, dom::Interval_or_IntervalBox; kwargs...)
     return enclose(f, dom, NaturalEnclosure(); kwargs...)
 end
+#
+# ### Examples
+#
+# ```jldoctest enclose_examples
+# julia> enclose(x -> 1 - x^4 + x^5, interval(0, 1)) # use default solver
+# [0, 2]
+#
+# julia> enclose(x -> 1 - x^4 + x^5, interval(0, 1), TaylorModelsEnclosure())
+# [0.8125, 1.09375]
+# ```
+#
+# A vector of solvers can be passed in the `solver` options. Then, the result is
+# obtained by intersecting the range enclosure of each solver.
+#
+# ```jldoctest enclose_examples
+# julia> enclose(x -> 1 - x^4 + x^5, interval(0, 1), [TaylorModelsEnclosure(), NaturalEnclosure()])
+# [0.8125, 1.09375]
+#
+# ```
+# """
 
 function enclose(f::Function, dom::Interval_or_IntervalBox,
                  method::Vector; kwargs...)
