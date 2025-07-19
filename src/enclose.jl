@@ -44,7 +44,7 @@ end
 
 function enclose(f::Function, dom::Interval_or_IntervalBox,
                  method::Vector; kwargs...)
-    return mapreduce(ξ -> enclose(f, dom, ξ; kwargs...), ∩, method)
+    return mapreduce(ξ -> enclose(f, dom, ξ; kwargs...), hull, method)
 end
 
 """
