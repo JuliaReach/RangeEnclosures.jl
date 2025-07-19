@@ -16,7 +16,7 @@ end
 
 @testset "Multivariate example from the Quickstart Guide" begin
     g(x) = (x[1] + 2x[2] - 7)^2 + (2x[1] + x[2] - 5)^2
-    dom = IntervalBox(-10 .. 10, 2)
+    dom = IntervalBox(interval(-10, 10), 2)
 
     x = enclose(g, dom, NaturalEnclosure())
     xref = interval(0, 2594)
@@ -27,7 +27,7 @@ end
 @testset "Test multivariate polynomial input" begin
     @polyvar x y
     p = (x + 2y - 7)^2 + (2x + y - 5)^2
-    dom = IntervalBox(-10 .. 10, 2)
+    dom = IntervalBox(interval(-10, 10), 2)
 
     x = enclose(p, dom)
     xref = interval(-1446, 2594)
@@ -43,7 +43,7 @@ end
 
 @testset "Taylor-model solver without normalization" begin
     f(x) = x[1]^2 - 5x[1]
-    dom = IntervalBox(-1 .. 1, 0 .. 0)
+    dom = IntervalBox(interval(-1, 1), interval(0, 0))
     x = enclose(f, dom, TaylorModelsEnclosure(; normalize=false))
     xref = interval(-4, 6)
     rleft, rright = relative_precision(x, xref)
@@ -52,7 +52,7 @@ end
 
 @testset "Test branch-and-bound solver" begin
     f(x) = (1 / 3)x[1]^3 + (x[1] - 0.5)^2
-    dom = IntervalBox(-4.0 .. 4.0, 0 .. 0)
+    dom = IntervalBox(interval(-4.0, 4.0), interval(0, 0))
     xref = interval(-1.0833333333333321, 33.58333333333333)
     x = enclose(f, dom, BranchAndBoundEnclosure())
     rleft, rright = relative_precision(x, xref)

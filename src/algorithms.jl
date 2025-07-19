@@ -30,7 +30,7 @@ evaluate `f(X)` with interval arithmetic.
 ### Examples
 
 ```jldoctest
-julia> enclose(x -> 1 - x^4 + x^5, 0..1, NaturalEnclosure())
+julia> enclose(x -> 1 - x^4 + x^5, interval(0, 1), NaturalEnclosure())
 [0, 2]
 ```
 """
@@ -61,7 +61,7 @@ currently supports only arithmetic operations.
 ```jldoctest
 julia> using AffineArithmetic
 
-julia> enclose(x -> 1 - x^4 + x^5, 0..1, AffineArithmeticEnclosure())
+julia> enclose(x -> 1 - x^4 + x^5, interval(0, 1), AffineArithmeticEnclosure())
 [0.0625, 2]
 ```
 """
@@ -91,10 +91,10 @@ To use this algorithm, you need to load `IntervalOptimisation.jl`.
 ```jldoctest
 julia> using IntervalOptimisation
 
-julia> enclose(x -> 1 - x^4 + x^5, 0..1, MooreSkelboeEnclosure()) # default parameters
+julia> enclose(x -> 1 - x^4 + x^5, interval(0, 1), MooreSkelboeEnclosure()) # default parameters
 [0.916034, 1.00213]
 
-julia> enclose(x -> 1 - x^4 + x^5, 0..1, MooreSkelboeEnclosure(; tol=1e-2))
+julia> enclose(x -> 1 - x^4 + x^5, interval(0, 1), MooreSkelboeEnclosure(; tol=1e-2))
 [0.900812, 1.0326]
 ```
 """
@@ -125,10 +125,10 @@ To use this solver, you need to load `TaylorModels.jl` and a backend.
 ```jldoctest
 julia> using TaylorModels
 
-julia> enclose(x -> 1 - x^4 + x^5, 0..1, TaylorModelsEnclosure()) # default parameters
+julia> enclose(x -> 1 - x^4 + x^5, interval(0, 1), TaylorModelsEnclosure()) # default parameters
 [0.8125, 1.09375]
 
-julia> enclose(x -> 1 - x^4 + x^5, 0..1, TaylorModelsEnclosure(; order=4))
+julia> enclose(x -> 1 - x^4 + x^5, interval(0, 1), TaylorModelsEnclosure(; order=4))
 [0.78125, 1.125]
 ```
 """
@@ -165,10 +165,10 @@ julia> backend = SDPA.Optimizer;
 
 julia> @polyvar x;
 
-julia> enclose(-x^3/6 + 5x, 1..4, SumOfSquaresEnclosure(; backend=backend)) # default parameters
+julia> enclose(-x^3/6 + 5x, interval(1, 4), SumOfSquaresEnclosure(; backend=backend)) # default parameters
 [4.83333, 10.541]
 
-julia> enclose(-x^3/6 + 5x, 1..4, SumOfSquaresEnclosure(; backend=backend, order=6))
+julia> enclose(-x^3/6 + 5x, interval(1, 4), SumOfSquaresEnclosure(; backend=backend, order=6))
 [4.83333, 10.541]
 ```
 """
@@ -200,10 +200,10 @@ but a custom value can be passed via the `df` keyword argument to [`enclose`](@r
 ### Examples
 
 ```jldoctest
-julia> enclose(x -> 1 - x^4 + x^5, 0..1, BranchAndBoundEnclosure()) # default parameters
+julia> enclose(x -> 1 - x^4 + x^5, interval(0, 1), BranchAndBoundEnclosure()) # default parameters
 [0.913927, 1.00003]
 
-julia> enclose(x -> 1 - x^4 + x^5, 0..1, BranchAndBoundEnclosure(tol=1e-2, maxdepth=7); df=(x -> -4x^3 + 5x^4))
+julia> enclose(x -> 1 - x^4 + x^5, interval(0, 1), BranchAndBoundEnclosure(tol=1e-2, maxdepth=7); df=(x -> -4x^3 + 5x^4))
 [0.881639, 1.00091]
 ```
 """

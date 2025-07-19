@@ -52,7 +52,7 @@ algorithms. Here is a quick example:
 ```julia
 julia> f(x) = -x^3/6 + 5x
 
-julia> dom = 1 .. 4
+julia> dom = interval(1, 4)
 [1, 4]
 
 julia> enclose(f, dom, BranchAndBoundEnclosure())
@@ -64,7 +64,7 @@ julia> enclose(f, dom, BranchAndBoundEnclosure())
 <!--code to generate plot
 using RangeEnclosures, Plots
 f(x) = -x^3/6 + 5x
-dom = 1 .. 4
+dom = interval(1, 4)
 b = enclose(f, dom, BranchAndBoundEnclosure())
 plot(xlab="x", leg=:right)
 plot!(x -> sup(b), 1, 4, c=:red, s=:dash, lw=2, lab="upper bound")
