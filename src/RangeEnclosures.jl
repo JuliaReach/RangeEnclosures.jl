@@ -45,7 +45,7 @@ export enclose,
        BranchAndBoundEnclosure
 
 # standard ways from IntervalArithmetic to create intervals
-export interval, ..,
+export interval,
        IntervalBox
 
 end  # module
