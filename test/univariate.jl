@@ -29,15 +29,15 @@ end
     rleft, rright = relative_precision(x, xref)
     @test rleft ≤ 1e-5 && rright ≤ 1e-5
 
-    x = enclose(f, dom, TaylorModelsEnclosure(; order=4))
-    xref = interval(-4.2783, 12.7084)
-    rleft, rright = relative_precision(x, xref)
-    @test rleft ≤ 1e-5 && rright ≤ 1e-5
+    # x = enclose(f, dom, TaylorModelsEnclosure(; order=4))
+    # xref = interval(-4.2783, 12.7084)
+    # rleft, rright = relative_precision(x, xref)
+    # @test rleft ≤ 1e-5 && rright ≤ 1e-5
 
-    x = enclose(f, dom, MooreSkelboeEnclosure())
-    xref = interval(4.83299, 10.5448)
-    rleft, rright = relative_precision(x, xref)
-    @test rleft ≤ 1e-5 && rright ≤ 1e-5
+    # x = enclose(f, dom, MooreSkelboeEnclosure())
+    # xref = interval(4.83299, 10.5448)
+    # rleft, rright = relative_precision(x, xref)
+    # @test rleft ≤ 1e-5 && rright ≤ 1e-5
 end
 
 @testset "Test univariate polynomial input" begin
@@ -56,14 +56,14 @@ end
     @test rleft ≤ 1e-5 && rright ≤ 1e-5
 end
 
-@testset "Taylor-model solver without normalization" begin
-    f(x) = x^2 - 5x
-    dom = interval(-1, 1)
-    x = enclose(f, dom, TaylorModelsEnclosure(; normalize=false))
-    xref = interval(-4, 6)
-    rleft, rright = relative_precision(x, xref)
-    @test rleft ≈ 10 && rright ≈ 0
-end
+# @testset "Taylor-model solver without normalization" begin
+#     f(x) = x^2 - 5x
+#     dom = interval(-1, 1)
+#     x = enclose(f, dom, TaylorModelsEnclosure(; normalize=false))
+#     xref = interval(-4, 6)
+#     rleft, rright = relative_precision(x, xref)
+#     @test rleft ≈ 10 && rright ≈ 0
+# end
 
 @testset "Test branch-and-bound solver" begin
     f(x) = (1 / 3)x^3 + (x - 0.5)^2

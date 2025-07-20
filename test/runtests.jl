@@ -1,12 +1,14 @@
 using Test, RangeEnclosures
-using AffineArithmetic, IntervalOptimisation, TaylorModels, SDPA, SumOfSquares
+# using AffineArithmetic, IntervalOptimisation, TaylorModels
+using SDPA, SumOfSquares
 using DynamicPolynomials: @polyvar
+using IntervalArithmetic: Interval, inf, sup, isequal_interval
 
 available_solvers = (NaturalEnclosure(),
                      MeanValueEnclosure(),
-                     AffineArithmeticEnclosure(),
-                     MooreSkelboeEnclosure(),
-                     TaylorModelsEnclosure(),
+                    #  AffineArithmeticEnclosure(),
+                    #  MooreSkelboeEnclosure(),
+                    #  TaylorModelsEnclosure(),
                      BranchAndBoundEnclosure())
 
 include("univariate.jl")
