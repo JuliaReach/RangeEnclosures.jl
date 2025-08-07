@@ -13,9 +13,11 @@ end
 function _branch_bound(bab::BranchAndBoundEnclosure, f::Function, X::Interval_or_IntervalBox, df;
                        initial=emptyinterval(first(X)),
                        cnt=1)
-    dfX = df(X)
-    range_extrema, flag = _monotonicity_check(f, X, dfX)
-    flag && return hull(range_extrema, initial)
+    if !isnothing(df)
+        dfX = df(X)
+        range_extrema, flag = _monotonicity_check(f, X, dfX)
+        flag && return hull(range_extrema, initial)
+    end
 
     fX = f(X)  # TODO: allow user to choose how to evaluate this (mean value, natural enclosure)
     # if tolerance or maximum number of iteration is met, return current enclosure
