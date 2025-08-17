@@ -42,9 +42,8 @@ function enclose(f::Function, dom::Interval_or_IntervalBox; kwargs...)
     return enclose(f, dom, NaturalEnclosure(); kwargs...)
 end
 
-function enclose(f::Function, dom::Interval_or_IntervalBox,
-                 method::Vector; kwargs...)
-    return mapreduce(ξ -> enclose(f, dom, ξ; kwargs...), ∩, method)
+function enclose(f::Function, dom::Interval_or_IntervalBox, solvers::Vector; kwargs...)
+    return mapreduce(solver -> enclose(f, dom, solver; kwargs...), ∩, solvers)
 end
 
 """

@@ -4,6 +4,11 @@
     dom = interval(-4.5, -0.3)
     xref = interval(0.36616666666666675, 27.729166666666668)
 
+    # default solver
+    x = enclose(f, dom)
+    rleft, rright = relative_precision(x, xref)
+    @test rleft ≤ 1e-5 && rright ≤ 1e-5
+
     for solver in available_solvers
         x = enclose(f, dom, solver)
         rleft, rright = relative_precision(x, xref)
