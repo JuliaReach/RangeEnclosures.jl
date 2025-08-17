@@ -10,7 +10,7 @@ ReachabilityBase = "379f33d0-9447-4353-bd03-d664070e549f"
 Requires = "ae029012-a4dd-5104-9daa-d747884805df"
 
 [compat]
-ForwardDiff = "0.10"
+ForwardDiff = "0.10, 1"
 IntervalArithmetic = "0.15 - 0.20, =0.21.0"  # v0.21.1 removed IntervalBox
 LinearAlgebra = "<0.0.1, 1.6"
 ReachabilityBase = "0.1.1 - 0.3"
