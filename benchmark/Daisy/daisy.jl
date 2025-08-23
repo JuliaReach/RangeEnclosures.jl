@@ -40,7 +40,7 @@ for name in keys(DAISY)
 
         RESULTS[name]["order $ord"]["Taylor Model subs."] = @benchmarkable enclose($func, $dom,
                                                                                    :TaylorModels,
-                                                                                   order=$ord,
+                                                                                   order=($ord),
                                                                                    normalize=false)
         RELPREC[name]["order $ord"]["Taylor Model subs."] = relative_precision(enclose(func, dom,
                                                                                        :TaylorModels;
@@ -51,7 +51,7 @@ for name in keys(DAISY)
         RESULTS[name]["order $ord"]["Normalized Taylor Model subs."] = @benchmarkable enclose($func,
                                                                                               $dom,
                                                                                               :TaylorModels,
-                                                                                              order=$ord,
+                                                                                              order=($ord),
                                                                                               normalize=true)
         RELPREC[name]["order $ord"]["Normalized Taylor Model subs."] = relative_precision(enclose(func,
                                                                                                   dom,
