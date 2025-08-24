@@ -1,6 +1,6 @@
 [deps]
-DisplayAs = "0b91fe84-8a4c-11e9-3e1d-67c38462b6d6"
 AffineArithmetic = "2e89c364-fad6-56cb-99bd-ebadcd2cf8d2"
+DisplayAs = "0b91fe84-8a4c-11e9-3e1d-67c38462b6d6"
 Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
 DocumenterCitations = "daee34ce-89f3-4625-b898-19384cb65244"
 DynamicPolynomials = "7c1d4256-1411-5781-91ec-d7bc3513ac07"
@@ -16,11 +16,10 @@ AffineArithmetic = "0.2"
 DisplayAs = "0.1"
 Documenter = "1"
 DocumenterCitations = "1.3"
-# DynamicPolynomials v0.6 leads to conflict with PolyJuMP, which requires IntervalArithmetic v0.22
 DynamicPolynomials = "0.3 - 0.5, =0.5"
-IntervalArithmetic = "=0.20.9"  # new versions require updates and are incompatible with dependencies
+IntervalArithmetic = "=0.20.9"
 IntervalOptimisation = "0.4"
 Plots = "1"
 SDPA = "0.2 - 0.6"
 SumOfSquares = "0.3.6 - 0.7"
-TaylorModels = "0.3 - 0.7"
+TaylorModels = "0.3 - 0.7, 0.8"
