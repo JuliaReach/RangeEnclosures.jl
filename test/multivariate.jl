@@ -30,6 +30,21 @@ end
     @test rleft ≤ 1e-5 && rright ≤ 1e-5
 end
 
+@testset "Multivariate input, multivariate output" begin
+    f(x) = (-x[1], 2 * x[2])
+    dom = IntervalBox(1..2, 3..4)
+    for solver in available_solvers
+        if (solver isa MeanValueEnclosure || solver isa MooreSkelboeEnclosure ||
+            solver isa BranchAndBoundEnclosure)
+            # solver does not support multivariate outputs
+            continue
+        end
+        x = enclose(f, dom, solver)
+        @test x isa IntervalBox
+        @test IntervalBox(-2 .. -1, 6 .. 8) ⊆ x
+    end
+end
+
 @testset "Test multivariate polynomial input" begin
     @polyvar x y
     p = (x + 2y - 7)^2 + (2x + y - 5)^2
