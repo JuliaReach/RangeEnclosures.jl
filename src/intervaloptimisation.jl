@@ -2,13 +2,19 @@
 # Methods using interval optimization
 # ===================================
 
-function enclose(f::Function, dom::Interval_or_IntervalBox, mse::MooreSkelboeEnclosure; kwargs...)
+function enclose(f::Function, dom::Interval_or_IntervalVector, mse::MooreSkelboeEnclosure;
+                 kwargs...)
     require(@__MODULE__, :IntervalOptimisation; fun_name="enclose")
 
     global_min, _ = minimise(f, dom; structure=mse.structure, tol=mse.tol)
     global_max, _ = maximise(f, dom; structure=mse.structure, tol=mse.tol)
 
     return interval(inf(global_min), sup(global_max))
+end
+
+function enclose(f::Function, dom::IntervalBox, mse::MooreSkelboeEnclosure; kwargs...)
+    # this algorithm modifies the domain, so we convert to a Vector
+    return enclose(f, Vector(dom.v), mse; kwargs...)
 end
 
 function load_intervaloptimization()
