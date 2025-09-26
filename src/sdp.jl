@@ -3,8 +3,7 @@ using .SumOfSquares: SOSModel, @set, SemialgebraicSets, @variable, @constraint, 
                      optimize!, objective_value
 
 function _enclose_sos(sose::SumOfSquaresEnclosure, p::AbstractPolynomialLike,
-                      dom::Interval_or_IntervalBox;
-                      kwargs...)
+                      dom::Interval_or_IntervalVector_or_IntervalBox; kwargs...)
     x = variables(p)
 
     B = reduce(intersect, @set inf(domi) <= xi && xi <= sup(domi) for (xi, domi) in zip(x, dom))

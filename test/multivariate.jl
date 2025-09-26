@@ -1,21 +1,23 @@
 @testset "Multivariate functions" begin
     # himmilbeau from Daisy benchmarks
     f(x) = -x[1] * x[2] - 2 * x[2] * x[3] - x[1] - x[3]
-    dom = IntervalBox(interval(-4.5, -0.3), interval(0.4, 0.9), interval(3.8, 7.8))
+    dIB = IntervalBox(interval(-4.5, -0.3), interval(0.4, 0.9), interval(3.8, 7.8))
     xref = interval(-20.786552979420335, -0.540012836551535) # MOSEK deg 6
 
-    # default solver
-    x = enclose(f, dom)
-    rleft, rright = relative_precision(x, xref)
-    @test rleft ≤ 5 && rright ≤ 16
-
-    for solver in available_solvers
-        x = enclose(f, dom, solver)
+    for dom in (dIB, Vector(dIB.v))
+        # default solver
+        x = enclose(f, dom)
         rleft, rright = relative_precision(x, xref)
-        if solver isa MeanValueEnclosure
-            @test rleft ≤ 10 && rright ≤ 23.6
-        else
-            @test rleft ≤ 5 && rright ≤ 16
+        @test rleft ≤ 5 && rright ≤ 16
+
+        for solver in available_solvers
+            x = enclose(f, dom, solver)
+            rleft, rright = relative_precision(x, xref)
+            if solver isa MeanValueEnclosure
+                @test rleft ≤ 10 && rright ≤ 23.6
+            else
+                @test rleft ≤ 5 && rright ≤ 16
+            end
         end
     end
 end
@@ -33,18 +35,20 @@ end
 @testset "Test multivariate polynomial input" begin
     @polyvar x y
     p = (x + 2y - 7)^2 + (2x + y - 5)^2
-    dom = IntervalBox(interval(-10, 10), 2)
+    dIB = IntervalBox(interval(-10, 10), 2)
 
-    x = enclose(p, dom)
-    xref = interval(-1446, 2594)
-    rleft, rright = relative_precision(x, xref)
-    @test rleft ≤ 1e-5 && rright ≤ 1e-5
-    # Note: DynamicPolynomials automatically expands p, and evaluation using
-    # interval arithmetic gives a worse left bound than the factored expression.
+    for dom in (dIB, Vector(dIB.v))
+        x = enclose(p, dom)
+        xref = interval(-1446, 2594)
+        rleft, rright = relative_precision(x, xref)
+        @test rleft ≤ 1e-5 && rright ≤ 1e-5
+        # Note: DynamicPolynomials automatically expands p, and evaluation using
+        # interval arithmetic gives a worse left bound than the factored expression.
 
-    x = enclose(p, dom, SumOfSquaresEnclosure(; backend=SDPA.Optimizer))
-    @test isapprox(inf(x), 0.0; atol=1e-3)
-    @test isapprox(sup(x), 670.612; atol=1e-3)
+        x = enclose(p, dom, SumOfSquaresEnclosure(; backend=SDPA.Optimizer))
+        @test isapprox(inf(x), 0.0; atol=1e-3)
+        @test isapprox(sup(x), 670.612; atol=1e-3)
+    end
 end
 
 @testset "Taylor-model solver without normalization" begin
