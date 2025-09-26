@@ -155,11 +155,8 @@ Rh = enclose(h, Dh, BranchAndBoundEnclosure())
 ```
 
 We can visualize the result with the following script.
-For this we use the API of `IntervalArithmetic`, which must be loaded first.
 
 ```@example tutorial
-using IntervalArithmetic
-
 x = y = -5:0.1:5
 f(x, y) = h([x, y])
 fig = plot(legend=:none, size=(800, 800), xlabel="x", ylabel="y", zlabel="h(x,y)",
