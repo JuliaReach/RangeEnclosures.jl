@@ -1,7 +1,8 @@
 using Test, RangeEnclosures
 using AffineArithmetic, IntervalOptimisation, TaylorModels, SDPA, SumOfSquares
 using DynamicPolynomials: @polyvar
-using IntervalArithmetic: Interval, inf, sup, isequal_interval
+using RangeEnclosures: Interval, inf, sup
+using TaylorModels.IntervalArithmetic: isequal_interval
 
 available_solvers = (NaturalEnclosure(),
                      MeanValueEnclosure(),
