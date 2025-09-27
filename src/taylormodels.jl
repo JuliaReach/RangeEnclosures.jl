@@ -51,7 +51,8 @@ function load_taylormodels()
         end
 
         # normalized multivariate
-        function _enclose_TaylorModels_norm(f::Function, dom::AbstractVector{<:Interval}, order::Int)
+        function _enclose_TaylorModels_norm(f::Function, dom::AbstractVector{<:Interval},
+                                            order::Int)
             N = length(dom)
             x0 = [interval(mid(di)) for di in dom]
             set_variables(Float64, "x"; order=2order, numvars=N)
