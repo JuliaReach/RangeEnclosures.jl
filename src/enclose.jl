@@ -42,7 +42,8 @@ function enclose(f::Function, dom::Interval_or_IntervalVector_or_IntervalBox; kw
     return enclose(f, dom, NaturalEnclosure(); kwargs...)
 end
 
-function enclose(f::Function, dom::Interval_or_IntervalVector_or_IntervalBox, solvers::Vector; kwargs...)
+function enclose(f::Function, dom::Interval_or_IntervalVector_or_IntervalBox, solvers::Vector;
+                 kwargs...)
     return mapreduce(solver -> enclose(f, dom, solver; kwargs...), intersect_interval, solvers)
 end
 

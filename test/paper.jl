@@ -27,7 +27,8 @@ end
     @test isequal_interval(enclose(g, Dg, NaturalEnclosure()), interval(-7, 17))
     @test isequal_interval(enclose(g, Dg, MeanValueEnclosure()), interval(-11, 13))
 
-    @test isequal_interval(enclose(g, Dg, [NaturalEnclosure(), MeanValueEnclosure()]), interval(-7, 13))
+    @test isequal_interval(enclose(g, Dg, [NaturalEnclosure(), MeanValueEnclosure()]),
+                           interval(-7, 13))
 end
 
 @testset "Using solvers based on external libraries" begin

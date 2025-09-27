@@ -54,7 +54,8 @@ function _monotonicity_check(f::Function, dom::Interval, dfD::Interval)
     return zero(eltype(dfD)), false
 end
 
-function _monotonicity_check(f::Function, dom::AbstractVector{ET}, ∇fD::AbstractVector) where {ET<:Interval}
+function _monotonicity_check(f::Function, dom::AbstractVector{ET},
+                             ∇fD::AbstractVector) where {ET<:Interval}
     return _monotonicity_check(f, dom, ∇fD, ET, length(dom))
 end
 
