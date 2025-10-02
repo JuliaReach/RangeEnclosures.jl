@@ -45,6 +45,21 @@ end
     @test rleft ≤ 1e-5 && rright ≤ 1e-5
 end
 
+@testset "Univariate input, multivariate output" begin
+    f(x) = (-x, 3x)
+    dom = interval(-1, 2)
+    for solver in available_solvers
+        if (solver isa MeanValueEnclosure || solver isa MooreSkelboeEnclosure ||
+            solver isa BranchAndBoundEnclosure)
+            # solver does not support multivariate outputs
+            continue
+        end
+        x = enclose(f, dom, solver)
+        @test x isa Vector{Interval{Float64}}
+        @test issubset_interval([interval(-2, 1), interval(-3, 6)], x)
+    end
+end
+
 @testset "Test univariate polynomial input" begin
     @polyvar x
     p = -x^3 / 6 + 5x
