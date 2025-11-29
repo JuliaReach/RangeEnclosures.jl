@@ -12,7 +12,7 @@ Requires = "ae029012-a4dd-5104-9daa-d747884805df"
 
 [compat]
 ForwardDiff = "0.10, 1"
-IntervalArithmetic = "0.22.12"
+IntervalArithmetic = "0.22.12 - 1"
 IntervalBoxes = "0.2"
 LinearAlgebra = "<0.0.1, 1.6"
 ReachabilityBase = "0.1.1 - 0.3"
