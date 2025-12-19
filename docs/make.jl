@@ -1,5 +1,8 @@
+ENV["GKSwstype"] = "100"  # prevent plots from opening interactively
+
 using Documenter, RangeEnclosures, DocumenterCitations
 using AffineArithmetic, IntervalOptimisation, SumOfSquares, SDPA, TaylorModels
+import Plots
 
 DocMeta.setdocmeta!(RangeEnclosures, :DocTestSetup, :(using RangeEnclosures); recursive=true)
 
