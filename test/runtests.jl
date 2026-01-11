@@ -14,4 +14,5 @@ available_solvers = (NaturalEnclosure(),
 include("univariate.jl")
 include("multivariate.jl")
 include("paper.jl")
-include("Aqua.jl")
+
+include("quality_assurance.jl")
