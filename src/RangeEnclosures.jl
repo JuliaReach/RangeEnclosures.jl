@@ -1,6 +1,6 @@
 module RangeEnclosures
 
-using Requires
+using Requires: @require
 import ForwardDiff
 using LinearAlgebra: dot
 using IntervalArithmetic: Interval, interval, inf, sup, mid,
@@ -11,7 +11,7 @@ const Interval_or_IntervalVector = Union{Interval,AbstractVector{<:Interval}}
 const Interval_or_IntervalVector_or_IntervalBox = Union{Interval,AbstractVector{<:Interval},
                                                         IntervalBox}
 const IntervalVector_or_IntervalBox = Union{AbstractVector{<:Interval},IntervalBox}
-using ReachabilityBase.Require
+using ReachabilityBase.Require: require
 
 include("algorithms.jl")
 include("intervalarithmetic.jl")

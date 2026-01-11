@@ -4,7 +4,7 @@ Methods using Affine Arithmetic
 
 function load_affinearithmetic()
     return quote
-        using .AffineArithmetic: Aff
+        using .AffineArithmetic: Aff  # NOTE: this is an internal function
     end  # quote
 end  # load_affinearithmetic()
 
