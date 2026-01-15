@@ -1,6 +1,6 @@
-# `@set` assumes that `SemialgebraicSets` is defined
-using .SumOfSquares: SOSModel, @set, SemialgebraicSets, @variable, @constraint, @objective,
+using .SumOfSquares: SOSModel, @set, @variable, @constraint, @objective,
                      optimize!, objective_value
+import .SumOfSquares: SemialgebraicSets  # `@set` assumes that `SemialgebraicSets` is defined
 
 function _enclose_sos(sose::SumOfSquaresEnclosure, p::AbstractPolynomialLike,
                       dom::Interval_or_IntervalVector_or_IntervalBox; kwargs...)
