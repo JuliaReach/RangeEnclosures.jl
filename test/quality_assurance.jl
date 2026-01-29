@@ -2,19 +2,13 @@ using RangeEnclosures, Test
 import Aqua, ExplicitImports
 
 @testset "ExplicitImports tests" begin
-    ignores = (:Aff,)
-    @test isnothing(ExplicitImports.check_all_explicit_imports_are_public(RangeEnclosures;
-                                                                          ignore=ignores))
-    @test isnothing(ExplicitImports.check_all_explicit_imports_via_owners(RangeEnclosures))
-    ignores = (:Fix1, :derivative, :gradient, :where_bisect)
-    @test isnothing(ExplicitImports.check_all_qualified_accesses_are_public(RangeEnclosures;
-                                                                            ignore=ignores))
-    @test isnothing(ExplicitImports.check_all_qualified_accesses_via_owners(RangeEnclosures))
-    @test isnothing(ExplicitImports.check_no_implicit_imports(RangeEnclosures))
-    @test isnothing(ExplicitImports.check_no_self_qualified_accesses(RangeEnclosures))
-    ignores = (:SemialgebraicSets,)  # false positive due to external macro
-    @test isnothing(ExplicitImports.check_no_stale_explicit_imports(RangeEnclosures;
-                                                                    ignore=ignores))
+    ignores_all_explicit_imports_are_public = (:Aff,)
+    ignores_all_qualified_accesses_are_public = (:Fix1, :derivative, :gradient, :where_bisect)
+    ignores_no_stale_explicit_imports = (:SemialgebraicSets,)  # false positive due to external macro
+    ExplicitImports.test_explicit_imports(RangeEnclosures;
+                                          all_explicit_imports_are_public=(ignore=ignores_all_explicit_imports_are_public,),
+                                          all_qualified_accesses_are_public=(ignore=ignores_all_qualified_accesses_are_public,),
+                                          no_stale_explicit_imports=(ignore=ignores_no_stale_explicit_imports,))
 end
 
 @testset "Aqua tests" begin
