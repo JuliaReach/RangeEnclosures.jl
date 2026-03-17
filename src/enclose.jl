@@ -39,12 +39,13 @@ julia> enclose(x -> 1 - x^4 + x^5, interval(0, 1), [TaylorModelsEnclosure(), Nat
 ```
 """
 function enclose(f::Function, dom::Interval_or_IntervalVector_or_IntervalBox; kwargs...)
-    return enclose(f, dom, NaturalEnclosure(); kwargs...)
+    return _wrap_output(enclose(f, dom, NaturalEnclosure(); kwargs...))
 end
 
 function enclose(f::Function, dom::Interval_or_IntervalVector_or_IntervalBox, solvers::Vector;
                  kwargs...)
-    return mapreduce(solver -> enclose(f, dom, solver; kwargs...), intersect_interval, solvers)
+    return _wrap_output(mapreduce(solver -> enclose(f, dom, solver; kwargs...), intersect_interval,
+                                  solvers))
 end
 
 """
