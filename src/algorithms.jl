@@ -209,5 +209,6 @@ julia> enclose(x -> 1 - x^4 + x^5, interval(0, 1), BranchAndBoundEnclosure(tol=1
 """
 Base.@kwdef struct BranchAndBoundEnclosure <: AbstractIterativeRangeAlgorithm
     maxdepth = 10
-    tol = 1e-3
+    atol = 1e-6
+    rtol = 1e-3
 end
