@@ -67,7 +67,9 @@ julia> enclose(x -> 1 - x^4 + x^5, interval(0, 1), AffineArithmeticEnclosure())
 """
 struct AffineArithmeticEnclosure <: AbstractDirectRangeAlgorithm end
 
-_default_vector_MSE = nothing
+function _default_vector_MSE(dummy)
+    throw(ArgumentError("load `IntervalOptimisation` to define the default structure"))
+end
 
 """
     MooreSkelboeEnclosure{T} <: AbstractIterativeRangeAlgorithm
@@ -99,7 +101,7 @@ julia> enclose(x -> 1 - x^4 + x^5, interval(0, 1), MooreSkelboeEnclosure(; tol=1
 ```
 """
 Base.@kwdef struct MooreSkelboeEnclosure{T} <: AbstractIterativeRangeAlgorithm
-    structure::T = _default_vector_MSE
+    structure::T = _default_vector_MSE(nothing)
     tol::Float64 = 1e-3
 end
 
