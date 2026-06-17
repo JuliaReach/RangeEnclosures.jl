@@ -13,7 +13,7 @@ function enclose(f::Function, dom::Interval, ::AffineArithmeticEnclosure)
     require(@__MODULE__, :AffineArithmetic; fun_name="enclose")
 
     x = Aff(dom, 1, 1)
-    return interval(f(x))
+    return _wrap_output(f(x))
 end
 
 # multivariate
@@ -21,7 +21,7 @@ function _enclose(::AffineArithmeticEnclosure, f::Function, dom::IntervalVector_
     require(@__MODULE__, :AffineArithmetic; fun_name="enclose")
 
     x = [Aff(dom[i], N, i) for i in 1:N]
-    return interval(f(x))
+    return _wrap_output(f(x))
 end
 
 function enclose(f::Function, dom::AbstractVector{<:Interval}, aae::AffineArithmeticEnclosure)
