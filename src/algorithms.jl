@@ -126,10 +126,10 @@ To use this solver, you need to load `TaylorModels.jl` and a backend.
 julia> using TaylorModels
 
 julia> enclose(x -> 1 - x^4 + x^5, interval(0, 1), TaylorModelsEnclosure()) # default parameters
-[0.812499, 1.09376]_com_NG
+[0.8125, 1.09375]_com_NG
 
 julia> enclose(x -> 1 - x^4 + x^5, interval(0, 1), TaylorModelsEnclosure(; order=4))
-[0.781249, 1.12501]_trv_NG
+[0.78125, 1.125]_com_NG
 ```
 """
 Base.@kwdef struct TaylorModelsEnclosure <: AbstractDirectRangeAlgorithm
