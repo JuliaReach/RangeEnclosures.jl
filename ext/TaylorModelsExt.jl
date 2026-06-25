@@ -7,10 +7,10 @@ using IntervalArithmetic: Interval, interval, mid
 using IntervalBoxes: IntervalBox
 
 import TaylorModels
-using TaylorModels: TaylorModel1, TaylorModelN, evaluate, normalize_taylor, set_variables
+using TaylorModels: TaylorModel1, TaylorModelN, evaluate, normalize_taylor, variables!
 
 function RangeEnclosures.enclose(f::Function, dom::Interval_or_IntervalVector_or_IntervalBox,
-                 tm::TaylorModelsEnclosure; kwargs...)
+                                 tm::TaylorModelsEnclosure; kwargs...)
     if tm.normalize
         R = _enclose_TaylorModels_norm(f, dom, tm.order)
     else
@@ -42,7 +42,7 @@ end
 function _enclose_TaylorModels(f::Function, dom::AbstractVector{<:Interval}, order::Int)
     N = length(dom)
     x0 = [interval(mid(di)) for di in dom]
-    set_variables(Float64, "x"; order=2order, numvars=N)
+    variables!(Float64, "x"; order=2 * order, numvars=N, nowarn=true)
     x = [TaylorModelN(i, order, x0, dom) for i in 1:N]
     return evaluate(f(x), dom - x0)
 end
@@ -56,7 +56,7 @@ function _enclose_TaylorModels_norm(f::Function, dom::AbstractVector{<:Interval}
                                     order::Int)
     N = length(dom)
     x0 = [interval(mid(di)) for di in dom]
-    set_variables(Float64, "x"; order=2order, numvars=N)
+    variables!(Float64, "x"; order=2 * order, numvars=N, nowarn=true)
 
     zBoxN = zeroBox(N)
     sBoxN = symBox(N)
