@@ -10,7 +10,11 @@ TaylorModels = "314ce334-5f6e-57ae-acf6-00b6e903104a"
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [compat]
+AffineArithmetic = "0.3"
 Aqua = "0.8.9"
 DynamicPolynomials = "0.3 - 0.6"
 ExplicitImports = "1.15"
+IntervalOptimisation = "0.5"
 SDPA = "0.2 - 0.6"
+SumOfSquares = "0.3.6 - 0.8"
+TaylorModels = "0.11"
