@@ -161,9 +161,9 @@ result of this algorithm is not rigorous.
 ### Examples
 
 ```jldoctest
-julia> using SumOfSquares, SDPA, DynamicPolynomials
+julia> using SumOfSquares, Clarabel, DynamicPolynomials
 
-julia> backend = SDPA.Optimizer;
+julia> backend = () -> Clarabel.Optimizer(verbose=false);
 
 julia> @polyvar x;
 
