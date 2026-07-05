@@ -161,17 +161,17 @@ result of this algorithm is not rigorous.
 ### Examples
 
 ```jldoctest
-julia> using SumOfSquares, SDPA, DynamicPolynomials
+julia> using DynamicPolynomials, SCS, SumOfSquares
 
-julia> backend = SDPA.Optimizer;
+julia> backend = SumOfSquares.optimizer_with_attributes(SCS.Optimizer, MOI.Silent() => true);
 
 julia> @polyvar x;
 
 julia> enclose(-x^3/6 + 5x, interval(1, 4), SumOfSquaresEnclosure(; backend=backend)) # default parameters
-[4.83333, 10.541]_com
+[4.83321, 10.4684]_com
 
 julia> enclose(-x^3/6 + 5x, interval(1, 4), SumOfSquaresEnclosure(; backend=backend, order=6))
-[4.83333, 10.541]_com
+[4.83321, 10.4684]_com
 ```
 """
 Base.@kwdef struct SumOfSquaresEnclosure{T} <: AbstractIterativeRangeAlgorithm
