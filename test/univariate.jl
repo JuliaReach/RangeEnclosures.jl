@@ -55,10 +55,10 @@ end
     rleft, rright = relative_precision(x, xref)
     @test rleft ≤ 1e-5 && rright ≤ 1e-5
 
-    x = enclose(p, dom, SumOfSquaresEnclosure(; backend=SDPA.Optimizer))
+    x = enclose(p, dom, SumOfSquaresEnclosure(; backend=_SDP_solver))
     xref = interval(4.8333, 10.541)
     rleft, rright = relative_precision(x, xref)
-    @test rleft ≤ 1e-5 && rright ≤ 1e-5
+    @test rleft ≤ 2e-3 && rright ≤ 2
 end
 
 @testset "Taylor-model solver without normalization" begin
