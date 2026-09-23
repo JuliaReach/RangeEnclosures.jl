@@ -68,7 +68,7 @@ julia> enclose(x -> 1 - x^4 + x^5, interval(0, 1), AffineArithmeticEnclosure())
 struct AffineArithmeticEnclosure <: AbstractDirectRangeAlgorithm end
 
 function _default_vector_MSE(dummy)
-    throw(ArgumentError("load `IntervalOptimisation` to define the default structure"))
+    return throw(ArgumentError("load `IntervalOptimisation` to define the default structure"))
 end
 
 """
