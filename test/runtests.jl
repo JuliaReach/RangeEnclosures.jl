@@ -1,4 +1,11 @@
 using Test, RangeEnclosures
+
+@testset "Warning about missing optional dependencies" begin
+    if !isdefined(@__MODULE__, :IntervalOptimisation)
+        @test_throws ArgumentError RangeEnclosures._default_vector_MSE(0)
+    end
+end
+
 using AffineArithmetic, IntervalOptimisation, TaylorModels, SDPA, SumOfSquares
 using DynamicPolynomials: @polyvar
 using RangeEnclosures: Interval, inf, sup
