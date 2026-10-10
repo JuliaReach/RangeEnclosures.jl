@@ -1,5 +1,5 @@
 using RangeEnclosures, Test
-import Aqua, ExplicitImports
+import Aqua, ExplicitImports, JET
 
 @testset "ExplicitImports tests" begin
     ignores_all_explicit_imports_are_public = (:AbstractEnclosureAlgorithm, :Aff,
@@ -13,6 +13,11 @@ import Aqua, ExplicitImports
                                           all_explicit_imports_are_public=(ignore=ignores_all_explicit_imports_are_public,),
                                           all_qualified_accesses_are_public=(ignore=ignores_all_qualified_accesses_are_public,),
                                           no_stale_explicit_imports=(ignore=ignores_no_stale_explicit_imports,))
+end
+
+@testset "JET tests" begin
+    # false positives for Base functionality
+    JET.test_package(RangeEnclosures; target_modules=(RangeEnclosures,))
 end
 
 @testset "Aqua tests" begin
