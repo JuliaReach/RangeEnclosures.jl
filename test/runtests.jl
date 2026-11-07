@@ -6,12 +6,12 @@ using Test, RangeEnclosures
     end
 end
 
-using AffineArithmetic, IntervalOptimisation, SCS, SumOfSquares, TaylorModels
+using AffineArithmetic, Clarabel, IntervalOptimisation, SumOfSquares, TaylorModels
 using DynamicPolynomials: @polyvar
 using RangeEnclosures: Interval, inf, sup
 using TaylorModels.IntervalArithmetic: isequal_interval
 
-const _SDP_solver = SumOfSquares.optimizer_with_attributes(SCS.Optimizer, MOI.Silent() => true)
+const _SDP_solver = SumOfSquares.optimizer_with_attributes(Clarabel.Optimizer, MOI.Silent() => true)
 
 const available_solvers = (NaturalEnclosure(),
                            MeanValueEnclosure(),
