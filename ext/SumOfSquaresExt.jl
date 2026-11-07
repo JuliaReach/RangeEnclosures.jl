@@ -24,7 +24,7 @@ function RangeEnclosures.enclose(p::AbstractPolynomialLike,
     # ============
     model = SOSModel(sose.backend, kwargs...)
     @variable(model, γ) # JuMP decision variable
-    @constraint(model, p <= γ, domain = B, maxdegree = sose.order)
+    @constraint(model, p <= γ, domain=B, maxdegree=sose.order)
     @objective(model, Min, γ)
     optimize!(model)
     upper_bound = objective_value(model)
@@ -34,7 +34,7 @@ function RangeEnclosures.enclose(p::AbstractPolynomialLike,
     # ============
     model = SOSModel(sose.backend, kwargs...)
     @variable(model, γ) # JuMP decision variable
-    @constraint(model, p >= γ, domain = B, maxdegree = sose.order)
+    @constraint(model, p >= γ, domain=B, maxdegree=sose.order)
     @objective(model, Max, γ)
     optimize!(model)
     lower_bound = objective_value(model)
